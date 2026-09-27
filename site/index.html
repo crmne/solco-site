@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solco: stop preparing your tracks. The DJ library app with AI beatgrids and CDJ USB export</title>
+<meta name="description" content="Stop preparing your tracks. Download it, drop it in Solco, find it on stage: AI beatgrids, keys, genre from the sound, smart playlists and USB drives your CDJs read. Private alpha.">
+<link rel="canonical" href="https://getsolco.com/">
+<meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Solco">
+<meta property="og:url" content="https://getsolco.com/">
+<meta property="og:title" content="Solco: stop preparing your tracks.">
+<meta property="og:description" content="The DJ library app that grids, keys, sorts and tags every download, then writes the USB your CDJs read. No rekordbox needed.">
+<meta property="og:image" content="https://getsolco.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Solco. Your music, ready for the club. A blue and orange waveform with its beatgrid, 124.00 BPM, 8A A minor, Deep House.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Solco: stop preparing your tracks.">
+<meta name="twitter:description" content="The DJ library app that grids, keys, sorts and tags every download, then writes the USB your CDJs read. No rekordbox needed.">
+<meta name="twitter:image" content="https://getsolco.com/og.png">
+<link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/ui.css">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://stats.paolino.me/js/pa-JCPJyXqwkHhNzi2O06dWQ.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 40 40" fill="none" stroke="currentColor"><circle cx="20" cy="20" r="18.5" stroke-width="1.8"/><circle cx="20" cy="20" r="13.5" stroke-opacity=".55" stroke-width="1.5"/><circle cx="20" cy="20" r="8.5" stroke-opacity=".3" stroke-width="1.5"/><circle cx="20" cy="20" r="3.2" fill="currentColor" stroke="none"/></symbol></svg>
+
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Solco, back to the top"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+  <nav aria-label="Sections">
+    <a href="#grids">Beatgrids</a><a href="#genre">Genre</a><a href="#character">Character</a><a href="#playlists">Playlists</a><a href="#export">Export</a>
+  </nav>
+  <a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker reveal">DJ library app · Private alpha</p>
+        <h1 class="display reveal"><span>Stop preparing</span><span>your tracks<i class="dot" aria-hidden="true"></i></span></h1>
+        <p class="hero-steps reveal">Download&nbsp;it. Drop&nbsp;it&nbsp;in&nbsp;Solco. Find&nbsp;it&nbsp;<span class="scale">on&nbsp;stage</span>.</p>
+        <p class="lead reveal"><b>Solco does it for you.</b> It grids every track you add, keys it, hears its genre and character, fixes its tags and files it into smart playlists. Then it writes the USB drive your CDJs read, no rekordbox needed. Keep doing any of it by hand if you like. <b>You just don't have to anymore.</b></p>
+      </div>
+      <aside class="join reveal" id="waitlist" aria-labelledby="join-h">
+        <h2 id="join-h">Join the waitlist</h2>
+        <p>Leave your email. I invite DJs in small groups and will write when there is a seat for you.</p>
+        <form class="wl" data-wl novalidate>
+          <div data-s1>
+            <label class="wl-label" for="wl-email">Email</label>
+            <input id="wl-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+            <button class="btn-cta wl-go" type="submit">Join the waitlist</button>
+          </div>
+          <div data-s2 hidden>
+            <p class="wl-head"><b>One more step.</b> Four quick questions help me choose who gets in first. All optional.</p>
+            <div class="wl-qs" data-qs></div>
+            <button class="btn-cta wl-go" type="submit">Join the waitlist</button>
+            <button class="wl-skip" type="button" data-skip>Skip the questions and join</button>
+          </div>
+          <div class="wl-done" data-done hidden tabindex="-1">
+            <p class="wl-done-h">You're on the list<span data-place></span>.</p>
+            <p>I'll write when there is a seat for you. Share your link and you move up the list.</p>
+            <div class="wl-ref"><input data-ref readonly aria-label="Your referral link"><button type="button" class="wl-copy" data-copy>Copy</button></div>
+          </div>
+          <p class="wl-msg" data-msg role="status" aria-live="polite"></p>
+        </form>
+        <noscript><p class="wl-msg">The signup form needs JavaScript. You can also write to <a href="mailto:hello@plenty.is?subject=Solco%20waitlist">hello@plenty.is</a>.</p></noscript>
+        <p class="platforms">macOS on Apple Silicon · Windows · Linux</p>
+      </aside>
+    </div>
+    <div class="wrap">
+      <div class="hero-stage reveal-frame">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="stage shell" data-demo="hero" role="img" aria-label="Solco's library window. A deck plays Glad To Know You by Chaz Jankel with a blue and orange waveform, its beatgrid and six character bars. In the sidebar, twelve new downloads file themselves into smart playlists: Deep House, House, Disco, Techno."></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THESIS -->
+  <section class="thesis" aria-label="Why Solco">
+    <p class="big reveal">You dig for the music.</p>
+    <p class="big reveal">Then the other job starts: grids, keys, tags, playlists, the USB.</p>
+    <p class="big reveal"><span>Solco does that job. You get back to what you love: <em>finding music and playing it for people.</em></span></p>
+  </section>
+
+  <!-- CHAPTERS -->
+  <section class="chapters" aria-label="What happens to every new track">
+    <aside class="rail" aria-label="Steps">
+      <div class="rail-in">
+        <div class="rail-head"><span>Every new track</span><span class="rail-left" data-rail-left>8 steps</span></div>
+        <ol>
+          <li><a href="#add"><i>1</i><span>Dropped in</span></a></li>
+          <li><a href="#grids"><i>2</i><span>Beatgrid</span></a></li>
+          <li><a href="#genre"><i>3</i><span>Genre</span></a></li>
+          <li><a href="#character"><i>4</i><span>Character</span></a></li>
+          <li><a href="#playlists"><i>5</i><span>Smart playlists</span></a></li>
+          <li><a href="#tags"><i>6</i><span>Tags and cover</span></a></li>
+          <li><a href="#dupes"><i>7</i><span>Duplicates</span></a></li>
+          <li><a href="#export"><i>8</i><span>On the USB</span></a></li>
+        </ol>
+        <p class="rail-note">What Solco does to every track you add. You step in only when it asks.</p>
+      </div>
+    </aside>
+
+    <div class="chapter-list">
+      <article class="chapter" id="add" data-step="0">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>1</i>Dropped in</p>
+          <h2 class="reveal">Drop in tonight's downloads.</h2>
+          <p class="lead reveal">Point Solco at your music folders once. New files land in Recently added and Solco starts listening straight away. Copy or move, your call.</p>
+        </header>
+        <div class="stage shell reveal-frame" data-demo="addMusic" role="img" aria-label="A dialog: Add 38 tracks to your library, from Downloads, with Copy into Music selected. The tracks then land in Recently added."></div>
+        <ul class="imports reveal" aria-label="Bring your library">
+          <li><b>rekordbox</b><span>library, playlists and cues</span></li>
+          <li><b>Apple Music</b><span>library and playlists</span></li>
+          <li><b>Traktor</b><span>collection and playlists</span></li>
+          <li><b>A rekordbox USB drive</b><span>read straight from the drive</span></li>
+        </ul>
+        <p class="imports-note reveal">From rekordbox: playlists, folders, hot cues, memory cues, loops, ratings and colours. Beatgrids stay behind, because Solco grids every track itself. Your rekordbox library is only read, never changed.</p>
+      </article>
+
+      <article class="chapter feature" id="grids" data-step="1">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>2</i>Beatgrid</p>
+          <h2 class="reveal">Grids that hold, even when the <span class="scale">tempo changes.</span></h2>
+          <p class="lead reveal">Solco's beatgrid AI model hears beats and bars in the audio itself. It locks onto a four-to-the-floor kick, finds the bars in a piano piece, and follows a live drummer through every tempo change, bar by bar. It gets almost every grid right: of the 9,434 tracks in my own library, 848 change tempo, and Solco asked me to check just 16 grids.</p>
+        </header>
+        <div class="reveal-frame">
+          <div class="tabs" role="tablist" aria-label="Choose a track" data-tabs></div>
+          <div class="stage shell" data-demo="gridLab" data-needs="grids" role="img" aria-label="Solco's beatgrid on four real tracks: 9 Hours Into the Future by Surgeon at a steady 137.72 BPM, Le Freak by Chic, Them by Nils Frahm, and Love Is the Drug by Roxy Music, where the tempo moves between 123 and 127 BPM and the grid follows every hit."></div>
+          <p class="caption"><b>Real output, not a mock-up.</b> Solco's analysis of four tracks from a DJ's library, drawn exactly as it comes out: every beat and bar line, and the tempo at each beat underneath.</p>
+        </div>
+        <dl class="facts four reveal">
+          <div><dt>Follows the drummer</dt><dd>Disco, funk and old rock get a grid that moves with the band.</dd></div>
+          <div><dt>Exact when it is steady</dt><dd>Club tracks get one tempo for the whole track, like 137.72.</dd></div>
+          <div><dt>Bars, not just beats</dt><dd>Downbeats are found too, so cues and loops land on the one.</dd></div>
+          <div><dt>Asks when unsure</dt><dd>The few uncertain grids wait in one list, with a one-click fix.</dd></div>
+        </dl>
+        <div class="mid-cta reveal"><p>Want grids that hold on your own tracks?</p><a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a></div>
+      </article>
+
+      <article class="chapter field blue" id="genre" data-step="2">
+        <p class="step-tag reveal"><i>3</i>Genre</p>
+        <p class="poster reveal" aria-label="House, crossed out. Disco."><s>House.</s><br>Disco.</p>
+        <div class="field-cols">
+          <div><h2 class="field-h reveal">Genre heard from the sound, not the tags.</h2><p class="lead reveal">Solco hears what a track is, even when its tag is wrong or empty. Keep the style in its own field, or write it into the genre tag.</p></div>
+          <ul class="points reveal">
+            <li><b>Heard, not read.</b> Disco, Deep House, Ambient, Techno and hundreds of styles in between.</li>
+            <li><b>Found as what it is.</b> A track that sounds like disco turns up as disco.</li>
+            <li><b>Your call.</b> Nothing is written to a file until you say so.</li>
+          </ul>
+        </div>
+        <div class="stage shell reveal-frame" data-demo="genre" role="img" aria-label="Recently added: Solco reads each track's style from the audio. One Of Those Nights by Tekkla is tagged Deep House and heard as Disco. Empty genre tags are filled with the style heard. Write style to genre is pressed."></div>
+      </article>
+
+      <article class="chapter" id="character" data-step="3">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>4</i>Character</p>
+          <h2 class="reveal">Energy, drive, mood. Searchable.</h2>
+          <p class="lead reveal">AI models trained on how listeners rate music read each track's energy, drive, mood, groove, vocals and peak, on the same 0 to 100 scale for every track. With key, BPM and genre next to them, you can slice the whole collection any way a set needs, and find the tracks you forgot you had. It all runs on your computer, on the GPU when there is one.</p>
+        </header>
+        <div class="stage shell reveal-frame" data-demo="analysis" role="img" aria-label="Recently added: rows move through fingerprint, loudness, key, beatgrid and character. The first track's reading lands: 116.01 BPM, 6B B flat major, minus 15.4 LUFS, and six character bars."></div>
+        <div class="ticker" aria-hidden="true"><div class="ticker-row" data-ticker></div></div>
+        <dl class="facts reveal">
+          <div><dt>Key your way</dt><dd>Camelot like 8A, or classical like E minor.</dd></div>
+          <div><dt>Loudness you can mix by</dt><dd>Every track measured in LUFS, so level jumps show before you mix.</dd></div>
+          <div><dt>Improves over time</dt><dd>When an AI model gets better, only its readings are redone. Nothing else is touched.</dd></div>
+        </dl>
+      </article>
+
+      <article class="chapter" id="playlists" data-step="4">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>5</i>Smart playlists</p>
+          <h2 class="reveal">Playlists that sort themselves.</h2>
+          <p class="lead reveal">A smart playlist is rules you type, each one turning into a chip: <code>bpm:120..124</code>, <code>key:8A</code>, <code>energy:&gt;=60</code>. Every new track that fits files itself in. Or describe the night to the assistant, and it builds the playlists for you.</p>
+        </header>
+        <div class="stage shell reveal-frame" data-demo="playlists" role="img" aria-label="Typing bpm:120..124, key:8A and energy:>=60 turns each rule into a chip and narrows the list. The assistant builds Disco Night 22 to 01 as four playlists with rising energy."></div>
+      </article>
+
+      <article class="chapter" id="tags" data-step="5">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>6</i>Tags and cover</p>
+          <h2 class="reveal">Tags and covers, fixed by ear.</h2>
+          <p class="lead reveal">Solco recognises each track by its audio fingerprint, finds it in MusicBrainz and Discogs, and proposes the right title, album, year and cover. Confident matches go in with one click. The rest wait for you, field by field.</p>
+        </header>
+        <div class="stage shell reveal-frame" data-demo="tags" role="img" aria-label="Tags: the review panel compares In your file with Proposed for At Midnight by T-Connection. Apply 214 confident is pressed and every row turns to Tagged."></div>
+        <dl class="facts reveal">
+          <div><dt>See it before it is written</dt><dd>Every change sits next to what your file says now. Untick any field to keep it.</dd></div>
+          <div><dt>Verified copy</dt><dd>Files are written through a checked copy, never edited in place.</dd></div>
+          <div><dt>Covers</dt><dd>The release artwork comes with the match.</dd></div>
+        </dl>
+      </article>
+
+      <article class="chapter" id="dupes" data-step="6">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>7</i>Duplicates</p>
+          <h2 class="reveal">One copy of every record.</h2>
+          <p class="lead reveal">Solco recognises the same recording by its sound, even under another name in another folder. It keeps the copy in your library, shows exactly what goes, and asks first.</p>
+        </header>
+        <div class="stage shell reveal-frame" data-demo="duplicates" role="img" aria-label="Duplicates: three recordings found in more than one place. After confirmation, the extra copies go to the trash and the kept copies keep their playlists and cues."></div>
+      </article>
+
+      <article class="chapter field orange" id="export" data-step="7">
+        <p class="step-tag reveal"><i>8</i>On the USB</p>
+        <p class="poster reveal">Plays on CDJs.<br>No rekordbox.</p>
+        <div class="field-cols">
+          <div><h2 class="field-h reveal">Solco writes the USB your CDJs and XDJs read directly.</h2><p class="lead reveal">Tick your playlists, plug in a drive, and it writes the rekordbox USB format that Pioneer players read. No laptop in the booth.</p></div>
+          <ul class="points reveal">
+            <li><b>All of it lands.</b> Grids, hot cues, memory cues, waveforms, artwork and playlists.</li>
+            <li><b>Only adds and changes.</b> Nothing on the drive is removed.</li>
+            <li><b>Keeps your history.</b> The sets you played on it stay.</li>
+            <li><b>Shows what is there.</b> Tracks already on the drive are marked.</li>
+          </ul>
+        </div>
+        <div class="export-pair">
+          <div class="stage shell reveal-frame" data-demo="exportDemo" role="img" aria-label="Export: four playlists are ticked and exported to the USB drive FRIDAY. 187 added, 142 already on the drive, nothing removed."></div>
+          <figure class="booth reveal-frame">
+            <div class="stage lcd-shell" data-demo="player" data-after="exportDemo" role="img" aria-label="A club player's screen browsing FRIDAY: Disco Night, DN 1 Warm and Funky, with BPM and key for each track."></div>
+            <figcaption>In the booth, the player reads it.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PAYOFF -->
+  <section class="payoff" aria-label="Ready to play">
+    <div class="ready reveal" data-ready>
+      <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <p>Every track. Ready to play.</p>
+    </div>
+    <div class="mid-cta center reveal"><p>Want your next gig ready like this?</p><a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a></div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust" aria-labelledby="trust-h">
+    <div class="wrap">
+      <p class="kicker reveal">Trust</p>
+      <h2 id="trust-h" class="reveal">Your collection took years. Solco treats it that way.</h2>
+      <div class="trust-grid">
+        <div class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><h3>Audio stays home</h3><p>Every analysis runs on your own computer, on the GPU when there is one. Your music is never uploaded.</p></div>
+        <div class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16V5a1 1 0 0 1 1-1h11"/></svg><h3>Verified writes</h3><p>Tags are written through a checked copy of the file, never edited in place.</p></div>
+        <div class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><h3>Exports only add</h3><p>Nothing on the USB is removed. The sets you played on it stay where they are.</p></div>
+        <div class="reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg><h3>No surprises</h3><p>Replace and erase are separate, named actions. They show exactly what goes and wait for you.</p></div>
+      </div>
+      <div class="works reveal">
+        <div><h3>Brings your library</h3><p>Imports from rekordbox, Apple Music and Traktor, and from a USB drive prepared by rekordbox.</p></div>
+        <div><h3>Plays in the club</h3><p>Writes rekordbox-format USB drives that Pioneer CDJ and XDJ players read, no rekordbox needed.</p></div>
+        <div><h3>Runs on your machine</h3><p>macOS on Apple Silicon, Windows and Linux.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOOKS -->
+  <section class="looks" aria-labelledby="looks-h">
+    <div class="wrap">
+      <p class="kicker reveal">Two looks</p>
+      <h2 id="looks-h" class="reveal">Graphite for the night. Paper for the afternoon.</h2>
+      <p class="lead reveal">Drag across to compare.</p>
+    </div>
+    <div class="wipe reveal-frame" data-wipe style="--x:50%">
+      <div class="stage wipe-light" data-demo="hero" data-theme="light" data-wipe-side role="img" aria-label="Solco's light look on warm paper."></div>
+      <div class="wipe-dark"><div class="stage" data-demo="hero" data-theme="dark" data-wipe-side role="img" aria-label="Solco's dark graphite look."></div></div>
+      <div class="wipe-handle" role="slider" tabindex="0" aria-label="Compare the dark and light looks" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Half dark, half light"><span></span></div>
+    </div>
+    <div class="wipe-labels" aria-hidden="true"><span>Graphite</span><span>Paper</span></div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section class="founder" aria-label="A note from the maker">
+    <div class="wrap">
+      <figure class="founder-note reveal">
+        <blockquote>
+          <p>Every time I dig for new music, I spend a whole day getting it ready to play. Beatgrids that don't line up, wrong genre tags, missing covers, duplicates. It all adds up. That's <em>backwards</em>.</p>
+          <p>I built Solco so the music I download is ready right away, and I can focus on what I love most: finding new music and playing it for people.</p>
+        </blockquote>
+        <figcaption>
+          <img src="assets/founder-carmine-192.webp" alt="Carmine Paolino" width="56" height="56" loading="lazy" decoding="async">
+          <span><b>Carmine Paolino</b>DJ, and the maker of Solco</span>
+          <img class="sig" src="assets/signature-256.webp" alt="" width="128" height="57" loading="lazy" decoding="async">
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" aria-labelledby="faq-h">
+    <div class="wrap">
+      <p class="kicker reveal">Questions</p>
+      <h2 id="faq-h" class="reveal">What DJs ask first.</h2>
+      <div class="faq-list reveal">
+        <details><summary>Do I need rekordbox?</summary><p>No. Solco writes the USB drive itself, in the rekordbox format Pioneer players read. If you still use rekordbox, Solco can import its library, and rekordbox keeps working as before.</p></details>
+        <details><summary>Can I still organise my library my own way?</summary><p>Yes. Your folders, playlists, cues, grids and tags stay exactly as you set them. Solco adds its readings next to yours and only writes to a file when you say so. Do as much by hand as you like, or none of it.</p></details>
+        <details><summary>Which players read the drive?</summary><p>I have played Solco USBs on the XDJ-RX3, CDJ-2000NXS2, CDJ-2000 and XDJ-1000. Any player that reads the classic rekordbox USB format should work, including the CDJ-3000 and XDJ-XZ. Players that read only the newer OneLibrary format, like the CDJ-3000X and XDJ-AZ, are not supported yet. Tell me what you play on when you sign up.</p></details>
+        <details><summary>What comes over from my rekordbox library?</summary><p>Playlists, folders, hot cues, memory cues, loops, ratings and colours. Beatgrids stay behind, because Solco grids every track itself. Your rekordbox library is only read, never changed.</p></details>
+        <details><summary>Is my music uploaded?</summary><p>No. Every analysis runs on your computer. The optional playlist assistant sends only your request and a count of your genres and styles to an AI provider you choose. No titles, file names or audio, and you can point it at a model on your own machine instead.</p></details>
+        <details><summary>What does it cost?</summary><p>The alpha is free. Each alpha build runs for 30 days, and a new one follows. The price of the full release is not set yet; people on the waitlist hear it first.</p></details>
+        <details><summary>Which computers does it run on?</summary><p>macOS on Apple Silicon, Windows and Linux. Intel Macs are not supported.</p></details>
+        <details><summary>What does private alpha mean?</summary><p>Solco is early. I let DJs in small groups, read every report, and ship updates often. Keep a backup of your music, as you always should.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAME -->
+  <section class="naming" aria-labelledby="name-h">
+    <div class="wrap">
+      <p class="kicker reveal">The name</p>
+      <h2 id="name-h" class="it reveal" lang="it">tracciare il solco</h2>
+      <div class="name-cols">
+        <p class="reveal"><b>Solco</b> <span class="say">/ˈsol.ko/</span> is Italian for the groove of a record, and for the furrow ploughed before sowing.</p>
+        <p class="reveal"><em lang="it">Tracciare il solco</em> means to prepare the way. So the music can grow, and you can play.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE END: DOWNLOAD, SOLCO, USB -->
+  <section class="final" aria-labelledby="final-h" data-final>
+    <div class="wrap final-grid">
+      <div>
+        <h2 id="final-h" class="reveal"><span>Download it.</span><span>Drop it in Solco.</span><span>Find it on stage.</span></h2>
+        <p class="lead reveal">Solco is in private alpha for macOS on Apple Silicon, Windows and Linux. Join the waitlist, and I will write when there is a seat for you.</p>
+        <a class="btn-cta reveal" href="#waitlist" data-join>Join the waitlist <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+      </div>
+      <div class="flow" aria-hidden="true" data-flow>
+        <div class="flow-node n1"><div class="flow-ico file"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><circle cx="10" cy="16" r="2"/><path d="M12 16v-5l3 1"/></svg></div><b>Download it</b><span>Glad To Know You.flac</span></div>
+        <div class="flow-wire w1"><i></i></div>
+        <div class="flow-node n2"><div class="flow-ico mark"><svg><use href="#mark"/></svg></div><b>Solco</b><span class="reads"><em>116.01 BPM</em><em style="color:hsl(305 50% 68%)">6B</em><em>Disco</em></span></div>
+        <div class="flow-wire w2"><i></i></div>
+        <div class="flow-node n3"><div class="flow-ico usb"><div class="stick"><i class="led"></i></div></div><b>Find it on stage</b><span>FRIDAY · Disco Night</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <span class="brand"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></span>
+      <nav aria-label="Legal">
+        <a href="impressum.html">Impressum</a><a href="privacy.html">Datenschutz / Privacy</a><span>© 2026 Plenty</span>
+      </nav>
+    </div>
+    <p class="legal">rekordbox, Pioneer DJ, CDJ and XDJ are trademarks of their owners; Solco is not affiliated with them. Apple Music and Traktor are named only to say what Solco imports from. Metadata lookups use MusicBrainz and Discogs. Icons: Lucide (ISC). Fonts: Geist, Bricolage Grotesque and Instrument Serif (SIL Open Font License), served from this site.</p>
+  </div>
+</footer>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/icons.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/demos.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

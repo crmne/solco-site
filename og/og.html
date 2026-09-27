@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Solco OG image</title>
+<style>
+  @font-face { font-family: Bricolage; src: url(BricolageGrotesque-SemiBold.ttf); }
+  @font-face { font-family: Geist; src: url(Geist-Regular.ttf); }
+  @font-face { font-family: Geist; font-weight: 500; src: url(Geist-Medium.ttf); }
+  @font-face { font-family: GeistMono; src: url(GeistMono-Regular.ttf); }
+  :root { --panel: #131417; --line: #33373e; --text: #eceae6; --dim: #8e8c88; --accent: #b9a3ff; --on-accent: #17122b; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; background: var(--panel); overflow: hidden; }
+  body {
+    position: relative; color: var(--text); font-family: Geist, sans-serif;
+    background:
+      radial-gradient(760px 420px at 1040px -40px, rgba(185, 163, 255, 0.20), transparent 70%),
+      radial-gradient(520px 300px at 120px 700px, rgba(255, 140, 50, 0.10), transparent 70%),
+      var(--panel);
+  }
+  .top { position: absolute; left: 72px; right: 72px; top: 58px; display: flex; align-items: center; justify-content: space-between; }
+  .mark { display: flex; align-items: center; gap: 14px; }
+  .mark svg { width: 40px; height: 40px; }
+  .wordmark { font-family: Bricolage; font-size: 36px; letter-spacing: -0.02em; }
+  .wordmark b { color: var(--accent); font-weight: inherit; }
+  .say { font-family: GeistMono; font-size: 17px; color: var(--dim); letter-spacing: 0.02em; }
+  .say i { color: var(--text); font-style: italic; font-family: Geist; font-size: 19px; letter-spacing: 0; }
+  h1 { position: absolute; left: 72px; top: 138px; font-family: Bricolage; font-weight: 400; font-size: 82px; line-height: 0.98; letter-spacing: -0.035em; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .sub { position: absolute; left: 74px; top: 336px; width: 760px; font-size: 25px; line-height: 1.38; color: #b4b1ab; }
+  .deck { position: absolute; left: 0; right: 0; bottom: 0; height: 176px; border-top: 1px solid var(--line); background: rgba(12, 13, 15, 0.6); }
+  canvas { position: absolute; left: 0; bottom: 0; width: 1200px; height: 176px; }
+  .readouts { position: absolute; right: 72px; top: 236px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  .chip { font-family: GeistMono; font-size: 18px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 8px; background: rgba(26, 28, 32, 0.9); color: var(--text); }
+  .chip.key { color: #5ad19a; }
+  .chip.genre { color: var(--accent); }
+  .cta { position: absolute; right: 72px; top: 64px; font-size: 17px; font-weight: 500; padding: 10px 18px; border-radius: 999px; background: var(--accent); color: var(--on-accent); }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="mark">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="18.5" stroke="#b9a3ff" stroke-width="1.6"/>
+        <circle cx="20" cy="20" r="13.5" stroke="#b9a3ff" stroke-opacity="0.55" stroke-width="1.2"/>
+        <circle cx="20" cy="20" r="8.5" stroke="#b9a3ff" stroke-opacity="0.3" stroke-width="1.2"/>
+        <circle cx="20" cy="20" r="3" fill="#b9a3ff"/>
+      </svg>
+      <span class="wordmark">solco<b>.</b></span>
+      <span class="say">&nbsp;/ˈsol.ko/&nbsp; <i>the groove of a record</i></span>
+    </div>
+  </div>
+  <div class="cta">Join the waitlist · getsolco.com</div>
+
+  <h1>Your music,<br>ready for the <em>club.</em></h1>
+  <p class="sub">AI beatgrids, genre and character for every track. Smart playlists that sort themselves, and USB drives your CDJs read.</p>
+
+  <div class="readouts">
+    <span class="chip">124.00 BPM</span>
+    <span class="chip key">8A · A minor</span>
+    <span class="chip genre">Deep House</span>
+  </div>
+
+  <div class="deck"><canvas id="wave" width="2400" height="352"></canvas></div>
+
+<script>
+  // A deterministic four-on-the-floor waveform in the app's colours:
+  // blue lows, orange mids, a warm white core, with the beatgrid on top.
+  const canvas = document.getElementById('wave');
+  const g = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height, mid = H / 2 + 8;
+  let seed = 7;
+  const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const beat = 96; // pixels per beat at 2x
+  const offset = 40;
+  const lows = [], mids = [], highs = [];
+  for (let x = 0; x < W; x++) {
+    const t = ((x - offset) % beat + beat) % beat / beat;
+    const bar = Math.floor((x - offset) / (beat * 4));
+    const kick = Math.exp(-t * 7.5);
+    const hat = Math.exp(-Math.abs(t - 0.5) * 22) * 0.55;
+    const build = 0.55 + 0.45 * Math.min(1, x / (W * 0.55));
+    const breakdown = bar === 3 ? 0.35 : 1;
+    const n = rand();
+    lows.push((0.18 + 0.82 * kick) * build * breakdown * (0.9 + 0.1 * n));
+    mids.push((0.22 + 0.25 * hat + 0.18 * rand()) * build);
+    highs.push((0.10 + 0.35 * hat + 0.08 * rand()) * build);
+  }
+  const band = (values, color, scale) => {
+    g.fillStyle = color;
+    for (let x = 0; x < W; x += 2) {
+      const h = values[x] * scale;
+      g.fillRect(x, mid - h, 2, h * 2);
+    }
+  };
+  band(lows, '#2f6bff', 150);
+  band(mids, '#ff8c32', 95);
+  band(highs, '#f4e7d6', 38);
+  // Beatgrid: every beat faint, every bar red like the app's downbeats.
+  for (let x = offset; x < W; x += beat) {
+    const downbeat = ((x - offset) / beat) % 4 === 0;
+    g.fillStyle = downbeat ? 'rgba(255, 70, 90, 0.75)' : 'rgba(255, 255, 255, 0.10)';
+    g.fillRect(x, 16, downbeat ? 2 : 1.5, H - 16);
+  }
+  // Playhead.
+  g.fillStyle = '#ffffff';
+  g.fillRect(W * 0.5, 0, 3, H);
+  g.beginPath();
+  g.moveTo(W * 0.5 - 9, 0); g.lineTo(W * 0.5 + 12, 0); g.lineTo(W * 0.5 + 1.5, 13); g.closePath(); g.fill();
+</script>
+</body>
+</html>

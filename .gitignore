@@ -1,0 +1,7 @@
+# Private design work stays local: the brief, concepts and render tooling.
+brief/
+concepts/
+tools/
+node_modules/
+.cache/
+og/*.png
