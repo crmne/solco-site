@@ -186,6 +186,20 @@
     new IntersectionObserver(([e]) => flow.classList.toggle('run', e.isIntersecting), { threshold: .4 }).observe(flow);
   }
 
+  /* ---------- the launch film, loaded only when asked for ---------- */
+  const film = document.querySelector('[data-film]'), filmVideo = film && film.querySelector('[data-film-video]');
+  if (film && filmVideo) {
+    const close = () => { filmVideo.pause(); film.close(); };
+    document.querySelectorAll('[data-film-open]').forEach(b => b.addEventListener('click', () => {
+      if (!filmVideo.src) filmVideo.src = 'media/solco-launch.mp4';
+      film.showModal(); filmVideo.play().catch(() => {});
+      if (window.plausible) window.plausible('Film play');
+    }));
+    film.querySelector('[data-film-close]').addEventListener('click', close);
+    film.addEventListener('click', e => { if (e.target === film) close(); });
+    film.addEventListener('close', () => filmVideo.pause());
+  }
+
   /* ---------- waitlist: our own form on the getwaitlist API (email first, questions optional) ---------- */
   const wl = document.querySelector('[data-wl]');
   if (wl) {

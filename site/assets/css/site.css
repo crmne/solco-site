@@ -453,3 +453,17 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .payoff { gap: 28px; padding-bottom: 96px; }
 .payoff .ready { padding: 0; }
 .trust { padding-top: 110px; }
+
+/* the launch film: a quiet button in the hero, the film in an overlay, nothing loaded until asked */
+.film-btn { display: inline-flex; align-items: center; gap: 12px; margin-top: 26px; padding: 6px 18px 6px 6px; border-radius: 999px; border: 1px solid var(--line-3); background: color-mix(in oklab, var(--ink) 4%, transparent); color: var(--ink); font: inherit; font-size: 15.5px; font-weight: 550; cursor: pointer; transition: border-color .2s, background .2s, transform .2s var(--ease); }
+.film-btn:hover { border-color: var(--violet); background: color-mix(in oklab, var(--violet) 10%, transparent); transform: translateY(-1px); }
+.film-btn:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+.film-play { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--violet); color: var(--violet-ink); }
+.film-play svg { width: 15px; height: 15px; fill: currentColor; margin-left: 2px; }
+dialog.film { margin: auto; padding: 0; border: 0; background: transparent; max-width: min(1200px, 94vw); width: 100%; overflow: visible; }
+dialog.film::backdrop { background: rgba(4, 4, 6, .86); backdrop-filter: blur(6px); }
+.film-frame { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 40px 120px -20px rgba(0,0,0,.8); background: #000; }
+.film-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }
+.film-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: 0; display: grid; place-items: center; background: rgba(0,0,0,.55); color: #fff; cursor: pointer; }
+.film-close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.film-close:hover { background: rgba(0,0,0,.8); }
