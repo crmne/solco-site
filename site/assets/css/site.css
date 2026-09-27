@@ -183,6 +183,7 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .thesis { max-width: 1160px; margin: 0 auto; padding: 190px var(--gutter) 140px; }
 .thesis .big { font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; font-size: clamp(27px, 3.4vw, 48px); line-height: 1.12; letter-spacing: -.03em; color: var(--ink-3); text-wrap: pretty; font-variation-settings: "opsz" 60; }
 .thesis .big + .big { margin-top: .55em; }
+.thesis .big { text-wrap: balance; }
 .thesis .big span { color: var(--ink); }
 .thesis .big em { font-style: normal; background: linear-gradient(90deg, var(--c-blue), var(--c-violet), var(--c-orange)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 

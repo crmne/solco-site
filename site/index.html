@@ -57,7 +57,7 @@
         <p class="kicker reveal">DJ library app · Private alpha</p>
         <h1 class="display reveal"><span>Stop preparing</span><span>your tracks<i class="dot" aria-hidden="true"></i></span></h1>
         <p class="hero-steps reveal">Download&nbsp;them. Drop&nbsp;them&nbsp;in&nbsp;Solco. Find&nbsp;them&nbsp;<span class="scale">on&nbsp;stage</span>.</p>
-        <p class="lead reveal"><b>Solco does it for you.</b> It grids every track you add, keys it, hears its genre and character, fixes its tags and files it into smart playlists. Then it writes the USB drive your CDJs read, no rekordbox needed. Keep doing any of it by hand if you like. <b>You just don't have to anymore.</b></p>
+        <p class="lead reveal"><b>Solco prepares them for you.</b> It grids every track you add, keys it, hears its genre and character, fixes its tags and files it into smart playlists. Then it writes the USB drive your CDJs read, no rekordbox needed. Keep doing any of it by hand if you like. <b>You just don't have to anymore.</b></p>
         <button class="film-btn reveal" type="button" data-film-open aria-haspopup="dialog"><span class="film-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>Watch the 60-second film</button>
       </div>
       <aside class="join reveal" id="waitlist" aria-labelledby="join-h">
@@ -96,9 +96,9 @@
 
   <!-- THESIS -->
   <section class="thesis" aria-label="Why Solco">
-    <p class="big reveal">You dig for the music.</p>
-    <p class="big reveal">Then the other job starts: grids, keys, tags, playlists, the USB.</p>
-    <p class="big reveal"><span>Solco does that job. You get back to what you love: <em>finding music and playing it for people.</em></span></p>
+    <p class="big reveal">You find new music.</p>
+    <p class="big reveal">Then the other job starts: grids, tags, playlists, the USB export.</p>
+    <p class="big reveal"><span>Solco does all that for you, so you can focus on what you love: <em>finding music and playing it for people.</em></span></p>
   </section>
 
   <!-- CHAPTERS -->
@@ -140,8 +140,8 @@
       <article class="chapter feature" id="grids" data-step="1">
         <header class="ch-head">
           <p class="step-tag reveal"><i>2</i>Beatgrid</p>
-          <h2 class="reveal">Grids that hold, even when the <span class="scale">tempo changes.</span></h2>
-          <p class="lead reveal">Solco's beatgrid AI model hears beats and bars in the audio itself. It locks onto a four-to-the-floor kick, finds the bars in a piano piece, and follows a live drummer through every tempo change, bar by bar. It gets almost every grid right: of the 9,434 tracks in my own library, 848 change tempo, and Solco asked me to check just 16 grids.</p>
+          <h2 class="reveal">Beatgrids that follow <span class="scale">every tempo change.</span></h2>
+          <p class="lead reveal">Solco's local AI hears beats and bars in the audio itself. It locks onto a four-to-the-floor kick, finds the bars in a piano piece, and follows a live drummer through every tempo change, bar by bar. It gets almost every grid right: of the 9,434 tracks in my own library, 848 change tempo, and Solco asked me to check just 16 grids.</p>
         </header>
         <div class="reveal-frame">
           <div class="tabs" role="tablist" aria-label="Choose a track" data-tabs></div>
@@ -154,14 +154,14 @@
           <div><dt>Bars, not just beats</dt><dd>Downbeats are found too, so cues and loops land on the one.</dd></div>
           <div><dt>Asks when unsure</dt><dd>The few uncertain grids wait in one list, with a one-click fix.</dd></div>
         </dl>
-        <div class="mid-cta reveal"><p>Want grids that hold on your own tracks?</p><a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a></div>
+        <div class="mid-cta reveal"><p>Want grids like these on your own tracks?</p><a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a></div>
       </article>
 
       <article class="chapter field blue" id="genre" data-step="2">
         <p class="step-tag reveal"><i>3</i>Genre</p>
         <p class="poster reveal" aria-label="House, crossed out. Disco."><s>House.</s><br>Disco.</p>
         <div class="field-cols">
-          <div><h2 class="field-h reveal">AI listens and tags the genre for you.</h2><p class="lead reveal">It runs on your computer and hears what a track is, even when its tag is wrong or empty. Then it writes the genre tag, if you want.</p></div>
+          <div><h2 class="field-h reveal">Local AI tags the genre for you.</h2><p class="lead reveal">It listens on your computer and hears what a track is, even when its tag is wrong or empty. Then it writes the genre tag, if you want.</p></div>
           <ul class="points reveal">
             <li><b>Hundreds of styles.</b> Disco, Deep House, Ambient, Techno and everything in between.</li>
             <li><b>Tagged by listening.</b> A track that sounds like disco is tagged disco.</li>
@@ -174,8 +174,8 @@
       <article class="chapter" id="character" data-step="3">
         <header class="ch-head">
           <p class="step-tag reveal"><i>4</i>Character</p>
-          <h2 class="reveal">Energy, drive, mood. Searchable.</h2>
-          <p class="lead reveal">AI models trained on how listeners rate music read each track's energy, drive, mood, groove, vocals and peak, on the same 0 to 100 scale for every track. With key, BPM and genre next to them, you can slice the whole collection any way a set needs, and find the tracks you forgot you had. It all runs on your computer, on the GPU when there is one.</p>
+          <h2 class="reveal">Local AI figures out the energy, drive and mood.</h2>
+          <p class="lead reveal">Trained on how listeners rate music, it scores every track's energy, drive, mood, groove, vocals and peak from 0 to 100, on your computer. Then search by all of it, together with key, BPM and genre, and find the tracks you forgot you had.</p>
         </header>
         <div class="stage shell reveal-frame" data-demo="analysis" role="img" aria-label="Recently added: rows move through fingerprint, loudness, key, beatgrid and character. The first track's reading lands: 116.01 BPM, 6B B flat major, minus 15.4 LUFS, and six character bars."></div>
         <div class="ticker" aria-hidden="true"><div class="ticker-row" data-ticker></div></div>
@@ -190,7 +190,7 @@
         <header class="ch-head">
           <p class="step-tag reveal"><i>5</i>Smart playlists</p>
           <h2 class="reveal">Playlists that sort themselves.</h2>
-          <p class="lead reveal">A smart playlist is rules you type, each one turning into a chip: <code>bpm:120..124</code>, <code>key:8A</code>, <code>energy:&gt;=60</code>. Every new track that fits files itself in. Or describe the night to the assistant, and it builds the playlists for you.</p>
+          <p class="lead reveal">Save any search as a smart playlist: <code>bpm:120..124</code>, <code>key:8A</code>, <code>energy:&gt;=60</code>. Every new track that fits files itself in. Or just describe the night, and the assistant builds the playlists for you.</p>
         </header>
         <div class="stage shell reveal-frame" data-demo="playlists" role="img" aria-label="Typing bpm:120..124, key:8A and energy:>=60 turns each rule into a chip and narrows the list. The assistant builds Disco Night 22 to 01 as four playlists with rising energy."></div>
       </article>
