@@ -126,8 +126,12 @@
       ctx.fillStyle = L.color || `rgba(${G},${L.a ?? (L.down ? .7 : .28)})`;
       ctx.fillRect(Math.round(x - (L.w || 1) * dpr / 2), ruler, (L.w || 1) * dpr, H - ruler);
     }
-    const step = 2 * dpr, n = Math.ceil(W / step), mid = ruler + (H - ruler) / 2;
-    bands(ctx, i => smp.at(center - span / 2 + (i * step) / W * span), n, 0, step, mid, (H - ruler) / 2 - 8 * dpr, o.alpha ?? 1, o.gain ?? 1);
+    // Each bar is pinned to a fixed slice of time, so its shape never changes as it
+    // scrolls, and the whole strip moves in whole device pixels: no shimmer.
+    const step = 2 * dpr, n = Math.ceil(W / step) + 2, mid = ruler + (H - ruler) / 2;
+    const dt = span * step / W, k0 = Math.floor((center - span / 2) / dt);
+    const x0 = Math.round(X(k0 * dt));
+    bands(ctx, i => smp.at((k0 + i + 0.5) * dt), n, x0, step, mid, (H - ruler) / 2 - 8 * dpr, o.alpha ?? 1, o.gain ?? 1);
     // lines again, faint, on top so the grid reads through loud passages
     for (const L of lines) { const x = X(L.t); if (x < -4 || x > W + 4) continue;
       ctx.fillStyle = L.color ? L.color : `rgba(${G},${(L.a ?? (L.down ? .7 : .28)) * .35})`; ctx.fillRect(Math.round(x - (L.w || 1) * dpr / 2), ruler, (L.w || 1) * dpr, H - ruler); }
