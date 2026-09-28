@@ -191,11 +191,16 @@
   if (film && filmVideo) {
     const close = () => { filmVideo.pause(); film.close(); };
     document.querySelectorAll('[data-film-open]').forEach(b => b.addEventListener('click', () => {
-      if (!filmVideo.src) filmVideo.src = 'media/solco-launch.mp4';
+      if (!filmVideo.src) filmVideo.src = 'https://github.com/crmne/solco-site/releases/download/film-v5/solco-launch-web-1080p.mp4';
       film.showModal(); filmVideo.play().catch(() => {});
       if (window.plausible) window.plausible('Film play');
     }));
     film.querySelector('[data-film-close]').addEventListener('click', close);
+    // If a browser won't play the file from the release, offer it directly instead of a broken player.
+    filmVideo.addEventListener('error', () => {
+      if (film.querySelector('.film-fallback')) return;
+      film.querySelector('.film-frame').insertAdjacentHTML('beforeend', '<a class="film-fallback" href="https://github.com/crmne/solco-site/releases/download/film-v5/solco-launch-web-1080p.mp4" target="_blank" rel="noopener">Open the film</a>');
+    });
     film.addEventListener('click', e => { if (e.target === film) close(); });
     film.addEventListener('close', () => filmVideo.pause());
   }

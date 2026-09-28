@@ -468,3 +468,4 @@ dialog.film::backdrop { background: rgba(4, 4, 6, .86); backdrop-filter: blur(6p
 .film-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: 0; display: grid; place-items: center; background: rgba(0,0,0,.55); color: #fff; cursor: pointer; }
 .film-close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 .film-close:hover { background: rgba(0,0,0,.8); }
+.film-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-weight: 600; font-size: 18px; text-decoration: underline; text-underline-offset: 4px; background: rgba(0,0,0,.6); }
