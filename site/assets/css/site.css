@@ -469,3 +469,9 @@ dialog.film::backdrop { background: rgba(4, 4, 6, .86); backdrop-filter: blur(6p
 .film-close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 .film-close:hover { background: rgba(0,0,0,.8); }
 .film-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-weight: 600; font-size: 18px; text-decoration: underline; text-underline-offset: 4px; background: rgba(0,0,0,.6); }
+/* The hero clips its glow, and it used to end exactly at the app window's bottom edge, cutting off the
+   window's outline and shadow. Give the window room; the next section gives the same space back. */
+.hero { padding-bottom: 170px; }
+.thesis { padding-top: 20px; }
+@media (max-width: 760px) { .hero { padding-bottom: 64px; } .thesis { padding-top: 46px; } }
+@media (max-width: 760px) { .hero-stage .shell { box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 12%, transparent), 0 18px 36px -18px rgba(0,0,0,.45); } }
