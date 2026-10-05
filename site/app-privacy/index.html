@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App-Datenschutz / App privacy · Solco</title>
+<meta name="description" content="Datenschutz für die Solco-App und api.getsolco.com, auf Deutsch und Englisch.">
+<link rel="canonical" href="https://getsolco.com/app-privacy/">
+<meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/css/site.css">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://stats.paolino.me/js/pa-JCPJyXqwkHhNzi2O06dWQ.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Zum Inhalt</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 40 40" fill="none" stroke="currentColor"><circle cx="20" cy="20" r="18.5" stroke-width="1.8"/><circle cx="20" cy="20" r="13.5" stroke-opacity=".55" stroke-width="1.5"/><circle cx="20" cy="20" r="8.5" stroke-opacity=".3" stroke-width="1.5"/><circle cx="20" cy="20" r="3.2" fill="currentColor" stroke="none"/></symbol></svg>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Solco, Startseite"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+  <a class="btn-cta small" href="/#waitlist" style="margin-left:auto" lang="en">Join the waitlist</a>
+</header>
+
+<main id="main" class="legal-page">
+  <p class="kicker">Rechtliches · <a href="#english" lang="en" style="color:inherit">English below</a></p>
+  <h1>Datenschutz<br>in der App</h1>
+  <p>Stand: 5. Oktober 2026. Diese Hinweise betreffen die Solco-App ab Version 0.8.0-alpha.1 und den Dienst api.getsolco.com. Für den Besuch dieser Seite und die Warteliste gilt die <a href="/privacy.html">Datenschutzerklärung der Website</a>.</p>
+
+  <h2>1. Verantwortlicher und Kontakt</h2>
+  <address>PlentyLabs UG (haftungsbeschränkt) &amp; Co. KG<br>Brunnenstraße 169, 10119 Berlin, Deutschland<br><a href="mailto:hello@plenty.is">hello@plenty.is</a></address>
+  <p>Weitere Angaben finden Sie im <a href="/impressum.html">Impressum</a>. An diese Adresse können Sie auch Fragen zum Datenschutz und Anträge auf Auskunft, Berichtigung oder Löschung richten.</p>
+
+  <h2>2. Musik bleibt auf Ihrem Computer</h2>
+  <p>Solco analysiert Audiodateien lokal. Ihre Musikdateien, Bibliotheksdatenbank, Playlists und Analyseergebnisse werden dabei nicht zu unserem Dienst hochgeladen. Der Playlist-Assistent und die unten beschriebenen Online-Funktionen verarbeiten jeweils die dafür genannten Daten.</p>
+  <p>Wenn Sie Katalogabfragen oder Cover-Suche verwenden, gehen Suchangaben wie Interpret, Titel, Katalogkennungen oder ein akustischer Fingerabdruck an den ausgewählten Dienst, etwa MusicBrainz, AcoustID oder Discogs. Update-Prüfungen und Downloads verbinden sich mit GitHub. Diese Anbieter erhalten technisch bedingt Verbindungsdaten; es gelten außerdem ihre jeweiligen Datenschutzhinweise.</p>
+
+  <h2>3. Freiwillige tägliche Nutzungszählung</h2>
+  <p>Offiziell veröffentlichte Builds können frühestens 60 Sekunden nach dem Start eine tägliche Meldung an api.getsolco.com senden. Sie enthält eine zufällig erzeugte, dauerhafte Installationskennung, die Solco-Version und das Betriebssystem. Der Server ordnet sie einem UTC-Kalendertag zu und zählt dieselbe Installation pro Tag nur einmal. Musik, Dateipfade und Bibliotheksinhalte sind nicht enthalten.</p>
+  <p>Die Einstellung <b>Share usage counts</b> unter <b>Settings › About</b> ist zunächst aktiviert. Sie können sie dort jederzeit ausschalten; das stoppt weitere Meldungen. Lokale Entwicklungs- und QA-Builds senden diese Meldungen nicht automatisch. Die Installationskennung ist pseudonym und kann Meldungen derselben Installation über mehrere Tage miteinander verbinden.</p>
+  <p>Einzelne Tagesmeldungen außerhalb des 30-Tage-Fensters werden täglich entfernt, solange der Dienst läuft. Zusammengefasste Tageszahlen nach Version und Betriebssystem ohne Installationskennungen bleiben gespeichert. Das Ausschalten der Zählung löscht bereits gespeicherte Daten nicht und schaltet Fehlerberichte nicht aus.</p>
+
+  <h2>4. Zugang und Einladungen</h2>
+  <p>Für Verbindungen zu unserem Dienst legt die App eine zufällige Installationskennung und ein Zugangstoken in ihrem lokalen Anwendungsordner ab. Diese Zugangsdaten gehören nicht zum Bibliotheksbackup. Auf dem Server speichern wir die Kennung, einen SHA-256-Prüfwert des Tokens sowie Zeitpunkte für Erstellung, gegebenenfalls Sperrung und das Ende des Assistentenzugangs. Das Token selbst wird dort nicht im Klartext gespeichert.</p>
+  <p>Für den von Solco finanzierten Assistenten benötigen Sie einen Einladungscode. Der Server speichert dessen Prüfwert, Erstellungs-, Ablauf- und Einlösungszeitpunkt, die freigeschaltete Nutzungsdauer sowie die zugehörige Installation. Die App verwirft den eingegebenen Code nach dem Absenden. Eine E-Mail-Adresse oder ein Import Ihrer Wartelistenangaben ist dafür nicht erforderlich.</p>
+  <p>Installations- und Einladungsdatensätze haben derzeit keine automatische Löschfrist. Sie bleiben zur Zugangskontrolle und zum Verhindern erneuter Nutzung gesperrter oder bereits eingelöster Zugangsdaten gespeichert. Für eine Prüfung oder Löschung kontaktieren Sie uns; wir müssen dabei die Zugehörigkeit der Installation nachvollziehen können.</p>
+
+  <h2>5. Playlist-Assistent</h2>
+  <p>Vor dem Senden müssen Sie ausdrücklich der Weitergabe Ihrer Anfragen, des Gesprächs und einer Bibliothekszusammenfassung zustimmen. Beim Solco-Dienst lautet die Auswahl <b lang="en">Share my requests, conversation and library summary with Solco and OpenRouter</b>. Ohne diese Auswahl wird keine Assistentenanfrage gesendet. Sie können die Freigabe für weitere Anfragen zurücknehmen.</p>
+  <p>Gesendet werden Ihre aktuelle Anfrage, bis zu acht vorherige Gesprächsbeiträge und eine begrenzte Zusammenfassung: Anzahl der Tracks, Genre- und Stilbezeichnungen mit Häufigkeiten sowie die Anzahl der Tracks mit Tempo- oder Stilanalysen. Audio, Dateipfade, einzelne Titel und Kommentare werden nicht automatisch hinzugefügt. Alles, was Sie selbst in das Gespräch schreiben, wird dagegen mitgesendet und kann private Angaben enthalten.</p>
+  <p>Unser Dienst leitet diese Inhalte zusammen mit den Assistentenanweisungen an OpenRouter und einen dort ausgewählten Anbieter für Gemma 4 weiter. Installations- und Anfragekennungen werden nicht an den Modellanbieter weitergegeben. Unser Solco-Dienst verarbeitet Anfragen und Antworten im Arbeitsspeicher und speichert keine Gesprächstexte, Antworten oder Bibliothekszusammenfassungen. Die App kann den Erzeugungskontext einer erstellten Smart Playlist lokal aufbewahren.</p>
+  <p>Für Kostenkontrolle und die Vermeidung doppelter Abrechnung speichern wir pro Anfrage die Installations- und Anfragekennung, Bearbeitungsstatus, reservierte und berechnete Kosten, Ein- und Ausgabetokenzahlen, Modell, den Versionsprüfwert der Assistentenanweisungen sowie Zeitpunkte. Diese Metadaten haben derzeit keine automatische Löschfrist. Sie sind keine gespeicherte Kopie des Gesprächs.</p>
+  <p>Die Anbieterwahl verwendet OpenRouters Einstellung <code>data_collection: deny</code>. Das ist keine Zusage, dass bei allen beteiligten Anbietern keinerlei Daten vorgehalten werden. OpenRouter verarbeitet unter anderem technische Nutzungsmetadaten; die ausführenden Modellanbieter haben eigene Betriebs- und Aufbewahrungsregeln. Verarbeitung kann außerhalb der EU stattfinden. Einzelheiten stehen in <a href="https://openrouter.ai/privacy">OpenRouters Datenschutzerklärung</a> und den <a href="https://openrouter.ai/docs/guides/privacy/provider-logging">Hinweisen zu Modellanbietern</a>.</p>
+  <p>Wenn Sie einen eigenen Modellanbieter oder API-Schlüssel verwenden, gehen Assistentenanfragen direkt an den von Ihnen eingestellten Dienst. Dessen Regeln und Einstellungen gelten. Solco speichert einen eigenen Anbieterschlüssel zwischen Sitzungen nur, wenn Sie dies ausdrücklich auswählen.</p>
+
+  <h2>6. Hosting und Verbindungsdaten</h2>
+  <p>api.getsolco.com läuft bei Hetzner in Nürnberg, Deutschland, und ist über einen Cloudflare-Tunnel erreichbar. Cloudflare verarbeitet die Verbindung einschließlich Ihrer IP-Adresse und entschlüsselt HTTPS-Verkehr zur Weiterleitung. Für Schutz und Betrieb können dort weitere Verbindungsdaten verarbeitet werden. Siehe <a href="https://www.cloudflare.com/privacypolicy/">Cloudflares Datenschutzerklärung</a>.</p>
+  <p>Unsere API speichert keine IP-Adressen oder Zugriffsprotokolle und protokolliert keine Gesprächsinhalte. Zur Begrenzung vieler Registrierungen in kurzer Zeit wird vorübergehend ein kryptographisch abgeleiteter Wert der IP-Adresse im Arbeitsspeicher verwendet, in einem Zeitfenster von einer Minute. Dieser Wert wird nicht dauerhaft gespeichert. Diese Aussage über unsere API ist keine Zusicherung über die Protokollierung bei Cloudflare, OpenRouter oder anderen Anbietern.</p>
+
+  <h2>7. Fehlerberichte und Feedback</h2>
+  <p>Offizielle Solco-Releases senden automatisch Fehler- und Absturzberichte an unser Sentry-Projekt in der EU-Region. Dazu gehören Fehlermeldungen, Warnungen vor dem Fehler, Stacktraces sowie App-, Betriebssystem-, Grafik- und Analyse-Backend-Angaben. Meldungen können Tracknamen und Teile von Dateipfaden enthalten; der Name Ihres Benutzerordners wird ersetzt. Benutzer-, Rechnernamen- und Anfragefelder werden aus Ereignissen entfernt.</p>
+  <p>Bei nativen Abstürzen kann ein kleiner Speicherabzug übertragen werden. Darin werden Benutzerordnernamen maskiert und unter Linux Umgebungs- und Kommandozeilendaten entfernt. Der verbleibende Stack-Speicher kann Werte aus dem laufenden Prozess enthalten. Musikdateien, Bibliotheksdatenbank, Einstellungen und vollständige Logdateien werden nicht als Anhänge hochgeladen. Sentry sieht technisch die Verbindung zum Dienst.</p>
+  <p>Diese Fehlerberichte sind in offiziellen Releases aktiviert und haben derzeit keinen Schalter in der App. Lokale Builds, einschließlich optimierter Entwicklungs- und QA-Builds, senden sie nicht. Die Speicherdauer richtet sich nach den Einstellungen des Sentry-Projekts und den Bedingungen des Anbieters, nicht nach der 30-Tage-Frist für Nutzungsmeldungen. Siehe <a href="https://sentry.io/privacy/">Sentrys Datenschutzerklärung</a>.</p>
+  <p>Feedback wird erst gesendet, wenn Sie im Feedback-Bereich eine Nachricht absenden. Unser Support-System Chatwoot erhält den Text, eine freiwillig angegebene E-Mail-Adresse und Angaben zu App-Version, Betriebssystem und Architektur. Eine Diagnosezusammenfassung wird nur beigefügt, wenn Sie sie auswählen; Sie können sie vorher vollständig lesen. Der Gesprächsverlauf und Antworten bleiben im Support-System bis zur manuellen Löschung gespeichert. Eine lokale Kopie ermöglicht Antworten in der App. Löschanfragen richten Sie an hello@plenty.is.</p>
+
+  <h2>8. Ihre Möglichkeiten und Rechte</h2>
+  <p>Sie können die Nutzungszählung ausschalten, auf den Online-Assistenten verzichten oder dessen Freigabe zurücknehmen und freiwilliges Feedback weglassen. Für Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit oder Widerspruch schreiben Sie an <a href="mailto:hello@plenty.is">hello@plenty.is</a>. Es gibt derzeit keinen automatischen Löschknopf für API-Datensätze; Anfragen werden manuell geprüft. Bitte senden Sie uns keine Zugangstokens oder API-Schlüssel per E-Mail.</p>
+  <p>Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren, etwa der <a href="https://www.datenschutz-berlin.de">Berliner Beauftragten für Datenschutz und Informationsfreiheit</a>. Änderungen an der Datenverarbeitung werden auf dieser Seite beschrieben.</p>
+
+  <hr>
+  <section id="english" lang="en">
+    <p class="kicker" style="margin-top:48px">In English</p>
+    <h2 style="margin-top:14px">App privacy</h2>
+    <p>Updated 5 October 2026. This notice covers Solco from version 0.8.0-alpha.1 and api.getsolco.com. Visiting this page and joining the waitlist are covered by the separate <a href="/privacy.html#english">website privacy policy</a>.</p>
+
+    <h3>Controller and contact</h3>
+    <p>PlentyLabs UG (haftungsbeschränkt) &amp; Co. KG, Brunnenstraße 169, 10119 Berlin, Germany. Email: <a href="mailto:hello@plenty.is">hello@plenty.is</a>. See the <a href="/impressum.html#english">legal notice</a>. Contact us about privacy, access, correction or deletion requests.</p>
+
+    <h3>Local music preparation</h3>
+    <p>Solco analyses audio on your computer. This does not upload your music files, library database, playlists or analysis results to our service. The assistant and other online features use the data described below.</p>
+    <p>Catalogue and artwork lookups send search information, such as artist, title, catalogue identifiers or an acoustic fingerprint, to the selected service, such as MusicBrainz, AcoustID or Discogs. Update checks and downloads connect to GitHub. Those services receive connection information and have their own privacy policies.</p>
+
+    <h3>Optional daily usage counts</h3>
+    <p>Official releases can send a daily ping to api.getsolco.com, starting no earlier than 60 seconds after launch. It contains a persistent random installation ID, Solco version and operating system. The server assigns the UTC date and counts an installation only once each day. No music, file paths or library contents are included.</p>
+    <p><b>Share usage counts</b> in <b>Settings › About</b> starts enabled. Turn it off to stop future pings. Local development and QA builds do not send automatic pings. The pseudonymous ID links activity from the same installation across different days.</p>
+    <p>Rows outside the current 30-day window are removed daily while the service is running. Daily totals by version and platform, without installation IDs, remain stored. Turning the setting off does not delete earlier records or disable error reporting.</p>
+
+    <h3>Access credentials and invites</h3>
+    <p>The app stores a random installation ID and access token in its local application data folder, outside library backups. The server keeps the ID, a SHA-256 hash of the token, creation time and, where applicable, revocation and assistant-access expiry. It does not store the raw token.</p>
+    <p>Solco-funded assistant access requires an invite. The server keeps a hash of the invite code, its creation, expiry and redemption times, the permitted access period and the linked installation. The app clears the entered code after submission. No email address or automatic import of waitlist details is needed.</p>
+    <p>Installation and invite records currently have no automatic deletion period. They support access control and prevent revoked or redeemed credentials being reused. Contact us to review or request deletion of these records; we need to establish that the installation belongs to you.</p>
+
+    <h3>Playlist assistant</h3>
+    <p>You must explicitly select <b>Share my requests, conversation and library summary with Solco and OpenRouter</b> before sending to Solco's assistant service. You can withdraw sharing for future requests.</p>
+    <p>A request includes what you type, up to eight previous conversation turns and a bounded summary: track count, genre and learned-style labels and their counts, and how many tracks have tempo or style analysis. Audio, paths, individual track titles and comments are not added automatically. Anything you type is sent, including private details you choose to include.</p>
+    <p>Our service forwards this content and the assistant instructions to OpenRouter and a provider serving Gemma 4. It does not forward installation or request IDs to the model provider. Our Solco service processes requests and replies in memory and does not store conversation text, responses or library summaries. The app can retain generation context locally with a created Smart Playlist.</p>
+    <p>For cost control and duplicate-charge prevention, we keep the installation and request IDs, request state, reserved and charged cost, input/output token counts, model, the assistant-instructions version hash and timestamps. These metadata records currently have no automatic deletion period; they are not stored copies of the conversation.</p>
+    <p>Routing uses OpenRouter's <code>data_collection: deny</code> setting. This is not a promise of zero retention at every provider. OpenRouter retains operational request metadata, and model providers have their own operating and retention rules. Processing may take place outside the EU. See <a href="https://openrouter.ai/privacy">OpenRouter's privacy policy</a> and its <a href="https://openrouter.ai/docs/guides/privacy/provider-logging">provider policies</a>.</p>
+    <p>If you configure your own model provider or API key, requests go directly to your chosen service, under its policies and settings. Solco keeps your own provider key between sessions only when you expressly choose that option.</p>
+
+    <h3>Hosting and connection information</h3>
+    <p>api.getsolco.com runs at Hetzner in Nuremberg, Germany, behind a Cloudflare Tunnel. Cloudflare handles your connection, including your IP address, and terminates HTTPS to forward traffic. It may process additional connection data for operation and protection. See <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>.</p>
+    <p>Our API does not persist IP addresses, access logs or conversation content. A cryptographically derived IP value is held temporarily in memory for a one-minute registration rate-limit window. It is not stored persistently. This description of our API does not promise that Cloudflare, OpenRouter or other providers keep no logs.</p>
+
+    <h3>Error reports and feedback</h3>
+    <p>Official Solco releases automatically send error and crash reports to our Sentry project in its EU region. Reports contain errors, recent warnings, stack traces and app, operating-system, graphics and analysis-backend details. They can include track names and parts of file paths; your home-folder name is replaced. User, server-name and request fields are removed from events.</p>
+    <p>A native crash can send a small memory dump. Home-folder names are masked; Linux environment and command-line data are removed. Remaining stack memory can contain values from the running process. Music files, the library database, preferences and complete log files are not uploaded as attachments. Sentry receives connection information as part of delivery.</p>
+    <p>Official-release error reporting is enabled without an in-app switch. Local builds, including optimized development and QA builds, do not send reports. Retention follows the Sentry project's configuration and provider terms, not the usage-ping retention period. See <a href="https://sentry.io/privacy/">Sentry's privacy policy</a>.</p>
+    <p>Feedback is sent only when you submit a message. Our Chatwoot support system receives its text, an optional email address and app-version, operating-system and architecture details. A diagnostic summary is attached only if you choose it, and you can read it in full before sending. Support conversations remain until manually deleted. A local copy lets you read replies in the app. Send deletion requests to hello@plenty.is.</p>
+
+    <h3>Your choices and rights</h3>
+    <p>You can turn off usage counts, decline or withdraw assistant sharing and choose not to send feedback. For access, correction, deletion, restriction, portability or objection requests, contact <a href="mailto:hello@plenty.is">hello@plenty.is</a>. API records currently have no automatic self-service deletion control; we review requests manually. Do not email us access tokens or API keys.</p>
+    <p>You can complain to a supervisory authority, including the <a href="https://www.datenschutz-berlin.de">Berlin Commissioner for Data Protection and Freedom of Information</a>. Changes to processing are described on this page.</p>
+  </section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="brand" href="/"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+      <nav aria-label="Rechtliches">
+        <a href="/impressum.html">Impressum</a><a href="/privacy.html">Website privacy</a><a href="/app-privacy/" aria-current="page">App privacy</a><span>© 2026 Plenty</span>
+      </nav>
+    </div>
+    <p class="legal" lang="en">rekordbox, Pioneer DJ, CDJ and XDJ are trademarks of their owners; Solco is not affiliated with them.</p>
+  </div>
+</footer>
+</body>
+</html>
