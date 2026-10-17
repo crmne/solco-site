@@ -31,7 +31,7 @@
 <main id="main" class="legal-page">
   <p class="kicker">Rechtliches · <a href="#english" lang="en" style="color:inherit">English below</a></p>
   <h1>Datenschutz<br>in der App</h1>
-  <p>Stand: 5. Oktober 2026. Diese Hinweise betreffen die Solco-App ab Version 0.8.0-alpha.1 und den Dienst api.getsolco.com. Für den Besuch dieser Seite und die Warteliste gilt die <a href="/privacy.html">Datenschutzerklärung der Website</a>.</p>
+  <p>Stand: 17. Oktober 2026. Diese Hinweise betreffen die Solco-App ab Version 0.8.0-alpha.1 und den Dienst api.getsolco.com. Für den Besuch dieser Seite und die Warteliste gilt die <a href="/privacy.html">Datenschutzerklärung der Website</a>.</p>
 
   <h2>1. Verantwortlicher und Kontakt</h2>
   <address>PlentyLabs UG (haftungsbeschränkt) &amp; Co. KG<br>Brunnenstraße 169, 10119 Berlin, Deutschland<br><a href="mailto:hello@plenty.is">hello@plenty.is</a></address>
@@ -62,6 +62,7 @@
   <h2>6. Hosting und Verbindungsdaten</h2>
   <p>api.getsolco.com läuft bei Hetzner in Nürnberg, Deutschland, und ist über einen Cloudflare-Tunnel erreichbar. Cloudflare verarbeitet die Verbindung einschließlich Ihrer IP-Adresse und entschlüsselt HTTPS-Verkehr zur Weiterleitung. Für Schutz und Betrieb können dort weitere Verbindungsdaten verarbeitet werden. Siehe <a href="https://www.cloudflare.com/privacypolicy/">Cloudflares Datenschutzerklärung</a>.</p>
   <p>Unsere API speichert keine IP-Adressen oder Zugriffsprotokolle und protokolliert keine Gesprächsinhalte. Zur Begrenzung vieler Registrierungen in kurzer Zeit wird vorübergehend ein kryptographisch abgeleiteter Wert der IP-Adresse im Arbeitsspeicher verwendet, in einem Zeitfenster von einer Minute. Dieser Wert wird nicht dauerhaft gespeichert. Diese Aussage über unsere API ist keine Zusicherung über die Protokollierung bei Cloudflare, OpenRouter oder anderen Anbietern.</p>
+  <p>Schlägt eine Anfrage an unsere API unerwartet fehl, sendet der Server einen Fehlerbericht an unser eigenes Fehlerprotokoll (Bugsink) auf demselben Server in Nürnberg. Er enthält die Fehlerart, die betroffene Stelle im Programmcode, die Serverversion und, falls bekannt, die interne Nummer der Installation. Anfrageinhalte, Antworten, Bibliotheksangaben, Zugangstoken und IP-Adressen sind nicht enthalten, und Fehlermeldungen von Modellanbietern werden nicht übernommen. Gespeichert bleiben höchstens die letzten 10.000 Berichte; sie sind in den verschlüsselten Serversicherungen enthalten.</p>
   <p>Von der API-Datenbank bewahren wir sieben tägliche Sicherungskopien auf dem Server auf. Verschlüsselte Sicherungen auf einem getrennten, von uns kontrollierten System folgen der bestehenden Serverrotation: sieben letzte, sieben tägliche, vier wöchentliche, sechs monatliche und zwei jährliche Sicherungsstände. Bereits aus der laufenden Datenbank gelöschte Angaben, einschließlich Nutzungsmeldungen, können dadurch noch etwa zwei Jahre in Sicherungen enthalten sein. Werden keine neuen Sicherungen erstellt, können die letzten Kopien länger erhalten bleiben. Sicherungen enthalten die beschriebenen gespeicherten Metadaten, keine Gesprächstexte oder Musikdateien.</p>
 
   <h2>7. Fehlerberichte und Feedback</h2>
@@ -78,7 +79,7 @@
   <section id="english" lang="en">
     <p class="kicker" style="margin-top:48px">In English</p>
     <h2 style="margin-top:14px">App privacy</h2>
-    <p>Updated 5 October 2026. This notice covers Solco from version 0.8.0-alpha.1 and api.getsolco.com. Visiting this page and joining the waitlist are covered by the separate <a href="/privacy.html#english">website privacy policy</a>.</p>
+    <p>Updated 17 October 2026. This notice covers Solco from version 0.8.0-alpha.1 and api.getsolco.com. Visiting this page and joining the waitlist are covered by the separate <a href="/privacy.html#english">website privacy policy</a>.</p>
 
     <h3>Controller and contact</h3>
     <p>PlentyLabs UG (haftungsbeschränkt) &amp; Co. KG, Brunnenstraße 169, 10119 Berlin, Germany. Email: <a href="mailto:hello@plenty.is">hello@plenty.is</a>. See the <a href="/impressum.html#english">legal notice</a>. Contact us about privacy, access, correction or deletion requests.</p>
@@ -108,6 +109,7 @@
     <h3>Hosting and connection information</h3>
     <p>api.getsolco.com runs at Hetzner in Nuremberg, Germany, behind a Cloudflare Tunnel. Cloudflare handles your connection, including your IP address, and terminates HTTPS to forward traffic. It may process additional connection data for operation and protection. See <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>.</p>
     <p>Our API does not persist IP addresses, access logs or conversation content. A cryptographically derived IP value is held temporarily in memory for a one-minute registration rate-limit window. It is not stored persistently. This description of our API does not promise that Cloudflare, OpenRouter or other providers keep no logs.</p>
+    <p>When a request to our API fails unexpectedly, the server sends an error report to our own error tracker (Bugsink) on the same server in Nuremberg. It contains the type of error, where in our code it happened, the server version and, where known, the installation's internal number. It contains no request content, replies, library details, access tokens or IP addresses, and model providers' error messages are left out. At most the latest 10,000 reports are kept, and they are included in the encrypted server backups.</p>
     <p>We keep seven daily copies of the API database on the server. Encrypted backups on a separate system under our control follow the existing server rotation: seven latest, seven daily, four weekly, six monthly and two yearly snapshots. Records already removed from the live database, including usage pings, can therefore remain in backups for about two years. If new backups stop, the latest copies can be retained longer. Backups contain the stored metadata described here, not conversation text or music files.</p>
 
     <h3>Error reports and feedback</h3>
