@@ -67,6 +67,8 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .mark { color: var(--violet); }
 .topbar nav { display: flex; gap: 24px; margin-left: auto; font-size: 14.5px; color: var(--ink-2); }
 .topbar nav a:hover { color: var(--ink); }
+.topbar-link { font-size: 14.5px; color: var(--ink-2); white-space: nowrap; }
+.topbar-link:hover { color: var(--ink); }
 .btn-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 24px; border-radius: 999px; background: var(--violet); color: var(--violet-ink); font-weight: 600; font-size: 16px; border: 0; cursor: pointer; white-space: nowrap;
   box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 10px 30px -10px color-mix(in srgb, var(--violet) 70%, transparent); transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
 .btn-cta:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(255,255,255,.2) inset, 0 14px 40px -10px var(--violet); }
@@ -165,6 +167,7 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .faq summary:hover { color: var(--violet); }
 .faq summary:focus-visible { outline: 2px solid var(--violet); outline-offset: 4px; border-radius: 6px; }
 .faq details p { padding: 0 2px 24px; max-width: 42em; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.faq-more { display: block; width: fit-content; margin-top: 10px; font-size: 15px; color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
 
 /* the product frame */
 .hero-stage { position: relative; max-width: 1280px; margin: 72px auto 0; }
@@ -377,6 +380,8 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
   .facts.four { grid-template-columns: 1fr 1fr; }
   .topbar nav { display: none; }
   .topbar .btn-cta.small { margin-left: auto; }
+  .topbar nav ~ .topbar-link { margin-left: auto; }
+  .topbar .topbar-link + .btn-cta.small { margin-left: 0; }
 }
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }

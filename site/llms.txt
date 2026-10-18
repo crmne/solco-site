@@ -1,0 +1,32 @@
+# Solco
+
+> Solco is a DJ library app in private alpha. It grids, keys, sorts and tags every track you add, on your own computer, then writes the rekordbox-format USB drive Pioneer CDJ and XDJ players read, with no rekordbox needed. It runs on macOS on Apple Silicon, Windows and Linux.
+
+Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The alpha is free, and DJs are invited in small groups from the waitlist at getsolco.com.
+
+## Site
+
+- [Solco](https://getsolco.com/): What Solco does, the questions DJs ask first, and the waitlist.
+- [App privacy](https://getsolco.com/app-privacy/): The privacy notice for the Solco app, api.getsolco.com and the help center, in German and English.
+
+## Help center
+
+Guides to every step, at https://support.getsolco.com. The articles are in English.
+
+- [Getting started with Solco](https://support.getsolco.com/hc/solco/articles/solco-getting-started): Add your music, let Solco prepare every track, build playlists and put them on a USB drive your CDJs and XDJs read.
+- [Installing Solco on macOS, Windows and Linux](https://support.getsolco.com/hc/solco/articles/solco-installing-solco): Which computers Solco runs on, which download to choose, and how to install it on a Mac, a Windows PC or Linux.
+- [The private alpha and its expiry date](https://support.getsolco.com/hc/solco/articles/solco-the-private-alpha): What the private alpha is, why each build runs for 30 days, and what still works after a build expires.
+- [Contacting the Solco team](https://support.getsolco.com/hc/solco/articles/solco-contacting-the-solco-team): Send a message from inside Solco, attach a diagnostic summary you can read first, and get replies in the app.
+- [Supported players, computers and apps](https://support.getsolco.com/hc/solco/articles/solco-supported-players-computers-and-apps): The players, computers, operating systems and DJ apps Solco works with, what has been tested, and the known limitations.
+- [Importing from rekordbox, Traktor and Apple Music](https://support.getsolco.com/hc/solco/articles/solco-importing-from-other-apps): Bring your playlists, cues, loops, ratings and colours into Solco without changing your files or the other app's library.
+- [Exporting to a CDJ or XDJ USB drive](https://support.getsolco.com/hc/solco/articles/solco-exporting-to-a-cdj-usb): Put your playlists on a USB drive Pioneer players read, set what the players show, continue a rekordbox drive, and eject safely.
+- [Exporting playlists for Traktor and other apps](https://support.getsolco.com/hc/solco/articles/solco-traktor-and-m3u8-export): Write your playlists as a Traktor collection with cues, loops and grids, or as M3U8 files for Serato, Engine DJ, rekordbox and others.
+- [Updating Solco](https://support.getsolco.com/hc/solco/articles/solco-updating-solco): How Solco finds and installs new alphas, what it sends to check, and how to update by hand.
+- [Privacy, error reports and diagnostics](https://support.getsolco.com/hc/solco/articles/solco-privacy-and-diagnostics): What Solco sends, to whom and when, what stays on your computer, and which of it you can turn off.
+- [Troubleshooting USB drives and exports](https://support.getsolco.com/hc/solco/articles/solco-troubleshooting-usb-exports): What to do when Solco doesn't see a USB drive, rekordbox has it open, an export stops, or you want to check a drive before a gig.
+- [Backing up and restoring your Solco library](https://support.getsolco.com/hc/solco/articles/solco-backing-up-your-library): Save a backup of your playlists and preparation, what Solco backs up by itself, and how to go back to a backup.
+
+## Optional
+
+- [Website privacy policy](https://getsolco.com/privacy.html): How getsolco.com and the waitlist handle personal data, in German and English.
+- [Impressum](https://getsolco.com/impressum.html): The legal notice for getsolco.com, in German and English.
