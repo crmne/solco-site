@@ -7,9 +7,9 @@ Solco imports playlists, cues, loops, ratings and colours from rekordbox, Trakto
 ## Site
 
 - [Solco](https://getsolco.com/): What Solco does, the questions DJs ask first, and the waitlist.
-- [App privacy](https://getsolco.com/app-privacy/): The privacy notice for the Solco app, api.getsolco.com and the help center, in German and English.
+- [App privacy](https://getsolco.com/app-privacy/): The privacy notice for the Solco app, api.getsolco.com and the help centre, in German and English.
 
-## Help center
+## Help centre
 
 Guides to every step, at https://support.getsolco.com. The articles are in English.
 
