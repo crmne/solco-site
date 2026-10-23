@@ -2,7 +2,7 @@
 
 > Solco is a DJ library app in private alpha. It grids, keys, sorts and tags every track you add, on your own computer, then writes the rekordbox-format USB drive Pioneer CDJ and XDJ players read, with no rekordbox needed. It runs on macOS on Apple Silicon, Windows and Linux.
 
-Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The alpha is free, and DJs are invited in small groups from the waitlist at getsolco.com.
+Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music, and exports Traktor collections and M3U8 playlists as well as USB drives. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The alpha is free, and DJs are invited in small groups from the waitlist at getsolco.com.
 
 ## Site
 
