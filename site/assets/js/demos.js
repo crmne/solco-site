@@ -52,7 +52,7 @@
         ? `<div class="nav" style="height:26px">${I(x ? 'chevron-down' : 'chevron-right', 's12 muted')}${I('folder', 's14')}<span class="lbl" style="color:var(--text-1)">${n}</span><span class="cnt">${c}</span></div>`
         : `<div class="nav ${y ? 'sel' : ''}" style="height:26px;${x ? 'padding-left:32px' : ''}">${I('list-sparkles', 's14')}<span class="lbl">${n}</span><span class="cnt">${c}</span></div>`).join('')}
       <div class="side-foot"><div class="activity"><span class="spin" data-k="spin"></span><span style="flex:1" data-k="act">${o.act || 'Working'}</span></div>
-        <div class="activity">${I('usb-drive', 's14')}<span style="flex:1"><b style="font-weight:600;color:var(--text-1)">FRIDAY</b> · 40.7 GB free</span>${I('eject', 's14 muted')}</div></div>
+        <div class="activity">${I('usb-drive', 's14')}<span style="flex:1"><b style="font-weight:600;color:var(--text-1)">FRIDAY</b> · 42.2 GB free</span>${I('eject', 's14 muted')}</div></div>
     </aside>`;
   }
   // The library table as Solco's columns menu shows it on the help centre's search page: the title with its artist
@@ -451,7 +451,9 @@
     const T = [[.4, 1.25, 1.35], [1.75, 2.2, 2.3], [2.7, 3.35, 3.45]]; // type start, type end, chip
     const PW = 420;
     const rowH = t => `<div class="row"><div class="c c-title">${esc(t.t)}</div>${o.cmp ? '' : `<div class="c c-artist" style="width:170px">${esc(t.a)}</div>`}<div class="c c-bpm tnum">${bpmf(t.bpm)}</div><div class="c c-key">${keyHtml(t.k)}</div><div class="c c-energy"><span class="meter"><span class="bar"><i style="width:${t.e}%"></i></span><span class="tnum">${t.e}</span></span></div><div class="c c-feel">${feelHtml(t.f)}</div></div>`;
-    const plan = S.chat;
+    // The plan the assistant proposes: four parts in playing order, each sized for 45 minutes (Solco ADR 0246).
+    const PLAN = [{ n: 'DN 1 · Warm & Funky', b: [100, 118], e: [55, 60], c: 14 }, { n: 'DN 2 · Groove In', b: [112, 122], e: [57, 64], c: 15 },
+      { n: 'DN 3 · The Build', b: [118, 126], e: [64, 70], c: 16 }, { n: 'DN 4 · Peak Disco', b: [122, 128], e: [71, 90], c: 14 }];
     root.innerHTML = `<div style="display:flex;height:100%"><section style="flex:1;min-width:0;display:flex;flex-direction:column">
       <div class="lib-head" style="height:60px"><span class="ttl">New playlist</span><span class="sub tnum" data-k="count">9,440 tracks</span></div>
       <div style="padding:0 16px 12px 20px"><div class="search focus" data-k="search" style="height:40px">${I('search', 's14')}<span data-k="chips" style="display:flex;gap:6px"></span><span class="typing" data-k="typing"></span><span class="caret" data-k="caret"></span></div></div>
@@ -460,21 +462,27 @@
       <div data-k="save" style="display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--line-1)"><span class="muted" style="font-size:12.5px;flex:1">A smart playlist keeps itself up to date as your library grows.</span><span class="btn">${I('list-sparkles', 's14')}Save as smart playlist</span></div>
       </section>
       ${o.cmp ? '' : `<aside class="panel" style="width:${PW}px;flex:none"><div class="phead"><span class="accent">${I('sparkle', 's18')}</span><span class="ttl">Assistant</span><span class="iconbtn">${I('x')}</span></div>
-        <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding:14px 18px 0;justify-content:flex-end">
+        <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;padding:10px 16px 0;justify-content:flex-end">
           <div class="msg-u" data-k="u1">I'm opening a disco night, 22:00 to 01:00. Start warm and funky, build to peak disco.</div>
-          <div class="msg-a" data-k="a1">Four 45‑minute steps. Energy climbs from the mid‑50s into the 70s, BPM from 100 to 128.</div>
-          <div class="card" data-k="card" style="background:var(--bg-1);overflow:hidden"><div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line-1)">${I('folder', 's14')}<b style="font-weight:600">Disco Night · 22–01</b><span class="muted" style="font-size:12px">created</span><span style="flex:1"></span><span class="muted" style="font-size:12px">Undo</span></div>
-            <div style="display:flex;align-items:flex-end;gap:10px;height:70px;padding:8px 14px 6px">${plan.map((p, i) => `<div style="flex:1;display:flex;flex-direction:column;gap:5px"><span class="muted tnum" style="font-size:11px">${p.e[0]}–${p.e[1]}</span><span data-bar style="height:5px;border-radius:3px;background:${charColor(p.e[1])};transform-origin:left;display:block;margin-bottom:${i * 7}px"></span><span class="muted tnum" style="font-size:11px">${p.s}</span></div>`).join('')}</div>
-            ${plan.map(p => `<div data-pl style="display:flex;align-items:center;gap:10px;height:30px;padding:0 12px;border-top:1px solid var(--line-1)"><span class="muted tnum" style="width:40px">${p.s}</span><span style="flex:1">${esc(p.n.replace(/^DN \d · /, ''))}</span><span class="muted tnum" style="font-size:12px">${p.c} tracks</span></div>`).join('')}</div>
+          <div class="msg-a" data-k="a1">Four parts, ${PLAN.reduce((n, p) => n + p.c, 0)} tracks for three hours, climbing from 100 to 128 BPM.</div>
+          <div class="card" data-k="card" style="background:var(--bg-1);overflow:hidden">
+            <div style="display:flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-bottom:1px solid var(--line-1)"><span class="muted" style="font-size:11.5px">Folder</span>${I('folder', 's14')}<b style="font-weight:600">Disco Night · 22–01</b></div>
+            ${PLAN.map(p => `<div data-pl style="display:flex;align-items:center;gap:10px;height:35px;padding:0 12px;border-bottom:1px solid var(--line-1)"><span class="cbx on">${I('check')}</span><span style="flex:1;min-width:0;display:flex;flex-direction:column;line-height:16px"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(p.n)}</span><span class="muted tnum" style="font-size:11.5px">Part · ${p.b[0]} to ${p.b[1]} BPM · energy ${p.e[0]} to ${p.e[1]}</span></span><span class="muted tnum" style="font-size:12px">${p.c} tracks</span></div>`).join('')}
+            <div style="padding:8px 12px"><div class="btn primary" data-k="create" style="width:100%;height:32px;justify-content:center">${I('folder-plus', 's14')}<span data-k="createl">Create folder · 4 playlists</span></div>
+              <div class="muted" data-k="created" style="font-size:12px;line-height:16px;display:none">Created the folder Disco Night · 22–01 under Playlists. Nothing else was changed.</div></div></div>
         </div>
-        <div style="margin:12px 16px 14px;border:1px solid var(--line-3);border-radius:12px;background:var(--bg-1);padding:9px 10px 9px 14px;display:flex;align-items:center"><span class="muted" style="flex:1">Describe a gig, or refine these playlists…</span><span class="play" style="width:28px;height:28px">${I('arrow-right', 's14')}</span></div></aside>`}</div>`;
+        <div style="margin:10px 16px 0;border:1px solid var(--line-3);border-radius:12px;background:var(--bg-1);padding:8px 10px 8px 14px;display:flex;align-items:center"><span class="muted" style="flex:1">Describe the gig, or change the plan…</span><span class="play" style="width:28px;height:28px">${I('arrow-right', 's14')}</span></div>
+        <div class="muted tnum" style="margin:6px 18px 0;font-size:11.5px" data-k="shared">Solco · 0 of 9,440 tracks shared</div>
+        <div class="muted" style="margin:2px 18px 12px;font-size:11.5px;line-height:15px">Solco receives your request, the conversation and your tracks' titles and characteristics, never audio or file paths.</div></aside>`}</div>`;
     const chipsEl = $(root, '[data-k=chips]'), typing = $(root, '[data-k=typing]'), caret = $(root, '[data-k=caret]'), count = $(root, '[data-k=count]');
     chipsEl.innerHTML = typed.map(([, k, v]) => `<span class="chip" data-chip><span>${k}</span><b>${v}</b></span>`).join('');
     const chips = $$(chipsEl, '[data-chip]'), stageEls = $$(root, '[data-stage]');
-    const u1 = $(root, '[data-k=u1]'), a1 = $(root, '[data-k=a1]'), card = $(root, '[data-k=card]'), bars = $$(root, '[data-bar]'), pls = $$(root, '[data-pl]');
+    const u1 = $(root, '[data-k=u1]'), a1 = $(root, '[data-k=a1]'), card = $(root, '[data-k=card]'), pls = $$(root, '[data-pl]');
+    const create = $(root, '[data-k=create]'), created = $(root, '[data-k=created]'), shared = $(root, '[data-k=shared]');
+    const cur = o.cmp ? null : cursorLayer(root);
     const TA = 4.0;
     return {
-      dur: o.cmp ? 4.4 : TA + 3.6, still: o.cmp ? 4.3 : TA + 3.5,
+      dur: o.cmp ? 4.4 : TA + 4.0, still: o.cmp ? 4.3 : TA + 3.9,
       render(t) {
         let text = '', stage = 0;
         typed.forEach(([s], i) => { const [a, b, c] = T[i];
@@ -489,8 +497,15 @@
         if (u1) { const k1 = E.out(seg(t, TA, TA + .4)); setOp(u1, k1); setT(u1, `translateY(${(1 - k1) * 10}px)`);
           const k2 = E.out(seg(t, TA + .7, TA + 1.1)); setOp(a1, k2); setT(a1, `translateY(${(1 - k2) * 8}px)`);
           const k3 = E.out5(seg(t, TA + 1.3, TA + 1.8)); setOp(card, k3); setT(card, `translateY(${(1 - k3) * 12}px)`);
-          bars.forEach((b, i) => b.style.transform = `scaleX(${E.out(seg(t, TA + 1.6 + i * .15, TA + 2.1 + i * .15))})`);
-          pls.forEach((p, i) => setOp(p, E.out(seg(t, TA + 1.9 + i * .12, TA + 2.3 + i * .12)))); }
+          pls.forEach((p, i) => setOp(p, E.out(seg(t, TA + 1.5 + i * .12, TA + 1.9 + i * .12))));
+          // the conversation has shared the rows of the tracks the assistant looked up
+          txt(shared, `Solco · ${t < TA + .4 ? 0 : Math.round(tween(t, TA + .4, TA + 1.3, 0, 112, E.inOut))} of 9,440 tracks shared`);
+          // the DJ reviews the plan, then presses Create folder
+          const TC = TA + 2.7;
+          const pr = cur.render(t, Object.assign([{ t: TA + 1.9, x: W - PW / 2, y: 120 }, { t: TC - .15, el: create, dx: -40, dy: 2 }], { hide: TC + .8 }), [{ t: TC }]);
+          pressStyle(create, pr);
+          const done = t > TC + .25; create.style.display = done ? 'none' : ''; created.style.display = done ? '' : 'none';
+          setOp(created, E.out(seg(t, TC + .25, TC + .6))); }
       }
     };
   }
@@ -498,8 +513,8 @@
   /* ======================= 7 · EXPORT ======================= */
   function exportDemo(root, o = {}) {
     const W = o.cmp ? 560 : 1100, H = 560; root.style.width = W + 'px'; root.style.height = H + 'px';
-    const pls = [['Disco Night · 22–01', 4, 1], ['DN 1 · Warm & Funky', 29, 2], ['DN 2 · Groove In', 68, 2], ['DN 3 · The Build', 128, 2], ['DN 4 · Peak Disco', 104, 2], ['Floppy Disco', 21, 0], ['Deep House', 988, 0], ['Warm-up', 830, 0]];
-    const GB = 64.0, other = 4.8, lib = 16.4, add = 2.1;
+    const pls = [['Disco Night · 22–01', 4, 1], ['DN 1 · Warm & Funky', 14, 2], ['DN 2 · Groove In', 15, 2], ['DN 3 · The Build', 16, 2], ['DN 4 · Peak Disco', 14, 2], ['Floppy Disco', 21, 0], ['Deep House', 988, 0], ['Warm-up', 830, 0]];
+    const GB = 64.0, other = 4.8, lib = 16.4, add = 0.6;
     root.innerHTML = `<div style="display:flex;height:100%;gap:0">
       <section style="flex:1;min-width:0;padding:0 0 0 0;display:flex;flex-direction:column">
         <div class="vhead"><div class="ttl">Export</div>${o.cmp ? '' : '<div class="sub">Prepare a USB drive for the club</div>'}</div>
@@ -514,14 +529,14 @@
       ${o.cmp ? '' : `<aside style="width:430px;flex:none;padding:20px 20px 20px 0;display:flex;flex-direction:column;gap:12px">
         <div class="card" style="padding:16px 18px"><div style="display:flex;align-items:center;gap:10px">${I('usb-drive', 's18')}<div style="flex:1"><div style="font-weight:600">FRIDAY</div><div class="muted" style="font-size:12px">USB drive · 64.0 GB · FAT32</div></div><span class="btn sm">${I('eject', 's12')}Eject</span></div>
           <div class="prog" style="margin-top:14px;height:8px;gap:2px;background:var(--bg-4)"><i style="width:${other / GB * 100}%;background:#5b5f67"></i><i style="width:${lib / GB * 100}%;background:#9ea1a8"></i><i data-k="addbar" style="width:0;background:var(--accent)"></i></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:10px;font-size:12px" class="muted"><span>■ Other files 4.8 GB</span><span>■ Already on the drive 16.4 GB</span><span class="accent" data-k="addlab">■ This export 2.1 GB</span><span data-k="free">Free after 40.7 GB</span></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:10px;font-size:12px" class="muted"><span>■ Other files 4.8 GB</span><span>■ Already on the drive 16.4 GB</span><span class="accent" data-k="addlab">■ This export 0.6 GB</span><span data-k="free">Free after 42.2 GB</span></div></div>
         <div class="card" style="padding:16px 18px;position:relative;overflow:hidden" data-k="ready">
           <div style="display:flex;align-items:baseline;gap:10px"><span class="ttl-f" style="font-size:23px" data-k="rt">Ready</span><span class="muted" data-k="rs">CDJ and XDJ players</span></div>
           <div class="btn primary lg" data-k="go" style="width:100%;margin-top:14px;height:40px">${I('usb-drive', 's14')}<span data-k="gol">Export 4 playlists to FRIDAY</span></div>
           <div data-k="progwrap" style="margin-top:14px"><div class="prog" style="height:6px"><i data-k="prog" style="width:0;background:var(--accent)"></i></div>
-            <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12.5px"><span data-k="pl">Adding 187 tracks</span><span class="muted tnum" data-k="pc">0 of 187</span></div></div>
+            <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12.5px"><span data-k="pl">Adding 41 tracks</span><span class="muted tnum" data-k="pc">0 of 41</span></div></div>
           <div data-k="fin" style="margin-top:14px;display:flex;flex-direction:column;gap:7px;font-size:12.5px">
-            <div style="display:flex;gap:8px;align-items:center"><span class="ok">${I('circle-check', 's14')}</span>187 added, 142 already on the drive</div>
+            <div style="display:flex;gap:8px;align-items:center"><span class="ok">${I('circle-check', 's14')}</span>41 added, 18 already on the drive</div>
             <div style="display:flex;gap:8px;align-items:center"><span class="ok">${I('circle-check', 's14')}</span>Nothing removed. Your played sets are kept.</div>
             <div style="display:flex;gap:8px;align-items:center"><span class="ok">${I('circle-check', 's14')}</span>Ejected safely. Take it to the club.</div></div>
         </div></aside>`}</div>`;
@@ -544,7 +559,7 @@
         progwrap.style.display = t >= TG + .15 && !(t > TG + 3.1) ? '' : 'none';
         fin.style.display = t > TG + 3.1 ? '' : 'none';
         prog.style.width = E.inOut(fill) * 100 + '%';
-        const n = Math.round(E.inOut(fill) * 187); txt(pc, `${n} of 187`);
+        const n = Math.round(E.inOut(fill) * 41); txt(pc, `${n} of 41`);
         txt(pl, fill < .85 ? `Adding ${['DN 1 · Warm & Funky', 'DN 2 · Groove In', 'DN 3 · The Build', 'DN 4 · Peak Disco'][Math.min(3, Math.floor(fill * 4))]}` : 'Writing playlists, cues and grids');
         $$(fin, ':scope > div').forEach((r, i) => { const k = E.out(seg(t, TG + 3.1 + i * .22, TG + 3.5 + i * .22)); setOp(r, k); setT(r, `translateY(${(1 - k) * 6}px)`); });
         txt(rt, done ? 'Done' : running ? 'Exporting' : 'Ready'); txt(rs, done ? 'FRIDAY is ready for the club' : 'CDJ and XDJ players');
