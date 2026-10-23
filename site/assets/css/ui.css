@@ -118,6 +118,12 @@
 .ui .c { padding:0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:none; }
 .ui .c.r { text-align:right; }
 .ui .c-title { flex:1 1 0; min-width:0; }
+.ui .row.two { height:40px; }
+.ui .row.two .c-title { display:flex; flex-direction:column; justify-content:center; gap:1px; }
+.ui .row.two .c-title .tl { font-weight:550; overflow:hidden; text-overflow:ellipsis; }
+.ui .row.two .c-title .ar { color:var(--text-2); font-size:12px; overflow:hidden; text-overflow:ellipsis; }
+.ui .row.two .c-num { width:60px; }
+.ui .ghead .c-num { width:60px; }
 .ui .c-artist { width:180px; color:var(--text-2); }
 .ui .c-style { width:112px; color:var(--text-2); }
 .ui .c-bpm { width:58px; text-align:right; }

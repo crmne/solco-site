@@ -37,7 +37,7 @@
   /* ======================= HERO: the whole studio ======================= */
   function sidebar(o = {}) {
     const st = o.steps || {};
-    const steps = [['Add music', '3 folders', 'done'], ['Analysis', '9,440', 'done'], ['Duplicates', '', 'done'], ['Tags', '779', 'next'], ['Beatgrids', '16', 'todo'], ['Playlists', '66', 'done'], ['Export', 'FRIDAY', 'todo']]
+    const steps = [['Add music', '3 folders', 'done'], ['Analysis', '9,440', 'done'], ['Tags', '779', 'next'], ['Duplicates', '', 'done'], ['Beatgrids', '16', 'todo'], ['Playlists', '66', 'done'], ['Export', 'FRIDAY', 'todo']]
       .map(([l, c, s], i) => { const x = st[i] || {}; return { l, c: x.c ?? c, s: x.s ?? s, sel: x.sel }; });
     const tree = o.tree || [['folder', 'Genres', 4], ['folder', 'Floppy Disco', 21, true], ['pl', 'FD 01 · Doors Open', 143, 1], ['pl', 'FD 02 · Early Groove', 122, 1, true], ['pl', 'FD 03 · Floor Building', 98, 1], ['pl', 'FD 04 · Peak Disco', 76, 1], ['folder', 'Down the Rabbit Hole', 19], ['folder', 'Melodic House & Techno', 8], ['pl', 'Deep House', 988], ['pl', 'House', '2,296'], ['pl', 'Ambient', 623], ['pl', 'Techno', '1,551'], ['pl', 'Disco', 348], ['pl', 'Minimal', 324], ['pl', 'Warm-up', 830]];
     return `<aside class="side">
@@ -52,11 +52,14 @@
         ? `<div class="nav" style="height:26px">${I(x ? 'chevron-down' : 'chevron-right', 's12 muted')}${I('folder', 's14')}<span class="lbl" style="color:var(--text-1)">${n}</span><span class="cnt">${c}</span></div>`
         : `<div class="nav ${y ? 'sel' : ''}" style="height:26px;${x ? 'padding-left:32px' : ''}">${I('list-sparkles', 's14')}<span class="lbl">${n}</span><span class="cnt">${c}</span></div>`).join('')}
       <div class="side-foot"><div class="activity"><span class="spin" data-k="spin"></span><span style="flex:1" data-k="act">${o.act || 'Working'}</span></div>
-        <div class="activity">${I('usb-drive', 's14')}<span style="flex:1"><b style="font-weight:600;color:var(--text-1)">FRIDAY</b> · 38.37 GiB free</span>${I('eject', 's14 muted')}</div></div>
+        <div class="activity">${I('usb-drive', 's14')}<span style="flex:1"><b style="font-weight:600;color:var(--text-1)">FRIDAY</b> · 40.7 GB free</span>${I('eject', 's14 muted')}</div></div>
     </aside>`;
   }
-  const libRow = (t, o = {}) => `<div class="row ${o.cls || ''}"><div class="c c-title">${esc(t.t)}</div><div class="c c-artist">${esc(t.a)}</div><div class="c c-style">${esc(t.s)}</div><div class="c c-bpm tnum">${bpmf(t.bpm)}</div><div class="c c-key">${keyHtml(t.k)}</div><div class="c c-time tnum">${mmss(t.d)}</div><div class="c c-energy"><span class="meter"><span class="bar"><i style="width:${t.e}%"></i></span><span class="tnum">${t.e}</span></span></div><div class="c c-feel">${feelHtml(t.f)}</div><div class="c c-num tnum">${t.p}</div><div class="c c-num tnum">${t.v}</div></div>`;
-  const libHead = `<div class="ghead"><div class="c c-title">Title</div><div class="c c-artist">Artist</div><div class="c c-style">Style</div><div class="c c-bpm">BPM</div><div class="c c-key">Key</div><div class="c c-time">Time</div><div class="c c-energy">Energy</div><div class="c c-feel">Feel</div><div class="c c-num">Peak</div><div class="c c-num">Vocals</div></div>`;
+  // The library table as Solco's columns menu shows it on the help centre's search page: the title with its artist
+  // under it, then BPM, key, energy, style and the characteristics, each 0 to 100 (ADR 0247, ADR 0250).
+  const NUMS = [['Peak', 'p'], ['Mood', 'm'], ['Sad', 'sd'], ['Dance', 'dn'], ['Party', 'pa'], ['Edge', 'ed'], ['Vocals', 'v']];
+  const libRow = (t, o = {}) => `<div class="row two ${o.cls || ''}"><div class="c c-title"><span class="tl">${esc(t.t)}</span><span class="ar">${esc(t.a)}</span></div><div class="c c-bpm tnum">${bpmf(t.bpm)}</div><div class="c c-key">${keyHtml(t.k)}</div><div class="c c-energy"><span class="meter"><span class="bar"><i style="width:${t.e}%"></i></span><span class="tnum">${t.e}</span></span></div><div class="c c-style">${esc(t.s)}</div>${NUMS.map(([, k]) => `<div class="c c-num tnum" style="color:${charColor(t[k])}">${Math.round(t[k])}</div>`).join('')}</div>`;
+  const libHead = `<div class="ghead"><div class="c c-title">Title</div><div class="c c-bpm">BPM</div><div class="c c-key">Key</div><div class="c c-energy">Energy</div><div class="c c-style">Style</div>${NUMS.map(([n]) => `<div class="c c-num">${n}</div>`).join('')}</div>`;
 
   function deckHtml(d, o = {}) {
     return `<div class="deck">
@@ -79,14 +82,14 @@
   function hero(root) {
     const d = S.deck; const W = 1280, H = 800;
     root.style.width = W + 'px'; root.style.height = H + 'px';
-    const rows = S.lib.slice(0, 22); rows.splice(3, 0, { t: d.title, a: d.artist, s: 'Disco', bpm: d.bpm, k: d.camelot, d: Math.round(d.dur), e: Math.round(d.energy), f: d.feel, p: Math.round(d.peak), v: Math.round(d.vocal), playing: true });
+    const rows = S.lib.slice(0, 22); rows.splice(3, 0, { t: d.title, a: d.artist, s: 'Disco', bpm: d.bpm, k: d.camelot, d: Math.round(d.dur), e: Math.round(d.energy), f: d.feel, p: d.peak, m: d.valence, sd: d.sad, dn: d.dance, pa: d.party, ed: d.edge, v: d.vocal, playing: true });
     root.innerHTML = sidebar() + `<div class="main">${deckHtml(d)}
       <div class="lib-head"><span class="ttl">FD 02 · Early Groove</span><span class="sub">122 tracks · 13 h 21 m</span>
         <div class="search">${I('search', 's14')}<span class="chip">BPM <b>110–122</b></span><span class="chip">Energy <b>60–64</b></span><span class="chip">Dance <b>≥ 80</b></span></div><span class="iconbtn">${I('columns-3')}</span></div>
       ${libHead}<div class="rows">${rows.map((t, i) => libRow(t, { cls: t.playing ? 'playing sel' : '' })).join('')}</div></div>`;
     const ov = $(root, '[data-k=ov]'), zc = $(root, '[data-k=zoom]'), rem = $(root, '[data-k=remain]');
     const smp = zoomSampler(d, 4); const cues = cueTimes(d);
-    const tagsCnt = $(root, '[data-step="3"] .cnt');
+    const tagsCnt = $(root, '[data-step="2"] .cnt');
     const spin = $(root, '[data-k=spin]'), act = $(root, '[data-k=act]'), recentc = $(root, '[data-k=recentc]');
     // new downloads file themselves into the smart playlists they fit
     const FILE = { 'Deep House': 3, 'House': 4, 'Disco': 3, 'Techno': 2, 'FD 02 · Early Groove': 2, 'Warm-up': 1 };
@@ -496,7 +499,7 @@
   function exportDemo(root, o = {}) {
     const W = o.cmp ? 560 : 1100, H = 560; root.style.width = W + 'px'; root.style.height = H + 'px';
     const pls = [['Disco Night · 22–01', 4, 1], ['DN 1 · Warm & Funky', 29, 2], ['DN 2 · Groove In', 68, 2], ['DN 3 · The Build', 128, 2], ['DN 4 · Peak Disco', 104, 2], ['Floppy Disco', 21, 0], ['Deep House', 988, 0], ['Warm-up', 830, 0]];
-    const GB = 59.6, other = 4.8, lib = 16.4, add = 2.1;
+    const GB = 64.0, other = 4.8, lib = 16.4, add = 2.1;
     root.innerHTML = `<div style="display:flex;height:100%;gap:0">
       <section style="flex:1;min-width:0;padding:0 0 0 0;display:flex;flex-direction:column">
         <div class="vhead"><div class="ttl">Export</div>${o.cmp ? '' : '<div class="sub">Prepare a USB drive for the club</div>'}</div>
@@ -509,9 +512,9 @@
           <div class="dim" style="display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:12.5px;line-height:18px">${I('info', 's14 muted')}<span>Export only adds and updates. Nothing on the drive is removed, so tracks you put there from another computer stay.</span></div></div>
       </section>
       ${o.cmp ? '' : `<aside style="width:430px;flex:none;padding:20px 20px 20px 0;display:flex;flex-direction:column;gap:12px">
-        <div class="card" style="padding:16px 18px"><div style="display:flex;align-items:center;gap:10px">${I('usb-drive', 's18')}<div style="flex:1"><div style="font-weight:600">FRIDAY</div><div class="muted" style="font-size:12px">USB drive · 59.60 GiB · FAT32</div></div><span class="btn sm">${I('eject', 's12')}Eject</span></div>
+        <div class="card" style="padding:16px 18px"><div style="display:flex;align-items:center;gap:10px">${I('usb-drive', 's18')}<div style="flex:1"><div style="font-weight:600">FRIDAY</div><div class="muted" style="font-size:12px">USB drive · 64.0 GB · FAT32</div></div><span class="btn sm">${I('eject', 's12')}Eject</span></div>
           <div class="prog" style="margin-top:14px;height:8px;gap:2px;background:var(--bg-4)"><i style="width:${other / GB * 100}%;background:#5b5f67"></i><i style="width:${lib / GB * 100}%;background:#9ea1a8"></i><i data-k="addbar" style="width:0;background:var(--accent)"></i></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:10px;font-size:12px" class="muted"><span>■ Other files 4.8 GB</span><span>■ Already on the drive 16.4 GB</span><span class="accent" data-k="addlab">■ This export 2.1 GB</span><span data-k="free">Free after 38.3 GB</span></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-top:10px;font-size:12px" class="muted"><span>■ Other files 4.8 GB</span><span>■ Already on the drive 16.4 GB</span><span class="accent" data-k="addlab">■ This export 2.1 GB</span><span data-k="free">Free after 40.7 GB</span></div></div>
         <div class="card" style="padding:16px 18px;position:relative;overflow:hidden" data-k="ready">
           <div style="display:flex;align-items:baseline;gap:10px"><span class="ttl-f" style="font-size:23px" data-k="rt">Ready</span><span class="muted" data-k="rs">CDJ and XDJ players</span></div>
           <div class="btn primary lg" data-k="go" style="width:100%;margin-top:14px;height:40px">${I('usb-drive', 's14')}<span data-k="gol">Export 4 playlists to FRIDAY</span></div>
