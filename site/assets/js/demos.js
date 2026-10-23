@@ -82,7 +82,7 @@
     const rows = S.lib.slice(0, 22); rows.splice(3, 0, { t: d.title, a: d.artist, s: 'Disco', bpm: d.bpm, k: d.camelot, d: Math.round(d.dur), e: Math.round(d.energy), f: d.feel, p: Math.round(d.peak), v: Math.round(d.vocal), playing: true });
     root.innerHTML = sidebar() + `<div class="main">${deckHtml(d)}
       <div class="lib-head"><span class="ttl">FD 02 · Early Groove</span><span class="sub">122 tracks · 13 h 21 m</span>
-        <div class="search">${I('search', 's14')}<span class="chip">BPM <b>110–122</b></span><span class="chip">Energy <b>60–64</b></span><span class="chip">Groove <b>≥ 80</b></span></div><span class="iconbtn">${I('columns-3')}</span></div>
+        <div class="search">${I('search', 's14')}<span class="chip">BPM <b>110–122</b></span><span class="chip">Energy <b>60–64</b></span><span class="chip">Dance <b>≥ 80</b></span></div><span class="iconbtn">${I('columns-3')}</span></div>
       ${libHead}<div class="rows">${rows.map((t, i) => libRow(t, { cls: t.playing ? 'playing sel' : '' })).join('')}</div></div>`;
     const ov = $(root, '[data-k=ov]'), zc = $(root, '[data-k=zoom]'), rem = $(root, '[data-k=remain]');
     const smp = zoomSampler(d, 4); const cues = cueTimes(d);

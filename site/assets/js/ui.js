@@ -159,7 +159,7 @@
     }
     return out;
   }
-  const charBars = d => [['Energy', d.energy], ['Mood', d.valence], ['Drive', d.arousal], ['Groove', d.dance], ['Peak', d.peak], ['Vocals', d.vocal]];
+  const charBars = d => [['Energy', d.energy], ['Mood', d.valence], ['Drive', d.arousal], ['Dance', d.dance], ['Peak', d.peak], ['Vocals', d.vocal]];
   const charBox = (d, k = 1) => `<div class="charbox">${charBars(d).map(([n, v]) => `<div class="cb"><span class="k">${n}</span><span class="bar"><i style="width:${v * k}%;background:${charColor(v)}"></i></span><span class="n">${Math.round(v * k)}</span></div>`).join('')}</div>`;
   const CUES = [{ l: 'A', name: 'Intro', bar: 1, c: '#4cc38a' }, { l: 'B', name: 'Bass in', bar: 17, c: '#7ea4ff' }, { l: 'C', name: 'Vocal', bar: 49, c: '#e8c14f' }, { l: 'D', name: 'Break', bar: 89, c: '#e59ad0' }, { l: 'E', name: 'Outro', bar: 169, c: '#4cc38a' }];
   const cueTimes = d => CUES.map(c => ({ ...c, t: d.downbeats[c.bar - 1] })).filter(c => c.t != null);
