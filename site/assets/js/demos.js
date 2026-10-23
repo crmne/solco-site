@@ -371,7 +371,7 @@
           if (key) key.innerHTML = `<span style="color:${window.UI.keyColor(g.camelot)}">${g.camelot}</span><small>${esc(g.key || '')}</small>`;
           if (range) range.innerHTML = g.regime === 'steady' ? `${g.bpm.toFixed(2)}<small>steady</small>` : `${g.wmin.toFixed(1)}–${g.wmax.toFixed(1)}`;
           note.innerHTML = g.regime === 'steady' ? 'One exact tempo for the whole track. Every line on a kick.' : g.label.startsWith('Ambient') ? 'No drums at all. The bars still land where the chords change.' : 'Played by people, so the tempo changes. The grid follows them, bar by bar.';
-          txt(conf, `Solco beat model · confidence ${Math.round(g.confidence * 100)}`);
+          txt(conf, `How sure Solco is · ${Math.round(g.confidence * 100)}%`);
           if (api.onTab) api.onTab(tab);
         }
         const play = g.span - SPAN - 1;
