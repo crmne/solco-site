@@ -221,7 +221,7 @@
     ];
     const $ = k => wl.querySelector(`[data-${k}]`), email = wl.querySelector('#wl-email'), msg = $('msg');
     const say = (text, err) => { msg.innerHTML = text; msg.classList.toggle('err', !!err); };
-    const fallback = 'Write to <a href="mailto:hello@plenty.is?subject=Solco%20waitlist">hello@plenty.is</a> and I will add you.';
+    const fallback = 'Write to <a href="mailto:hello@getsolco.com?subject=Solco%20waitlist">hello@getsolco.com</a> and I will add you.';
     const esc = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
     const renderQs = () => {
       $('qs').innerHTML = questions.map(([q, answers], i) => `<div><label for="wl-q${i}">${esc(q)}</label><select id="wl-q${i}" class="empty"><option value="">Choose one</option>${answers.map(a => `<option value="${esc(a)}">${esc(a)}</option>`).join('')}</select></div>`).join('');
