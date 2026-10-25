@@ -91,7 +91,7 @@
     <div class="wrap">
       <div class="hero-stage reveal-frame">
         <div class="glow" aria-hidden="true"></div>
-        <div class="stage shell" data-demo="hero" role="img" aria-label="Solco's library window. A deck plays Glad To Know You by Chaz Jankel with a blue and orange waveform, its beatgrid and six character bars. In the sidebar, twelve new downloads file themselves into smart playlists: Deep House, House, Disco, Techno."></div>
+        <div class="stage shell" data-demo="hero" role="img" aria-label="Solco's library window. A deck plays Glad To Know You by Chaz Jankel: its blue, orange and cream waveform, its beatgrid with red downbeats, and six readings. The table shows each track's waveform, tempo, key, feel, style and characteristics. In the sidebar, twelve new downloads file themselves into smart playlists: Deep House, House, Disco, Techno."></div>
       </div>
     </div>
   </section>
@@ -129,7 +129,7 @@
           <h2 class="reveal">Drop in tonight's downloads.</h2>
           <p class="lead reveal">Point Solco at your music folders once. New files land in Recently added and Solco starts listening straight away. Copy or move, your call.</p>
         </header>
-        <div class="stage shell reveal-frame" data-demo="addMusic" role="img" aria-label="A dialog: Add 38 tracks to your library, from Downloads, with Copy into Music selected. The tracks then land in Recently added."></div>
+        <div class="stage shell reveal-frame" data-demo="addMusic" role="img" aria-label="A dialog: Add 38 tracks to your library, from Downloads, with Copy into Music selected. The tracks then land in Recently added, waiting for analysis."></div>
         <ul class="imports reveal" aria-label="Bring your library">
           <li><b>rekordbox</b><span>library, playlists and cues</span></li>
           <li><b>Apple Music</b><span>library and playlists</span></li>
@@ -170,7 +170,7 @@
             <li><b>Your call.</b> The genre tag is written only when you say so.</li>
           </ul>
         </div>
-        <div class="stage shell reveal-frame" data-demo="genre" role="img" aria-label="Recently added: Solco reads each track's style from the audio. One Of Those Nights by Tekkla is tagged Deep House and heard as Disco. Empty genre tags are filled with the style heard. Write style to genre is pressed."></div>
+        <div class="stage shell reveal-frame" data-demo="genre" role="img" aria-label="Tags, with eight tracks selected: Solco reads each track's style from the audio. One Of Those Nights by Tekkla is tagged Deep House and heard as Disco. Suggest genre from style proposes the style heard as each track's genre, and Apply writes it."></div>
       </article>
 
       <article class="chapter" id="character" data-step="3">
@@ -179,7 +179,7 @@
           <h2 class="reveal">Local AI figures out the energy, drive and mood.</h2>
           <p class="lead reveal">Trained on how listeners rate music, it scores twelve things about every track from 0 to 100, on your computer: Energy, Drive, Peak, Stability, Mood, Happy, Sad, Calm, Dance, Party, Edge and Vocals. Then search by all of it, together with key, BPM and genre, and find the tracks you forgot you had.</p>
         </header>
-        <div class="stage shell reveal-frame" data-demo="analysis" role="img" aria-label="Recently added: rows move through fingerprint, loudness, key, beatgrid and character. The first track's reading lands: 116.01 BPM, 6B B flat major, minus 15.4 LUFS, and six character bars."></div>
+        <div class="stage shell reveal-frame" data-demo="analysis" role="img" aria-label="Recently added while Solco listens: each track turns from waiting to analysed, and its waveform, BPM, key, feel, energy and drive appear. The sidebar says how many tracks are still being analysed."></div>
         <div class="ticker" aria-hidden="true"><div class="ticker-row" data-ticker></div></div>
         <dl class="facts reveal">
           <div><dt>Key your way</dt><dd>Camelot like 8A, or classical like E minor.</dd></div>
@@ -194,7 +194,7 @@
           <h2 class="reveal">Playlists that sort themselves.</h2>
           <p class="lead reveal">Save any search as a smart playlist: <code>bpm:120..124</code>, <code>key:8A</code>, <code>energy:&gt;=60</code>. Every new track that fits files itself in. Or describe the night: the assistant looks through your library and proposes a folder of playlists, the parts of your set in playing order, for you to review before you create it.</p>
         </header>
-        <div class="stage shell reveal-frame" data-demo="playlists" role="img" aria-label="Typing bpm:120..124, key:8A and energy:>=60 turns each rule into a chip and narrows the list. The assistant proposes Disco Night 22 to 01, a folder of four playlists with rising energy, and Create folder adds it to the library."></div>
+        <div class="stage shell reveal-frame" data-demo="playlists" role="img" aria-label="Typing bpm:120..124, key:8A and energy:>=60 turns each rule into a chip and narrows the list. The assistant proposes Disco Night 22 to 01, a folder of four playlists with rising energy, and Create folder adds it to the library. Asked to make DN 2 build more slowly, it shows the changed playlist, and Update playlist changes it."></div>
       </article>
 
       <article class="chapter" id="tags" data-step="5">
@@ -218,7 +218,7 @@
           <h2 class="reveal">Finds and removes every duplicate, by sound.</h2>
           <p class="lead reveal">Solco recognises the same recording by its sound, even under another name in another folder. It keeps the copy in your library, shows exactly what goes, and asks first.</p>
         </header>
-        <div class="stage shell reveal-frame" data-demo="duplicates" role="img" aria-label="Duplicates: three recordings found in more than one place. After confirmation, the extra copies go to the trash and the kept copies keep their playlists and cues."></div>
+        <div class="stage shell reveal-frame" data-demo="duplicates" role="img" aria-label="Duplicates: three recordings found in more than one place. A review lists the five files before they move to the trash, and then the page shows no duplicates left."></div>
       </article>
 
       <article class="chapter field orange" id="export" data-step="7">
@@ -237,7 +237,7 @@
           </ul>
         </div>
         <div class="export-pair">
-          <div class="stage shell reveal-frame" data-demo="exportDemo" role="img" aria-label="Export: four playlists are ticked and exported to the USB drive FRIDAY. 41 added, 18 already on the drive, nothing removed."></div>
+          <div class="stage shell reveal-frame" data-demo="exportDemo" role="img" aria-label="Export: four playlists are ticked for the USB drive FRIDAY. 41 tracks are copied and 18 are already there. The export ends with every file checked."></div>
           <figure class="booth reveal-frame">
             <div class="stage lcd-shell" data-demo="player" data-after="exportDemo" role="img" aria-label="A club player's screen browsing FRIDAY: Disco Night, DN 1 Warm and Funky, with BPM and key for each track."></div>
             <figcaption>On stage, it's all easy to find.</figcaption>
