@@ -125,6 +125,7 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .wl-msg:empty { display: none; }
 .wl-msg.err { color: #f0585e; }
 .wl-msg a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
+.wl-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .wl-fine { margin-top: 12px; font-size: 12.5px; line-height: 1.5; color: var(--ink-3); }
 .wl-fine a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .wl-done:not([hidden]) ~ .wl-fine { display: none; }

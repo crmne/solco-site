@@ -208,8 +208,10 @@
   /* ---------- waitlist: our own form, posting to our own waitlist (email first, questions optional) ---------- */
   const wl = document.querySelector('[data-wl]');
   if (wl) {
-    // waitlist.plenty.is (crmne/waitlist). Without JavaScript the form posts there as a plain HTML form.
-    const API = 'https://waitlist.plenty.is/p/solco/signups';
+    // waitlist.plenty.is (crmne/waitlist). Without JavaScript the form opens its hosted page instead.
+    const API = 'https://waitlist.plenty.is/p/solco/signups', shown = Date.now();
+    // A referral code from this page's address: ours (ref) or an old GetWaitlist link (ref_id).
+    const search = new URLSearchParams(location.search), ref = (search.get('ref') || search.get('ref_id') || '').slice(0, 64);
     // Must match the questions and options in crmne/waitlist's config/products.yml; other answers are dropped.
     const questions = [
       ['What do you play on most?', ['Newer Pioneer: CDJ-3000X / CDJ-1500X / XDJ-AZ / OPUS-QUAD / OMNIS-DUO', 'Classic Pioneer: CDJ-3000 / CDJ-2000NXS2 / XDJ-RX3 / XDJ-XZ or older', 'Denon DJ (Engine)', 'Traktor', 'Serato', 'A controller with rekordbox', 'Something else']],
@@ -233,7 +235,8 @@
       if (withAnswers) $('qs').querySelectorAll('select').forEach((s, i) => { if (s.value) answers[questions[i][0]] = s.value; });
       try {
         const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email: email.value.trim(), answers }) });
+          // website is a field people never see; elapsed_ms is how long the page was open (bots are quicker than 3 seconds).
+          body: JSON.stringify({ email: email.value.trim(), answers, website: wl.querySelector('#wl-website').value, elapsed_ms: Date.now() - shown, ...(ref ? { ref } : {}) }) });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error((data && data.message) || '');
         $('s1').hidden = true; $('s2').hidden = true; $('done').hidden = false; say('');

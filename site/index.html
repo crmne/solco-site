@@ -64,11 +64,12 @@
       <aside class="join reveal" id="waitlist" aria-labelledby="join-h">
         <h2 id="join-h">Join the waitlist</h2>
         <p>Leave your email. I invite DJs in small groups and will write when there is a seat for you.</p>
-        <form class="wl" data-wl novalidate action="https://waitlist.plenty.is/p/solco/signups" method="post">
+        <form class="wl" data-wl novalidate action="https://waitlist.plenty.is/p/solco" method="get">
           <div data-s1>
             <label class="wl-label" for="wl-email">Email</label>
             <input id="wl-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
             <button class="btn-cta wl-go" type="submit">Join the waitlist</button>
+            <div class="wl-trap" aria-hidden="true"><label for="wl-website">Leave this empty</label><input id="wl-website" type="text" tabindex="-1" autocomplete="off"></div>
           </div>
           <div data-s2 hidden>
             <p class="wl-head"><b>One more step.</b> Four quick questions help me choose who gets in first. All optional.</p>
@@ -83,7 +84,7 @@
           <p class="wl-msg" data-msg role="status" aria-live="polite"></p>
           <p class="wl-fine">I'll email you a link to confirm. You can leave the list at any time. <a href="/privacy.html#english">Privacy</a></p>
         </form>
-        <noscript><p class="wl-msg">Without JavaScript, the form finishes on our waitlist page, without the questions. You can also write to <a href="mailto:hello@plenty.is?subject=Solco%20waitlist">hello@plenty.is</a>.</p></noscript>
+        <noscript><p class="wl-msg">Without JavaScript, the button opens our waitlist page to finish there. You can also write to <a href="mailto:hello@plenty.is?subject=Solco%20waitlist">hello@plenty.is</a>.</p></noscript>
         <p class="platforms">macOS on Apple Silicon · Windows · Linux</p>
       </aside>
     </div>
