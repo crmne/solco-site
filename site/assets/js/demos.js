@@ -453,7 +453,7 @@
   // saves it as a smart playlist. Right, the assistant: it plans a folder for the night, then changes one of
   // the playlists when asked, for review before anything is changed (Solco ADRs 0246, 0248, 0264).
   function playlists(root, o = {}) {
-    const W = o.cmp ? 560 : 1100, H = 520; root.style.width = W + 'px'; root.style.height = H + 'px';
+    const W = o.cmp ? 560 : 1100, H = o.cmp ? 520 : 660; root.style.width = W + 'px'; root.style.height = H + 'px';
     const all = S.pool;
     const st1 = all.filter(t => t.bpm >= 120 && t.bpm < 125).sort((a, b) => a.bpm - b.bpm);
     const st2 = st1.filter(t => t.k === '8A'); const st3 = st2.filter(t => t.e >= 60);
@@ -463,9 +463,9 @@
     const PW = 400;
     const cols = { wave: !o.cmp, style: !o.cmp, nums: ['Energy'] };
     // The plan: four parts in playing order, each sized for 45 minutes (Solco ADR 0246).
-    const PLAN = [{ n: 'DN 1 · Warm & Funky', b: [100, 118], e: [55, 60], c: 14 }, { n: 'DN 2 · Groove In', b: [112, 122], e: [57, 64], c: 15 },
-      { n: 'DN 3 · The Build', b: [118, 126], e: [64, 70], c: 16 }, { n: 'DN 4 · Peak Disco', b: [122, 128], e: [71, 90], c: 14 }];
-    const REV = [['Glow in the Dark', 'Buckethead', ''], ['Kamp Krusty', 'Dreems', 'new'], ['Solar Flares (Emma de Seze remix)', 'Emma de Seze, Avanti', ''], ['Mysteries of the World', 'MFSB', 'moved']];
+    const PLAN = [{ n: 'DN 1 · Warm & Funky', b: [100, 118], e: [55, 60], c: 14, r: 'Funk and boogie to warm the room.' }, { n: 'DN 2 · Groove In', b: [112, 122], e: [57, 64], c: 15, r: 'Disco that gets the floor moving.' },
+      { n: 'DN 3 · The Build', b: [118, 126], e: [64, 70], c: 16, r: 'Lifts the tempo towards the peak.' }, { n: 'DN 4 · Peak Disco', b: [122, 128], e: [71, 90], c: 14, r: 'Big disco to close the night.' }];
+    const REV = [['Glow in the Dark', 'Buckethead', ''], ['Kamp Krusty', 'Dreems', 'new'], ['Mysteries of the World', 'MFSB', 'moved']];
     root.innerHTML = `<div style="display:flex;height:100%;background:var(--bg-main)"><section style="flex:1;min-width:0;display:flex;flex-direction:column">
       <div class="lib-head"><span class="ttl">All tracks</span><span class="sub tnum" data-k="count">9,440 tracks</span>
         <div class="search focus" data-k="search">${I('search', 's16')}<span data-k="chips" style="display:flex;gap:6px"></span><span class="typing" data-k="typing"></span><span class="caret" data-k="caret"></span><span style="flex:1"></span>${I('list-sparkles', 's16 dim')}</div></div>
@@ -475,19 +475,20 @@
         <div class="feed"><div data-k="g1" style="display:flex;flex-direction:column;gap:10px">
           <div class="msg-u" data-k="u1" style="align-self:flex-end">I'm opening a disco night, 22:00 to 01:00. Start warm and funky, build to peak disco.</div>
           <div class="msg-a" data-k="a1">Four parts, ${PLAN.reduce((n, p) => n + p.c, 0)} tracks for three hours, climbing from 100 to 128 BPM. The folder is <b style="font-weight:600">Disco Night · 22–01</b>.</div>
-          <div data-k="cards" style="display:flex;flex-direction:column;gap:6px">${PLAN.map(p => `<div class="pcard" data-pl><div class="h"><span class="cbx acc on">${I('check')}</span><b>${esc(p.n)}</b><span class="tnum">${p.c} tracks</span></div><div class="d tnum" style="padding-left:24px">Part · ${p.b[0]} to ${p.b[1]} BPM · energy ${p.e[0]} to ${p.e[1]}</div></div>`).join('')}</div>
+          <div data-k="cards" style="display:flex;flex-direction:column;gap:6px">${PLAN.map(p => `<div class="pcard" data-pl><div class="h"><span class="cbx acc on">${I('check')}</span><b>${esc(p.n)}</b><span class="tnum">${p.c} tracks</span></div><div class="d tnum">Part · ${p.b[0]} to ${p.b[1]} BPM · energy ${p.e[0]} to ${p.e[1]}</div><div class="r">${p.r}</div></div>`).join('')}</div>
           <div style="display:flex;justify-content:flex-end"><span class="btn primary" data-k="create">${I('folder-plus', 's14')}Create folder · 4 playlists</span><span class="muted" data-k="created" style="font-size:12.5px;line-height:17px;display:none">Created the folder Disco Night · 22–01 under Playlists. Nothing else was changed.</span></div></div>
           <div data-k="g2" style="display:flex;flex-direction:column;gap:10px">
           <div class="msg-u" data-k="u2" style="align-self:flex-end">Make DN 2 build more slowly</div>
           <div class="msg-a" data-k="a2">It now holds the warmer tracks longer and climbs from energy 55 to 66.</div>
-          <div class="pcard" data-k="rev" style="gap:3px"><span class="muted" style="font-size:11.5px">Playlist</span><b style="font-weight:600;font-size:15px">DN 2 · Groove In</b>
+          <div class="pcard rev" data-k="rev" style="gap:3px"><span class="muted" style="font-size:11.5px">Playlist</span><b style="font-weight:600;font-size:15px">DN 2 · Groove In</b>
             <span class="dim tnum" style="font-size:12.5px">15 → 14 tracks · 46:10 → 44:52</span><span class="muted tnum" style="font-size:12.5px">2 added · 3 removed · 1 moved</span>
             <span class="muted" style="font-size:11.5px;margin-top:4px">New order</span>${REV.map(([t, a, tag]) => `<div class="chg"><span>${esc(a)} - ${esc(t)}</span><i style="color:${tag === 'new' ? 'var(--accent)' : 'var(--text-2)'}">${tag}</i></div>`).join('')}
-            <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px" data-k="revbtns"><span class="btn">Save as new</span><span class="btn primary" data-k="update">${I('check', 's14')}Update playlist</span></div>
+            <span class="muted" style="font-size:11.5px;margin-top:6px">Removed · 3</span>${['Patrice Rushen - Haven\'t You Heard'].map(x => `<div class="chg gone"><span>${esc(x)}</span></div>`).join('')}<span class="muted" style="font-size:12.5px">and 2 more</span>
+            <div style="display:flex;justify-content:space-between;gap:8px;margin-top:8px" data-k="revbtns"><span class="btn lg">Save as new</span><span class="btn lg primary" data-k="update">${I('check', 's14')}Update playlist</span></div>
             <span class="muted" data-k="updated" style="font-size:12.5px;line-height:17px;display:none;margin-top:6px">Updated DN 2 · Groove In. Nothing else was changed.</span></div></div>
         </div>
-        <div class="composer"><span class="muted" style="flex:1">Describe the gig, or change a playlist…</span><span class="send">${I('arrow-right', 's14')}</span></div>
-        <div class="share tnum"><span data-k="shared">Solco · 0 of 9,440 tracks shared</span><br>Solco receives your request, the conversation, and the names and details of the tracks and playlists it looks up, never audio or file paths.</div></aside>`}</div>`;
+        <div class="composer"><span class="muted">Describe the gig, or change a playlist…</span><span class="cfoot"><span class="muted tnum" data-k="shared" style="flex:1;font-size:12px">Solco · 0 of 9,440 tracks shared</span><span class="send">${I('arrow-right', 's14')}</span></span></div>
+        <div class="share">Solco receives your request, the conversation, and the names and details of the tracks and playlists it looks up, never audio or file paths. <span style="color:var(--text-1)">Privacy notice</span></div></aside>`}</div>`;
     const chipsEl = $(root, '[data-k=chips]'), typing = $(root, '[data-k=typing]'), caret = $(root, '[data-k=caret]'), count = $(root, '[data-k=count]');
     chipsEl.innerHTML = typed.map(([, k, v]) => `<span class="chip acc" data-chip><span>${k}</span><b>${v}</b></span>`).join('');
     const chips = $$(chipsEl, '[data-chip]'), stageEls = $$(root, '[data-stage]');
@@ -498,7 +499,7 @@
     const cur = o.cmp ? null : cursorLayer(root);
     const TA = 4.0, TC = TA + 2.7, TR = TC + 1.1, TU = TR + 2.9;
     return {
-      dur: o.cmp ? 4.4 : TU + 1.4, still: o.cmp ? 4.3 : TU + 1.3,
+      dur: o.cmp ? 4.4 : TU + 1.4, still: o.cmp ? 4.3 : TU - .4,
       render(t) {
         let text = '', stage = 0;
         typed.forEach(([s], i) => { const [a, b, c] = T[i];

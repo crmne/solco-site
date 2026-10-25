@@ -14,7 +14,7 @@
   const REPLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>';
   // natural size of each interface, so space is reserved before it is built
   const SIZE = { hero: [1280, 800], addMusic: [1040, 560, 560], analysis: [1040, 580, 560], duplicates: [1040, 540, 560], tags: [1100, 620, 560],
-    gridLab: [1040, 500, 560, 470], genre: [1040, 470, 560], playlists: [1100, 520, 560], exportDemo: [1100, 560, 560], player: [640, 400] };
+    gridLab: [1040, 500, 560, 470], genre: [1040, 470, 560], playlists: [1100, 660, 560, 520], exportDemo: [1100, 560, 560], player: [640, 400] };
 
   /* ---------- live interface stages ---------- */
   const stages = [...document.querySelectorAll('[data-demo]')].map(el => ({ el, name: el.dataset.demo, after: el.dataset.after, needs: el.dataset.needs, built: false, t0: null, t: 0, visible: false, done: false }));

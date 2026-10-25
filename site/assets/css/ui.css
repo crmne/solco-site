@@ -252,23 +252,26 @@
 .ui.light .play { background:var(--text-1); color:var(--bg-2); }
 
 /* the assistant panel (Solco ADRs 0246, 0248, 0264) */
-.ui .asst { background:var(--bg-1); border-left:1px solid var(--line-1); display:flex; flex-direction:column; }
-.ui .asst .phead { background:var(--bg-1); border-bottom:0; height:52px; padding:0 10px 0 16px; }
+.ui .asst { background:var(--bg-main); border-left:1px solid var(--line-1); display:flex; flex-direction:column; }
+.ui .asst .phead { background:var(--bg-main); border-bottom:0; height:52px; padding:0 10px 0 16px; }
 .ui .asst .phead .ttl { font-size:22px; }
 .ui .asst .feed { flex:1; min-height:0; overflow:hidden; display:flex; flex-direction:column; gap:10px; padding:4px 14px 0; justify-content:flex-end; }
 .ui .asst .msg-u { max-width:300px; background:var(--bg-4); border-radius:12px 12px 4px 12px; padding:8px 12px; line-height:18px; }
 .ui .asst .msg-a { line-height:19px; color:var(--text-1); }
-.ui .pcard { border:1px solid var(--accent-line); border-radius:10px; background:var(--bg-main); padding:9px 12px; display:flex; flex-direction:column; gap:2px; }
+.ui .pcard { border:1px solid var(--accent-line); border-radius:10px; background:var(--bg-1); padding:10px 14px; display:flex; flex-direction:column; gap:2px; }
 .ui .pcard .h { display:flex; align-items:center; gap:9px; }
 .ui .pcard .h b { font-weight:600; font-size:14px; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .ui .pcard .h span { color:var(--text-3); font-size:12.5px; }
 .ui .pcard .d { color:var(--text-3); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.ui .pcard .r { color:var(--text-2); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ui .pcard.rev { border-color:var(--line-1); background:var(--bg-1); }
+.ui .chg.gone span { color:var(--text-3); text-decoration:line-through; }
+.ui .pcard .r { color:var(--text-1); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .ui .sw { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:7px; vertical-align:0; }
 .ui .cbx.acc { background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
-.ui .composer { margin:10px 14px 0; border:1px solid var(--line-2); border-radius:12px; background:var(--bg-main); padding:9px 8px 9px 12px; display:flex; align-items:center; }
-.ui .composer .send { width:26px; height:26px; border-radius:13px; background:var(--bg-4); color:var(--text-3); display:inline-flex; align-items:center; justify-content:center; }
-.ui .asst .share { margin:7px 16px 12px; font-size:11.5px; line-height:15px; color:var(--text-3); }
+.ui .composer { margin:10px 14px 0; border:1px solid var(--line-2); border-radius:12px; background:var(--bg-main); padding:10px 8px 8px 14px; display:flex; flex-direction:column; gap:10px; }
+.ui .composer .cfoot { display:flex; align-items:center; }
+.ui .composer .send { width:28px; height:28px; border-radius:14px; background:var(--bg-4); color:var(--text-3); display:inline-flex; align-items:center; justify-content:center; }
+.ui .asst .share { margin:8px 16px 12px; font-size:11.5px; line-height:16px; color:var(--text-3); }
 .ui .chg { display:flex; align-items:center; height:19px; font-size:12.5px; gap:8px; }
 .ui .chg span:first-child { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .ui .chg i { font-style:normal; width:42px; text-align:right; font-size:11.5px; }
