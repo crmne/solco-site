@@ -205,63 +205,52 @@
     film.addEventListener('close', () => filmVideo.pause());
   }
 
-  /* ---------- waitlist: our own form on the getwaitlist API (email first, questions optional) ---------- */
+  /* ---------- waitlist: our own form, posting to our own waitlist (email first, questions optional) ---------- */
   const wl = document.querySelector('[data-wl]');
   if (wl) {
-    const API = 'https://api.getwaitlist.com/api/v1', ID = 33098;
-    // Kept in sync with the dashboard; refreshed from the API when someone starts to sign up.
-    let questions = [
-      ['What do you play on most?', ['Newer Pioneer: CDJ-3000X / CDJ-1500X / XDJ-AZ / OPUS-QUAD / OMNIS-DUO', ' Classic Pioneer: CDJ-3000 / CDJ-2000NXS2 / XDJ-RX3 / XDJ-XZ or older', ' Denon DJ (Engine)', ' Traktor', ' Serato', ' A controller with rekordbox', ' Something else']],
-      ['Where do you play most?', ['Clubs and festivals', ' Bars and small venues', ' Private parties and weddings', ' Radio and streams', ' At home', ' Something else']],
-      ['What slows you down most?', ['Finding the right track mid-set', ' Fixing tags and covers', ' Beatgrids that drift', ' Duplicates', ' Building playlists', ' Getting music onto the USB', ' Something else']],
-      ['How many tracks do you have?', ['Under 1000', ' 1000 to 5000', ' 5000 to 20000', ' Over 20000']],
+    // waitlist.plenty.is (crmne/waitlist). Without JavaScript the form posts there as a plain HTML form.
+    const API = 'https://waitlist.plenty.is/p/solco/signups';
+    // Must match the questions and options in crmne/waitlist's config/products.yml; other answers are dropped.
+    const questions = [
+      ['What do you play on most?', ['Newer Pioneer: CDJ-3000X / CDJ-1500X / XDJ-AZ / OPUS-QUAD / OMNIS-DUO', 'Classic Pioneer: CDJ-3000 / CDJ-2000NXS2 / XDJ-RX3 / XDJ-XZ or older', 'Denon DJ (Engine)', 'Traktor', 'Serato', 'A controller with rekordbox', 'Something else']],
+      ['Where do you play most?', ['Clubs and festivals', 'Bars and small venues', 'Private parties and weddings', 'Radio and streams', 'At home', 'Something else']],
+      ['What slows you down most?', ['Finding the right track mid-set', 'Fixing tags and covers', 'Beatgrids that drift', 'Duplicates', 'Building playlists', 'Getting music onto the USB', 'Something else']],
+      ['How many tracks do you have?', ['Under 1000', '1000 to 5000', '5000 to 20000', 'Over 20000']],
     ];
     const $ = k => wl.querySelector(`[data-${k}]`), email = wl.querySelector('#wl-email'), msg = $('msg');
     const say = (text, err) => { msg.innerHTML = text; msg.classList.toggle('err', !!err); };
     const fallback = 'Write to <a href="mailto:hello@plenty.is?subject=Solco%20waitlist">hello@plenty.is</a> and I will add you.';
+    const esc = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
     const renderQs = () => {
-      $('qs').innerHTML = questions.map(([q, answers], i) => `<div><label for="wl-q${i}">${esc(q)}</label><select id="wl-q${i}" class="empty"><option value="">Choose one</option>${answers.map(a => `<option value="${esc(a)}">${esc(a.trim())}</option>`).join('')}</select></div>`).join('');
+      $('qs').innerHTML = questions.map(([q, answers], i) => `<div><label for="wl-q${i}">${esc(q)}</label><select id="wl-q${i}" class="empty"><option value="">Choose one</option>${answers.map(a => `<option value="${esc(a)}">${esc(a)}</option>`).join('')}</select></div>`).join('');
       $('qs').querySelectorAll('select').forEach(s => s.addEventListener('change', () => s.classList.toggle('empty', !s.value)));
     };
-    const esc = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
     let step = 1, busy = false;
     const submit = async withAnswers => {
       if (busy) return; busy = true;
       wl.querySelectorAll('.wl-go').forEach(b => b.disabled = true); say('Adding you…');
-      const answers = withAnswers ? [...$('qs').querySelectorAll('select')].map((s, i) => s.value && { question_value: questions[i][0], optional: true, answer_value: s.value }).filter(Boolean) : [];
+      const answers = {};
+      if (withAnswers) $('qs').querySelectorAll('select').forEach((s, i) => { if (s.value) answers[questions[i][0]] = s.value; });
       try {
-        const res = await fetch(`${API}/signup`, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ waitlist_id: ID, email: email.value.trim(), referral_link: location.href, ...(answers.length ? { answers } : {}) }) });
+        const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ email: email.value.trim(), answers }) });
         const data = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error((data && (data.error_string || data.message)) || '');
+        if (!res.ok) throw new Error((data && data.message) || '');
         $('s1').hidden = true; $('s2').hidden = true; $('done').hidden = false; say('');
-        if (data.priority) $('place').textContent = `, number ${data.priority}`;
-        $('ref').value = data.referral_link || location.origin + '/';
         $('done').focus();
       } catch (e) {
         say(`${e.message ? esc(e.message) + ' ' : 'That did not go through. '}${fallback}`, true);
       } finally { busy = false; wl.querySelectorAll('.wl-go').forEach(b => b.disabled = false); }
     };
-    // Ask for the current questions (dashboard is the source of truth); fall back to the built-in list if the API is slow.
-    const loadQuestions = () => Promise.race([
-      fetch(`${API}/waitlist/${ID}`).then(r => r.json()).then(d => (d.questions || []).filter(q => !q.soft_deleted).map(q => [q.question_value, q.answer_value])),
-      new Promise(res => setTimeout(() => res(null), 2500)),
-    ]).catch(() => null);
-    wl.addEventListener('submit', async e => {
+    wl.addEventListener('submit', e => {
       e.preventDefault();
       if (step !== 1) return submit(true);
       if (!email.checkValidity() || !email.value.trim()) { say('Please enter a valid email address.', true); email.focus(); return; }
-      if (busy) return;
-      wl.querySelectorAll('.wl-go').forEach(b => b.disabled = true); say('');
-      const qs = await loadQuestions();
-      wl.querySelectorAll('.wl-go').forEach(b => b.disabled = false);
-      if (qs) questions = qs;
-      if (!questions.length) return submit(false);
+      say('');
       step = 2; renderQs(); $('s1').hidden = true; $('s2').hidden = false;
       wl.querySelector('#wl-q0').focus({ preventScroll: true });
     });
     $('skip').addEventListener('click', () => submit(false));
-    $('copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('ref').value); $('copy').textContent = 'Copied'; } catch { $('ref').select(); } });
   }
   document.querySelectorAll('[data-join]').forEach(a => a.addEventListener('click', e => {
     const target = document.getElementById('waitlist'); if (!target) return;

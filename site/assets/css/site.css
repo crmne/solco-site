@@ -121,14 +121,13 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .wl-done { outline: none; }
 .wl-done-h { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -.02em; color: var(--ink); }
 .wl-done p + p { margin-top: 8px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
-.wl-ref { display: flex; gap: 8px; margin-top: 14px; }
-.wl-ref input { height: 42px; font-family: "Geist Mono", monospace; font-size: 13px; color: var(--ink-2); }
-.wl-copy { flex: none; height: 42px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line-3); background: var(--bg-3); color: var(--ink); font: inherit; font-size: 14px; font-weight: 550; cursor: pointer; }
-.wl-copy:hover { border-color: var(--ink-4); }
 .wl-msg { margin-top: 10px; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
 .wl-msg:empty { display: none; }
 .wl-msg.err { color: #f0585e; }
 .wl-msg a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
+.wl-fine { margin-top: 12px; font-size: 12.5px; line-height: 1.5; color: var(--ink-3); }
+.wl-fine a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.wl-done:not([hidden]) ~ .wl-fine { display: none; }
 
 
 /* notes, mid-page asks, field headings */

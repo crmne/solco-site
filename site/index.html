@@ -64,7 +64,7 @@
       <aside class="join reveal" id="waitlist" aria-labelledby="join-h">
         <h2 id="join-h">Join the waitlist</h2>
         <p>Leave your email. I invite DJs in small groups and will write when there is a seat for you.</p>
-        <form class="wl" data-wl novalidate>
+        <form class="wl" data-wl novalidate action="https://waitlist.plenty.is/p/solco/signups" method="post">
           <div data-s1>
             <label class="wl-label" for="wl-email">Email</label>
             <input id="wl-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
@@ -77,13 +77,13 @@
             <button class="wl-skip" type="button" data-skip>Skip the questions and join</button>
           </div>
           <div class="wl-done" data-done hidden tabindex="-1">
-            <p class="wl-done-h">You're on the list<span data-place></span>.</p>
-            <p>I'll write when there is a seat for you. Share your link and you move up the list.</p>
-            <div class="wl-ref"><input data-ref readonly aria-label="Your referral link"><button type="button" class="wl-copy" data-copy>Copy</button></div>
+            <p class="wl-done-h">Check your email.</p>
+            <p>I've sent you a link to confirm your place. Once you confirm, you're on the list and I'll write when there is a seat for you.</p>
           </div>
           <p class="wl-msg" data-msg role="status" aria-live="polite"></p>
+          <p class="wl-fine">I'll email you a link to confirm. You can leave the list at any time. <a href="/privacy.html#english">Privacy</a></p>
         </form>
-        <noscript><p class="wl-msg">The signup form needs JavaScript. You can also write to <a href="mailto:hello@plenty.is?subject=Solco%20waitlist">hello@plenty.is</a>.</p></noscript>
+        <noscript><p class="wl-msg">Without JavaScript, the form finishes on our waitlist page, without the questions. You can also write to <a href="mailto:hello@plenty.is?subject=Solco%20waitlist">hello@plenty.is</a>.</p></noscript>
         <p class="platforms">macOS on Apple Silicon · Windows · Linux</p>
       </aside>
     </div>
