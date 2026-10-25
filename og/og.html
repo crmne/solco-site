@@ -41,50 +41,35 @@
   <h1><span>Stop preparing</span><span>your tracks<i class="dot"></i></span></h1>
   <p class="steps">Download them. Drop them in Solco. Find them <span class="scale">on stage</span>.</p>
   <div class="deck"><canvas id="wave" width="2400" height="352"></canvas></div>
+<script src="../site/assets/js/data.js"></script>
 <script>
-  // A deterministic four-on-the-floor waveform in the app's colours:
-  // blue lows, orange mids, a warm white core, with the beatgrid on top.
+  // The hero's deck in miniature: Solco's own waveform of a real track (Glad To Know You,
+  // from the page's data), drawn by the app's rules (Solco ADRs 0252, 0257, 0261): blue lows,
+  // an orange body and a cream core, with hairline beats and red downbeats over it.
+  const d = window.SOLCO.deck;
   const canvas = document.getElementById('wave');
   const g = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height, mid = H / 2 + 8;
-  let seed = 7;
-  const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const beat = 96; // pixels per beat at 2x
-  const offset = 40;
-  const lows = [], mids = [], highs = [];
-  for (let x = 0; x < W; x++) {
-    const t = ((x - offset) % beat + beat) % beat / beat;
-    const bar = Math.floor((x - offset) / (beat * 4));
-    const kick = Math.exp(-t * 7.5);
-    const hat = Math.exp(-Math.abs(t - 0.5) * 22) * 0.55;
-    const build = 0.55 + 0.45 * Math.min(1, x / (W * 0.55));
-    const breakdown = bar === 3 ? 0.35 : 1;
-    const n = rand();
-    lows.push((0.18 + 0.82 * kick) * build * breakdown * (0.9 + 0.1 * n));
-    mids.push((0.22 + 0.25 * hat + 0.18 * rand()) * build);
-    highs.push((0.10 + 0.35 * hat + 0.08 * rand()) * build);
+  const W = canvas.width, H = canvas.height, mid = Math.round(H / 2 + 8), half = mid - 22;
+  const gain = Math.pow(10, Math.min(6, -9 - d.lufs) / 20);
+  const span = 6.6, t0 = d.at - span / 2, n = d.zoom.length, rate = n / d.window, z0 = d.at - d.window / 2;
+  const layers = c => { const e = [c[1], c[2], c[3]].map(x => Math.pow(Math.max(0, x), 1.45)), s = e[0] + e[1] + e[2] || 1;
+    return [.44 + .56 * Math.sqrt(e[0] / s), .18 + .58 * Math.sqrt(e[1] / s), .03 + .29 * Math.sqrt(e[2] / s)]; };
+  const colors = ['#1857e8', '#f48918', '#f6e5cd'];
+  for (let x = 0; x < W; x += 2) {
+    const c = d.zoom[Math.floor((t0 + x / W * span - z0) * rate)]; if (!c) continue;
+    const base = Math.pow(Math.min(1, c[0] * gain), .62) * half, fr = layers(c);
+    for (let i = 0; i < 3; i++) { const h = Math.round(base * fr[i]); g.fillStyle = colors[i]; g.fillRect(x, mid - h, 2, h * 2); }
   }
-  const band = (values, color, scale) => {
-    g.fillStyle = color;
-    for (let x = 0; x < W; x += 2) {
-      const h = values[x] * scale;
-      g.fillRect(x, mid - h, 2, h * 2);
-    }
-  };
-  band(lows, '#2f6bff', 150);
-  band(mids, '#ff8c32', 95);
-  band(highs, '#f4e7d6', 38);
-  // Beatgrid: every beat faint, every bar red like the app's downbeats.
-  for (let x = offset; x < W; x += beat) {
-    const downbeat = ((x - offset) / beat) % 4 === 0;
-    g.fillStyle = downbeat ? 'rgba(255, 70, 90, 0.75)' : 'rgba(255, 255, 255, 0.10)';
-    g.fillRect(x, 16, downbeat ? 2 : 1.5, H - 16);
+  // Beatgrid: every beat a faint hairline, every bar the downbeat's red, from the track's own grid.
+  for (const [t, beat] of d.beats) {
+    const x = Math.round((t - t0) / span * W); if (x < 0 || x > W) continue;
+    g.fillStyle = beat === 1 ? 'rgba(238, 55, 73, 0.68)' : 'rgba(169, 171, 176, 0.28)';
+    g.fillRect(x, 16, 2, H - 16);
   }
-  // Playhead.
-  g.fillStyle = '#ffffff';
-  g.fillRect(W * 0.5, 0, 3, H);
-  g.beginPath();
-  g.moveTo(W * 0.5 - 9, 0); g.lineTo(W * 0.5 + 12, 0); g.lineTo(W * 0.5 + 1.5, 13); g.closePath(); g.fill();
+  // Playhead, in the deck's green.
+  g.fillStyle = '#4cc38a';
+  g.fillRect(W / 2 - 2, 0, 4, H);
+  g.beginPath(); g.arc(W / 2, 12, 8, 0, 7); g.fill();
 </script>
 </body>
 </html>
