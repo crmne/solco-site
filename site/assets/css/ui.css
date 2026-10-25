@@ -175,8 +175,9 @@
 .ui .row.lib .c-title .ar { color:var(--text-2); font-size:12.5px; max-width:100%; overflow:hidden; text-overflow:ellipsis; }
 .ui .row.lib .c-bpm, .ui .ghead.lib .c-bpm { width:52px; justify-content:flex-end; }
 .ui .row.lib .c-key, .ui .ghead.lib .c-key { width:48px; }
-.ui .row.lib .c-feel, .ui .ghead.lib .c-feel { width:96px; color:var(--text-1); }
-.ui .row.lib .c-style, .ui .ghead.lib .c-style { width:127px; color:var(--text-1); }
+.ui .row.lib .c-feel, .ui .ghead.lib .c-feel { width:96px; }
+.ui .row.lib .c-style, .ui .ghead.lib .c-style { width:127px; }
+.ui .row.lib .c-feel, .ui .row.lib .c-style { color:var(--text-1); }
 .ui .row.lib .c-num { justify-content:flex-end; }
 .ui .row.lib .c-energy, .ui .ghead.lib .c-energy { width:60px; }
 .ui .row.lib .c-drive, .ui .ghead.lib .c-drive, .ui .row.lib .c-peak, .ui .ghead.lib .c-peak { width:52px; }
