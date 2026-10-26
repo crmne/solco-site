@@ -186,6 +186,24 @@
     new IntersectionObserver(([e]) => flow.classList.toggle('run', e.isIntersecting), { threshold: .4 }).observe(flow);
   }
 
+  /* ---------- the USB speed bars: both clocks run at one rate, so the bars grow to scale ---------- */
+  const speed = document.querySelector('[data-speed]');
+  if (speed) {
+    const bars = [...speed.querySelectorAll('.sb')].map(sb => ({ i: sb.querySelector('.sb-track i'), t: sb.querySelector('[data-sb]') }));
+    bars.forEach(b => { b.end = +b.t.dataset.sb; b.label = b.t.textContent; });
+    const longest = Math.max(...bars.map(b => b.end)), RUN = 6.5; // seconds of animation for the slowest bar
+    const fmt = s => s < 3600 ? `${Math.floor(s / 60)} min ${String(Math.floor(s % 60)).padStart(2, '0')} s` : `${Math.floor(s / 3600)} h ${String(Math.floor(s % 3600 / 60)).padStart(2, '0')} min`;
+    const show = clock => bars.forEach(b => { const done = clock >= b.end; b.i.style.setProperty('--k', Math.min(1, clock / b.end)); b.t.textContent = done ? b.label : fmt(clock); });
+    if (!still) {
+      show(0);
+      new IntersectionObserver((es, o) => { if (!es[0].isIntersecting) return; o.disconnect();
+        const t0 = performance.now();
+        const step = now => { const clock = Math.min(longest, (now - t0) / 1000 / RUN * longest); show(clock); if (clock < longest) requestAnimationFrame(step); };
+        requestAnimationFrame(step);
+      }, { threshold: .5 }).observe(speed.querySelector('.speed-bars'));
+    }
+  }
+
   /* ---------- the launch film, loaded only when asked for ---------- */
   const film = document.querySelector('[data-film]'), filmVideo = film && film.querySelector('[data-film-video]');
   if (film && filmVideo) {
