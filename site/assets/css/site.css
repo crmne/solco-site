@@ -254,7 +254,8 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .points li { padding: 12px 0 13px; border-bottom: 1.5px solid currentColor; font-size: 16.5px; line-height: 1.45; }
 .points b { font-weight: 650; }
 /* the USB speed moment: two bars drawn to scale, in the orange field's black */
-.speed { margin: 8px 0 72px; max-width: 980px; }
+.speed { margin: 8px 0 72px; max-width: 980px; scroll-margin-top: 90px; }
+.faq-inline { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
 .speed-h { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-variation-settings: "opsz" 96; font-weight: 800; font-size: clamp(34px, 5.2vw, 76px); line-height: .95; letter-spacing: -.045em; color: var(--on-orange); text-wrap: balance; margin-bottom: 34px; }
 .speed-bars { display: grid; gap: 18px; }
 .sb { display: grid; grid-template-columns: 11em 1fr; align-items: center; gap: 18px; }
