@@ -190,11 +190,19 @@
   const film = document.querySelector('[data-film]'), filmVideo = film && film.querySelector('[data-film-video]');
   if (film && filmVideo) {
     const close = () => { filmVideo.pause(); film.close(); };
-    document.querySelectorAll('[data-film-open]').forEach(b => b.addEventListener('click', () => {
+    // A browser may refuse to start it with sound without a click; the controls are then there to press play.
+    const open = () => {
+      if (film.open) return;
       if (!filmVideo.src) filmVideo.src = 'media/solco-launch.mp4';
       film.showModal(); filmVideo.play().catch(() => {});
       if (window.plausible) window.plausible('Film play');
-    }));
+    };
+    document.querySelectorAll('[data-film-open]').forEach(b => b.addEventListener('click', open));
+    // getsolco.com/#film (the app's "Watch the tour") opens the film straight away, and again whenever the
+    // address changes to it; closing it drops the #film, so the same link works the next time.
+    const fromHash = () => { if (location.hash === '#film') open(); };
+    fromHash(); addEventListener('hashchange', fromHash);
+    film.addEventListener('close', () => { if (location.hash === '#film') history.replaceState(null, '', location.pathname + location.search); });
     film.querySelector('[data-film-close]').addEventListener('click', close);
     // If a browser won't play the file from the release, offer it directly instead of a broken player.
     filmVideo.addEventListener('error', () => {
