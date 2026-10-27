@@ -60,9 +60,13 @@ compliance flags are settled):
 
 ## Search Console and Bing
 
-The `getsolco.com` domain property (DNS TXT
+The `getsolco.com` domain property in Search Console (DNS TXT
 `google-site-verification`, in crmne/terraform `domain/domains.tf`) covers
-support.getsolco.com too. Sitemaps submitted: `https://getsolco.com/sitemap.xml`
-and the help centre's `https://support.getsolco.com/hc/solco/sitemap.xml`
-(Chatwoot's robots.txt doesn't name it, so it has to be submitted). Bing
-Webmaster Tools imports the sites from Search Console.
+support.getsolco.com too. Both sitemaps were submitted on 27 October 2026:
+`https://getsolco.com/sitemap.xml` and the help centre's
+`https://support.getsolco.com/hc/solco/sitemap.xml` (Chatwoot's robots.txt
+doesn't name it, so it has to be submitted). Google rereads them by itself.
+
+Bing Webmaster Tools: not set up yet. Sign in at
+https://www.bing.com/webmasters and choose "Import from Google Search
+Console", which brings the property and its sitemaps without a DNS record.

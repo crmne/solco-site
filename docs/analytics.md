@@ -31,7 +31,7 @@ waitlist's own.
 | `Waitlist: CTA click` | A "Join the waitlist" link or button that scrolls to the form | `place`: `topbar`, `grids`, `payoff`, `final` |
 | `Waitlist: Started` | The first letter typed into the email field, once per page | |
 | `Waitlist: Questions shown` | A valid address sent, step two (the four questions) shown | |
-| `Waitlist: Submitted` | The waitlist accepted the form | `answers`: `answered` or `skipped`; `referral`: `yes` or `no` |
+| `Waitlist: Submitted` | The waitlist accepted the form | `answers`: `answered` or `skipped`; `referral`: `yes` or `no`; `form`: `hosted` when it came from the waitlist's own page |
 | `Waitlist: Error` | The address was refused, or the request failed | `status`: `invalid email`, an HTTP status, or `network` |
 | `Waitlist: Confirmed` | The confirmation page on waitlist.plenty.is | `referral`: `yes` or `no` |
 | `Referral: Visit` | A page opened with `?ref=` or `?ref_id=` (the code itself is not sent) | `landing`: `getsolco.com` or `waitlist form` |
@@ -47,14 +47,21 @@ waitlist's own.
 
 Properties show in the dashboard only once they are listed in Site
 settings, Custom properties: `place`, `answers`, `referral`, `status`,
-`landing`, `cut`, `action`, `from`, `question`, `article`, `chapter`, `path`
-(and `url`, which Plausible adds to outbound clicks and downloads).
+`landing`, `cut`, `action`, `from`, `question`, `article`, `chapter`, `path`,
+`form` (and `url`, which Plausible adds to outbound clicks and downloads).
+All are listed.
+
+The waitlist's pages (crmne/waitlist, `analytics` in waitlist-deploy's
+`products.yml`) report to this site as `/waitlist/form`, `/waitlist/thanks`
+and `/waitlist/confirmed`, never their own token addresses.
 
 ## Goals
 
-Every event above is a goal, plus:
+Every event above is a goal (set up on 27 October 2026, with the earlier
+`Film play`, `404`, `Outbound Link: Click`, `File Download` and
+`Form: Submission`), plus:
 
-- Pageview `/compare/*`: the comparison pages, once they exist.
+- Pageview `/compare/*` ("Visit /compare/*"): the comparison pages, once they exist.
 - Scroll depth on `/` at 25, 50, 75 and 90 percent.
 
 ## Funnels
