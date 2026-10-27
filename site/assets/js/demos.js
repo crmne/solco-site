@@ -122,7 +122,23 @@
     // Every CYCLE seconds Solco races through the table again: rows clear, then each row's cells fill in, several
     // rows at once, while the grid is laid on the deck and its readings fill in. Between runs the deck just plays.
     const CYCLE = 15;
-    const tRows = $$(root, '.table .rows .row').map(r => ({ cells: $$(r, '[data-v]'), wave: $(r, '[data-wave]') }));
+    // The table, as Solco shows analysis: rows wait as Not analysed; a few are worked on at once, each with the
+    // app's spinner beside its title and four stage lines filling in turn (waveform, beatgrid, key, character);
+    // when a row is done, its waveform and every reading arrive together with a small settle.
+    const RSTAGES = ['Waveform', 'Beatgrid', 'Key', 'Character'];
+    const tRows = $$(root, '.table .rows .row').map(r => {
+      const gut = $(r, '.c-gut'), waveC = $(r, '.c-wave'), cells = $$(r, '[data-v]');
+      const na = document.createElement('span'); na.className = 'na'; na.textContent = 'Not analysed'; if (waveC) waveC.appendChild(na);
+      const sp = document.createElement('span'); sp.className = 'aspin'; gut.appendChild(sp);
+      const prog = document.createElement('div'); prog.className = 'aprog';
+      prog.innerHTML = `<span class="lines">${RSTAGES.map(() => '<i><b></b></i>').join('')}</span><span class="lab"></span>`;
+      r.appendChild(prog);
+      return { r, cells, wave: $(r, '[data-wave]'), na, sp, prog, bars: $$(prog, 'i b'), lab: $(prog, '.lab'), playIco: gut.querySelector('svg') };
+    });
+    const placeProg = () => tRows.forEach(x => { const c = x.cells[0]; if (c && c.offsetWidth) x.prog.style.left = (c.offsetLeft + 6) + 'px'; });
+    placeProg(); requestAnimationFrame(placeProg);
+    const rStart = i => .35 + Math.floor(i / 4) * 1.05 + (i % 4) * .16, RLEN = 1.25;
+    const actEl = act; let racing = false;
     const vals = $$(root, '.deck .stats .stat .v'), bpmV = vals[0], keyV = vals[1], lufsV = vals[3];
     const bpmHtml = bpmV.innerHTML, keyHtmlFull = keyV.innerHTML, lufsHtml = lufsV.innerHTML;
     const meta = $(root, '.deck .meta .muted'), styleTxt = meta ? meta.textContent : '';
@@ -138,11 +154,27 @@
         // Each cycle: a quick clear, then the race. The music keeps time throughout.
         const ph = still ? 99 : t % CYCLE, clear = still ? 0 : (t >= CYCLE ? 1 - seg(ph, 0, .25) : 0);
         const tt = ph;
+        let started = 0, finished = 0;
         tRows.forEach((r, i) => {
-          const a = .35 + i * .13;
-          if (r.wave) { const k = still ? 1 : Math.max(clear, E.out(seg(tt, a, a + .35))); r.wave.style.opacity = k; }
-          r.cells.forEach((c, j) => { const k = still ? 1 : Math.max(clear, E.out(seg(tt, a + .08 + j * .045, a + .38 + j * .045))); c.style.opacity = k; c.style.transform = k < 1 ? `translateY(${(1 - k) * 5}px)` : ''; });
+          const a = rStart(i), k = still ? 1 : seg(tt, a, a + RLEN), fin = still || tt >= a + RLEN;
+          // after a finished run, the rows clear back to waiting in the first quarter-second of the next one
+          const shown = fin ? 1 : clear;
+          if (k > 0) started++; if (fin) finished++;
+          const working = !still && k > 0 && !fin;
+          const stage = Math.min(3, Math.floor(k * 4));
+          r.bars.forEach((b, j) => { b.style.transform = `scaleX(${working ? (j < stage ? 1 : j === stage ? (k * 4 - stage) : 0) : 0})`; });
+          txt(r.lab, k === 0 ? 'Waiting' : RSTAGES[stage]);
+          r.prog.style.opacity = working || (!fin && !still && shown === 0) ? 1 : 0;
+          r.sp.style.opacity = working ? 1 : 0; r.sp.style.transform = `rotate(${t * 380}deg)`;
+          if (r.playIco) r.playIco.style.opacity = working || (!fin && shown === 0) ? 0 : 1;
+          const pop = still ? 1 : fin ? E.out(seg(tt, a + RLEN, a + RLEN + .3)) : shown;
+          const settle = still || !fin ? 1 : .94 + .06 * E.out5(seg(tt, a + RLEN, a + RLEN + .45));
+          r.cells.forEach(c => { c.style.opacity = pop; c.style.transform = pop < 1 || settle < 1 ? `scale(${settle})` : ''; });
+          if (r.wave) { r.wave.style.opacity = pop; r.wave.style.transform = settle < 1 ? `scaleY(${settle})` : ''; }
+          r.na.style.opacity = 1 - pop;
         });
+        racing = !still && tt < rStart(tRows.length - 1) + RLEN + .4;
+        if (racing) txt(actEl, `Analysing ${Math.min(tRows.length, finished + 1)} of ${tRows.length}`);
         const g = still ? 1 : E.inOut(seg(tt, A.grid[0], A.grid[1])), left = at - 3.5;
         const laid = g >= 1 ? lines : lines.filter(L => (L.t - left) / 7 <= g);
         // bar labels follow the real downbeats of the loop
@@ -161,12 +193,12 @@
         txt(tagsCnt, num(tween(t, T1 + .6, T2 + .4, 779, 565, E.inOut)));
         const k = seg(t, T1, T2), busy = k > 0 && k < 1;
         txt(recentc, String(Math.round(E.inOut(k) * 12)));
-        txt(act, busy ? `Analysing ${12 - Math.round(E.inOut(k) * 12)} new tracks` : 'Library up to date');
+        if (!racing) txt(act, busy ? `Analysing ${12 - Math.round(E.inOut(k) * 12)} new tracks` : 'Library up to date');
         fileEls.forEach((f, i) => { const kk = E.out(seg(t, T1 + .3 + i * .28, T1 + .8 + i * .28)); txt(f.c, num(f.base + Math.round(kk * f.add)));
           const glow = kk > 0 && kk < 1 ? 1 : Math.max(0, 1 - (t - (T1 + .8 + i * .28)) / .9) * (kk >= 1 ? 1 : 0);
           f.c.style.color = glow > 0 ? `color-mix(in srgb, var(--accent) ${Math.round(glow * 100)}%, var(--text-3))` : ''; });
         spin.style.transform = `rotate(${t * 360}deg)`;
-        spin.style.display = busy ? '' : 'none'; actico.style.display = busy ? 'none' : '';
+        spin.style.display = busy || racing ? '' : 'none'; actico.style.display = busy || racing ? 'none' : '';
       }
     };
   }
