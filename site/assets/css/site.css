@@ -610,3 +610,13 @@ section.stats .lead { margin: 44px 0 34px; max-width: 42em; }
 .hero .join .platforms { padding-top: 8px; }
 @media (min-width: 700px) { .hero-grid > div:first-child { justify-content: space-between; } }
 .hero .join .platforms { font-size: 10.5px; letter-spacing: .06em; white-space: nowrap; }
+/* the waitlist card: one even rhythm, no gap inside; centred beside the copy */
+.hero-grid { align-items: center; }
+.hero .join { display: block; padding: 22px 24px; --rhythm: 12px; }
+.hero .join > * + *, .hero .join .wl > * + *, .hero .join [data-s1] > * + *, .hero .join [data-s2] > * + * { margin-top: var(--rhythm); }
+.hero .join .wl, .hero .join .wl-label + input, .hero .join .wl .wl-go { margin-top: var(--rhythm); }
+.hero .join .wl-label { margin-bottom: 0; }
+.hero .join .wl-trap { margin: 0; }
+.hero .join .wl-fine, .hero .join .wl-msg:not(:empty) { margin-top: var(--rhythm); }
+.hero .join .platforms { margin-top: var(--rhythm); padding-top: 0; text-align: center; }
+.hero .join h2 + p { margin-top: var(--rhythm); }
