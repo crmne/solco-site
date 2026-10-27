@@ -23,7 +23,7 @@ Helsinki). The dashboard is https://stats.paolino.me/getsolco.com.
 ## Events
 
 All are sent through `track()` in `site/assets/js/site.js`
-(`window.solcoTrack`, which `hero-film.js` uses too), except the 404 and the
+(`window.solcoTrack`), except the 404 and the
 waitlist's own.
 
 | Event | When | Properties |
@@ -36,8 +36,6 @@ waitlist's own.
 | `Waitlist: Confirmed` | The confirmation page on waitlist.plenty.is | `referral`: `yes` or `no` |
 | `Referral: Visit` | A page opened with `?ref=` or `?ref_id=` (the code itself is not sent) | `landing`: `getsolco.com` or `waitlist form` |
 | `Referral: Link copied` | Copy on the confirmation page's referral link | |
-| `Hero video: Started` | The hero loop actually plays | `cut`: `16:9` or `4:5` |
-| `Hero video: Pause button` | The hero's pause button | `action`: `pause` or `play`; `cut` (`frames` when the still film plays instead) |
 | `Film play` | The 90-second film opened | `from`: `top` (the hero button) or `link` (getsolco.com/#film, the app's "Watch the tour") |
 | `Film: 25%`, `Film: 50%`, `Film: Finished` | How far the film was watched, once each per visit | |
 | `FAQ: Opened` | A question opened | `question`: its text |

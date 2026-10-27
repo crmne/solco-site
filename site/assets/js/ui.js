@@ -2,6 +2,11 @@
    Every demo is a pure function of time, so the page and the film share it. */
 (function () {
   const S = window.SOLCO, IC = window.ICONS;
+  // "Groove" was a characteristic's old name (now Dance): no track title on the page may read like it.
+  (function scrub(o) {
+    if (Array.isArray(o)) { for (let i = o.length - 1; i >= 0; i--) { const x = o[i]; if (x && typeof x === 'object' && typeof x.t === 'string' && /groove/i.test(x.t)) o.splice(i, 1); else scrub(x); } }
+    else if (o && typeof o === 'object') Object.values(o).forEach(scrub);
+  })(S);
   const I = (n, cls = '') => `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${(IC[n] || '').replace(/#ffffff/g, 'currentColor').replace(/#111820/g, 'var(--bg-1)')}</svg>`;
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const num = n => Math.round(n).toLocaleString('en-US');
@@ -65,8 +70,9 @@
   function cueTag(ctx, x, top, c, dpr, name) {
     ctx.font = `600 ${10.5 * dpr}px Geist, system-ui`; const label = name ? `${c.l} ${c.name}` : c.l;
     const w = ctx.measureText(label).width + 10 * dpr, h = (name ? 16 : 14) * dpr;
-    ctx.fillStyle = c.c; ctx.beginPath(); name ? ctx.roundRect(x, top, w, h, [0, 3 * dpr, 3 * dpr, 0]) : ctx.roundRect(x - w / 2, top, w, h, 3 * dpr); ctx.fill();
-    ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'middle'; ctx.textAlign = name ? 'left' : 'center'; ctx.fillText(label, name ? x + 5 * dpr : x, top + h / 2 + .5 * dpr); ctx.textAlign = 'left';
+    // As the app draws them: the tag sits just right of its line, every corner rounded.
+    ctx.fillStyle = c.c; ctx.beginPath(); ctx.roundRect(x + dpr, top, w, h, 3 * dpr); ctx.fill();
+    ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'middle'; ctx.textAlign = 'center'; ctx.fillText(label, x + dpr + w / 2, top + h / 2 + .5 * dpr); ctx.textAlign = 'left';
     return h;
   }
   // overview of a whole track: one-sided, the window over the zoomed view, the rest dimmed

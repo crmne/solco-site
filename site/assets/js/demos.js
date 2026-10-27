@@ -43,7 +43,7 @@
       .map(([l, c, s], i) => { const x = st[i] || {}; return { l, c: x.c ?? c, s: x.s ?? s, sel: x.sel }; });
     const todo = steps.filter(s => s.s !== 'done').length;
     // [kind, name, count, open or nested, selected]; playlists are 'pl', smart playlists 'sp'
-    const tree = o.tree || [['folder', 'Genres', 6], ['folder', 'Floppy Disco', 4, true], ['pl', 'FD 01 · Doors Open', 143, 1], ['pl', 'FD 02 · Early Groove', 122, 1, true], ['pl', 'FD 03 · Floor Building', 98, 1], ['pl', 'FD 04 · Peak Disco', 76, 1], ['folder', 'Down the Rabbit Hole', 19], ['folder', 'Melodic House & Techno', 8], ['sp', 'Deep House', 988], ['sp', 'House', '2,296'], ['sp', 'Disco', 348], ['sp', 'Techno', '1,551'], ['sp', 'Ambient', 623], ['sp', 'Minimal', 324], ['pl', 'Warm-up', 830]];
+    const tree = o.tree || [['folder', 'Genres', 6], ['folder', 'Floppy Disco', 4, true], ['pl', 'FD 01 · Doors Open', 143, 1], ['pl', 'FD 02 · Early Heat', 122, 1, true], ['pl', 'FD 03 · Floor Building', 98, 1], ['pl', 'FD 04 · Peak Disco', 76, 1], ['folder', 'Down the Rabbit Hole', 19], ['folder', 'Melodic House & Techno', 8], ['sp', 'Deep House', 988], ['sp', 'House', '2,296'], ['sp', 'Disco', 348], ['sp', 'Techno', '1,551'], ['sp', 'Ambient', 623], ['sp', 'Minimal', 324], ['pl', 'Warm-up', 830]];
     return `<aside class="side">
       <div class="side-top">${I('panel-left', 's18 dim')}<span class="name">Library</span><span class="iconbtn">${I('plus')}</span><span class="iconbtn">${I('message-square')}</span><span class="iconbtn">${I('settings')}</span></div>
       <div class="nav ${o.sel === 'all' ? 'sel' : ''}">${I('file-music')}<span class="lbl">All tracks</span><span class="cnt">9,440</span></div>
@@ -101,7 +101,7 @@
     root.style.width = W + 'px'; root.style.height = H + 'px';
     const rows = S.lib.slice(0, 12); rows.splice(3, 0, { t: d.title, a: d.artist, s: 'Disco', bpm: d.bpm, k: d.camelot, e: Math.round(d.energy), f: d.feel, p: d.peak, dr: d.arousal, stb: d.stability, hp: d.happy, cl: d.calm, sd: d.sad, dn: d.dance, pa: d.party, ed: d.edge, v: d.vocal, _w: d.overview, lufs: d.lufs, playing: true });
     root.innerHTML = sidebar() + `<div class="main">${deckHtml(d)}
-      <div class="lib-head"><span class="ttl">FD 02 · Early Groove</span><span class="sub">122 tracks</span>
+      <div class="lib-head"><span class="ttl">FD 02 · Early Heat</span><span class="sub">122 tracks</span>
         <div class="search">${I('search', 's16')}<span class="ph">Search 122 tracks</span><span style="flex:1"></span>${I('list-sparkles', 's16 dim')}</div><span class="iconbtn">${I('columns-3', 's18')}</span></div>
       <div class="table">${libHead}<div class="rows">${rows.map(t => libRow(t, { cls: t.playing ? 'playing sel' : '' })).join('')}</div></div></div>`;
     const ov = $(root, '[data-k=ov]'), zc = $(root, '[data-k=zoom]'), rem = $(root, '[data-k=remain]');
@@ -114,6 +114,15 @@
     const fileEls = $$(root, '.side .nav').map(n => { const l = $(n, '.lbl'), c = $(n, '.cnt'); const add = l && FILE[l.textContent]; if (!add) return null;
       const base = parseInt(c.textContent.replace(/,/g, '')); return { n, c, base, add }; }).filter(Boolean);
     const T1 = 1.0, T2 = 3.4;
+    // On load, the deck analyses the track as the Character chapter shows it, while the music plays on: the
+    // stages tick through, the grid is laid across the waveform, then the reading lands in the header (BPM
+    // counting up, the key, the loudness) and the readings fill in, each in its colour. Then it simply plays.
+    const STAGES = ['Fingerprint', 'Loudness', 'Key', 'Beatgrid', 'Character'];
+    const A = { stages: [.2, 1.5], grid: [.75, 1.45], land: 1.5 };
+    const vals = $$(root, '.deck .stats .stat .v'), bpmV = vals[0], keyV = vals[1], lufsV = vals[3];
+    const bpmHtml = bpmV.innerHTML, keyHtmlFull = keyV.innerHTML, lufsHtml = lufsV.innerHTML;
+    const meta = $(root, '.deck .meta .muted'), styleTxt = meta ? meta.textContent : '';
+    const bars = $$(root, '.deck .charbox .cb').map(cb => ({ i: $(cb, '.bar i'), n: $(cb, '.n'), v: parseFloat($(cb, '.n').textContent) }));
     let previews = false;
     return {
       dur: 1e9, still: 4.2,
@@ -121,8 +130,18 @@
         if (!previews) { previews = true; waves.forEach((cv, i) => window.UI.paintPreview(cv, rows[i], rows[i].playing ? cues.map(c => ({ ...c, f: c.t / d.dur })) : [])); }
         const at = smp.L0 + 1.2 + t;
         const lines = steadyLines(d, at - 5, at + 5);
+        const still = window.__still, f = A.land;
+        const g = still ? 1 : E.inOut(seg(t, A.grid[0], A.grid[1])), left = at - 3.5;
+        const laid = g >= 1 ? lines : lines.filter(L => (L.t - left) / 7 <= g);
         // bar labels follow the real downbeats of the loop
-        paintZoom(zc, d, { t: at, span: 7, sampler: smp, cues, lines: lines.map(L => ({ ...L, label: L.down ? String(89 + Math.round((L.t - smp.L0) / (4 * smp.beat))) : null })) });
+        paintZoom(zc, d, { t: at, span: 7, sampler: smp, cues: g >= 1 ? cues : cues.filter(c => (c.t - left) / 7 <= g), lines: laid.map(L => ({ ...L, label: L.down ? String(89 + Math.round((L.t - smp.L0) / (4 * smp.beat))) : null })) });
+        if (meta) { const sk = seg(t, A.stages[0], A.stages[1]); txt(meta, still || t >= f + .6 ? styleTxt : sk <= 0 ? 'Waiting' : `Analysing · ${STAGES[Math.min(4, Math.floor(sk * 5))]}`); }
+        if (still || t >= f + .7) { if (bpmV.innerHTML !== bpmHtml) bpmV.innerHTML = bpmHtml; }
+        else txt(bpmV, t < f ? '–' : lerp(90, d.bpm, E.out5(seg(t, f, f + .6))).toFixed(2));
+        if (still || t >= f + .15) { if (keyV.innerHTML !== keyHtmlFull) keyV.innerHTML = keyHtmlFull; } else if (keyV.textContent !== '–') keyV.textContent = '–';
+        if (still || t >= f + .9) { if (lufsV.innerHTML !== lufsHtml) lufsV.innerHTML = lufsHtml; }
+        else lufsV.innerHTML = t < f + .3 ? '–' : `${lerp(-30, d.lufs, E.out5(seg(t, f + .3, f + .9))).toFixed(1).replace('-', '−')}<small>LUFS</small>`;
+        bars.forEach((b, j) => { const k = still ? 1 : E.out(seg(t, f + .2 + j * .08, f + 1.1 + j * .08)); b.i.style.width = b.v * k + '%'; b.i.style.background = window.UI.charColor(b.v * k); txt(b.n, String(Math.round(b.v * k))); });
         paintOverview(ov, d, { at: smp.L0 + 1.2 + (t % 400), cues, window: 7 });
         txt(rem, `−${mmss(d.dur - (smp.L0 + 1.2 + t))}`);
         if (!rem.querySelector('small')) rem.insertAdjacentHTML('beforeend', `<small>of ${mmss(d.dur)}</small>`);
@@ -271,12 +290,12 @@
     const changes = x => { const f = FIELDS.filter(([k]) => x.p[k] != null && String(x.p[k]) !== String(x.o[k] ?? '')).map(y => y[1]); if (x.c) f.push('Artwork'); return f.join(', '); };
     const ready = S.tags.slice(1, 16);
     const sel = S.tags[0];
-    const fld = [['Title', sel.o.title, 'At Midnight', 1], ['Artist', sel.o.artist, 'T‐Connection', 1], ['Album', '', sel.p.album, 1], ['Year', '', '1994', 1], ['Track', '', 'Disc 1 · Track 6', 1], ['Comment', sel.o.comment, '', 1]];
+    const fld = [['Title', sel.o.title, 'At Midnight', 1], ['Artist', sel.o.artist, 'T‐Connection', 1], ['Album', '', sel.p.album, 1], ['Year', '', '1994', 1], ['Track', '', '6', 1], ['Disc', '', '1', 1], ['Comment', sel.o.comment, '', 1]];
     const PW = 430;
     root.innerHTML = `<div style="display:flex;height:100%"><section style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative">
         <div class="vhead"><div class="ttl">Tags</div><div class="sub tnum">812 of 1,378 looked up</div><span style="flex:1"></span>${o.cmp ? '' : `<span class="btn">${I('search', 's14')}Find tags ${I('chevron-down', 's12 muted')}</span>`}
           <span class="btn sq">${I('more-horizontal', 's16')}</span><span style="display:inline-flex"><span class="btn primary" data-k="apply" style="min-width:176px;border-radius:5px 0 0 5px">${I('check', 's14')}<span data-k="applyl">Apply 214 confident</span></span><span class="btn primary" data-k="caret" style="width:26px;padding:0;border-radius:0 5px 5px 0;margin-left:1px">${I('chevron-down', 's12')}</span></span></div>
-        <div style="padding:0 20px 12px 24px"><span class="seg big"><span>To check <span class="muted tnum">566</span></span><span class="on" data-k="readyt">Ready <span class="muted tnum" data-k="readyc">214</span></span>${o.cmp ? '' : '<span>No match <span class="muted tnum">120</span></span>'}<span>Tagged <span class="muted tnum" data-k="taggedc">478</span></span></span></div>
+        <div style="padding:0 20px 12px 24px"><span class="seg big"><span>To check <span class="muted tnum">566</span></span><span class="on" data-k="readyt">Ready <span class="muted tnum" data-k="readyc">214</span></span>${o.cmp ? '' : '<span>No match <span class="muted tnum">120</span></span>'}<span>Tagged <span class="muted tnum" data-k="taggedc">478</span></span>${o.cmp ? '' : '<span>All</span>'}</span></div>
         <div class="ghead"><div class="c" style="width:34px"></div><div class="c c-title">Title</div>${o.cmp ? '' : '<div class="c" style="width:150px">Artist</div>'}<div class="c" style="width:${o.cmp ? 150 : 170}px">Would change</div><div class="c r" style="width:58px">Match</div></div>
         <div class="rows">${ready.map(x => `<div class="row" data-r style="height:28px"><div class="c" style="width:34px;padding-left:14px" data-dot><span style="width:6px;height:6px;border-radius:3px;background:var(--accent);display:block"></span></div>
           <div class="c c-title" style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:3px;background:var(--bg-3) url(${x.c}) center/cover;flex:none"></span><span style="overflow:hidden;text-overflow:ellipsis">${esc(x.p.title)}</span></div>
@@ -291,7 +310,7 @@
             <div style="min-width:0"><div style="font-weight:550">Add artwork</div><div class="muted" style="font-size:12px;margin-top:2px">Release cover · 1200 px</div></div></div>
           <div style="margin-top:16px;display:grid;grid-template-columns:22px 86px 1fr 1fr;column-gap:10px;font-size:11.5px;color:var(--text-3);font-weight:500;padding-bottom:6px;border-bottom:1px solid var(--line-2)"><span></span><span>Field</span><span>In your file</span><span>Proposed</span></div>
           ${fld.map(([k, c, n]) => `<div class="fld" data-fld><span class="cbx on">${I('check')}</span><span class="k">${k}</span><span class="cur">${c ? `<s>${esc(c)}</s>` : '<span style="color:var(--text-4)">empty</span>'}</span><span class="new" data-new>${n ? `<mark>${esc(n)}</mark>` : '<span style="color:var(--text-4)">removed</span>'}</span></div>`).join('')}
-          <div style="margin-top:16px;display:flex;align-items:baseline;gap:8px"><span class="lbl11">Matched by fingerprint</span><span class="muted" style="font-size:12px">MusicBrainz · Discogs</span></div>
+          <div style="margin-top:16px;display:flex;align-items:baseline;gap:8px"><span class="lbl11">Matches</span><span class="muted" style="font-size:12px">1 ready · ranked by strength, best selected</span></div>
           <div class="cand" style="margin-top:8px" data-k="cand"><div style="width:52px;height:52px;border-radius:6px;background:url(${sel.c}) center/cover;flex:none"></div><div style="min-width:0;font-size:12.5px;line-height:17px"><div style="font-weight:600;font-size:13px">${esc(sel.p.album)}</div><div class="dim">T‐Connection · 1994 · Disc 1 · Track 6</div><div class="accent">MusicBrainz · Audio fingerprint · 99 / 100</div></div></div>
         </div>
         <div style="display:flex;gap:8px;align-items:center;padding:14px 20px;border-top:1px solid var(--line-1)"><span class="btn ghost">Not this song</span><span style="flex:1"></span><span class="btn">Skip</span><span class="btn primary">${I('check', 's14')}Apply 6 changes</span></div></aside>`}</div>`;
@@ -463,9 +482,10 @@
     const PW = 400;
     const cols = { wave: !o.cmp, style: !o.cmp, nums: ['Energy'] };
     // The plan: four parts in playing order, each sized for 45 minutes (Solco ADR 0246).
-    const PLAN = [{ n: 'DN 1 · Warm & Funky', b: [100, 118], e: [55, 60], c: 14, r: 'Funk and boogie to warm the room.' }, { n: 'DN 2 · Groove In', b: [112, 122], e: [57, 64], c: 15, r: 'Disco that gets the floor moving.' },
+    const PLAN = [{ n: 'DN 1 · Warm & Funky', b: [100, 118], e: [55, 60], c: 14, r: 'Funk and boogie to warm the room.' }, { n: 'DN 2 · Floor Filler', b: [112, 122], e: [57, 64], c: 15, r: 'Disco that gets the floor moving.' },
       { n: 'DN 3 · The Build', b: [118, 126], e: [64, 70], c: 16, r: 'Lifts the tempo towards the peak.' }, { n: 'DN 4 · Peak Disco', b: [122, 128], e: [71, 90], c: 14, r: 'Big disco to close the night.' }];
     const REV = [['Glow in the Dark', 'Buckethead', ''], ['Kamp Krusty', 'Dreems', 'new'], ['Mysteries of the World', 'MFSB', 'moved']];
+    const ex = i => S.lib.slice(i * 2, i * 2 + 2).map(t => `${t.a} - ${t.t}`).join(' · ');
     root.innerHTML = `<div style="display:flex;height:100%;background:var(--bg-main)"><section style="flex:1;min-width:0;display:flex;flex-direction:column">
       <div class="lib-head"><span class="ttl">All tracks</span><span class="sub tnum" data-k="count">9,440 tracks</span>
         <div class="search focus" data-k="search">${I('search', 's16')}<span data-k="chips" style="display:flex;gap:6px"></span><span class="typing" data-k="typing"></span><span class="caret" data-k="caret"></span><span style="flex:1"></span>${I('list-sparkles', 's16 dim')}</div></div>
@@ -475,17 +495,17 @@
         <div class="feed"><div data-k="g1" style="display:flex;flex-direction:column;gap:10px">
           <div class="msg-u" data-k="u1" style="align-self:flex-end">I'm opening a disco night, 22:00 to 01:00. Start warm and funky, build to peak disco.</div>
           <div class="msg-a" data-k="a1">Four parts, ${PLAN.reduce((n, p) => n + p.c, 0)} tracks for three hours, climbing from 100 to 128 BPM. The folder is <b style="font-weight:600">Disco Night · 22–01</b>.</div>
-          <div data-k="cards" style="display:flex;flex-direction:column;gap:6px">${PLAN.map(p => `<div class="pcard" data-pl><div class="h"><span class="cbx acc on">${I('check')}</span><b>${esc(p.n)}</b><span class="tnum">${p.c} tracks</span></div><div class="d tnum">Part · ${p.b[0]} to ${p.b[1]} BPM · energy ${p.e[0]} to ${p.e[1]}</div><div class="r">${p.r}</div></div>`).join('')}</div>
+          <div data-k="cards" style="display:flex;flex-direction:column;gap:6px">${PLAN.map((p, i) => `<div class="pcard" data-pl><div class="h"><span class="cbx acc on">${I('check')}</span><b>${esc(p.n)}</b><span class="tnum">${p.c} tracks</span></div><div class="d tnum">Part · ${p.b[0]} to ${p.b[1]} BPM · energy ${p.e[0]} to ${p.e[1]}</div><div class="r">${p.r}</div><div class="d ex">${esc(ex(i))}</div><div class="d eq">▸ Edit query</div></div>`).join('')}</div>
           <div style="display:flex;justify-content:flex-end"><span class="btn primary" data-k="create">${I('folder-plus', 's14')}Create folder · 4 playlists</span><span class="muted" data-k="created" style="font-size:12.5px;line-height:17px;display:none">Created the folder Disco Night · 22–01 under Playlists. Nothing else was changed.</span></div></div>
           <div data-k="g2" style="display:flex;flex-direction:column;gap:10px">
           <div class="msg-u" data-k="u2" style="align-self:flex-end">Make DN 2 build more slowly</div>
           <div class="msg-a" data-k="a2">It now holds the warmer tracks longer and climbs from energy 55 to 66.</div>
-          <div class="pcard rev" data-k="rev" style="gap:3px"><span class="muted" style="font-size:11.5px">Playlist</span><b style="font-weight:600;font-size:15px">DN 2 · Groove In</b>
+          <div class="pcard rev" data-k="rev" style="gap:3px"><span class="muted" style="font-size:11.5px">Playlist</span><b style="font-weight:600;font-size:15px">DN 2 · Floor Filler</b>
             <span class="dim tnum" style="font-size:12.5px">15 → 14 tracks · 46:10 → 44:52</span><span class="muted tnum" style="font-size:12.5px">2 added · 3 removed · 1 moved</span>
             <span class="muted" style="font-size:11.5px;margin-top:4px">New order</span>${REV.map(([t, a, tag]) => `<div class="chg"><span>${esc(a)} - ${esc(t)}</span><i style="color:${tag === 'new' ? 'var(--accent)' : 'var(--text-2)'}">${tag}</i></div>`).join('')}
             <span class="muted" style="font-size:11.5px;margin-top:6px">Removed · 3</span>${['Patrice Rushen - Haven\'t You Heard'].map(x => `<div class="chg gone"><span>${esc(x)}</span></div>`).join('')}<span class="muted" style="font-size:12.5px">and 2 more</span>
             <div style="display:flex;justify-content:space-between;gap:8px;margin-top:8px" data-k="revbtns"><span class="btn lg">Save as new</span><span class="btn lg primary" data-k="update">${I('check', 's14')}Update playlist</span></div>
-            <span class="muted" data-k="updated" style="font-size:12.5px;line-height:17px;display:none;margin-top:6px">Updated DN 2 · Groove In. Nothing else was changed.</span></div></div>
+            <span class="muted" data-k="updated" style="font-size:12.5px;line-height:17px;display:none;margin-top:6px">Updated DN 2 · Floor Filler. Nothing else was changed.</span></div></div>
         </div>
         <div class="composer"><span class="muted">Describe the gig, or change a playlist…</span><span class="cfoot"><span class="muted tnum" data-k="shared" style="flex:1;font-size:12px">Solco · 0 of 9,440 tracks shared</span><span class="send">${I('arrow-right', 's14')}</span></span></div>
         <div class="share">Solco receives your request, the conversation, and the names and details of the tracks and playlists it looks up, never audio or file paths. <span style="color:var(--text-1)">Privacy notice</span></div></aside>`}</div>`;
@@ -539,7 +559,7 @@
   // the Ready card that becomes Exporting, then Exported (Solco ADRs 0227, 0232, 0238).
   function exportDemo(root, o = {}) {
     const W = o.cmp ? 560 : 1100, H = 560; root.style.width = W + 'px'; root.style.height = H + 'px';
-    const pls = [['Disco Night · 22–01', 4, 1], ['DN 1 · Warm & Funky', 14, 2], ['DN 2 · Groove In', 14, 2], ['DN 3 · The Build', 16, 2], ['DN 4 · Peak Disco', 14, 2], ['Deep House', 991, 0]];
+    const pls = [['Disco Night · 22–01', 4, 1], ['DN 1 · Warm & Funky', 14, 2], ['DN 2 · Floor Filler', 14, 2], ['DN 3 · The Build', 16, 2], ['DN 4 · Peak Disco', 14, 2], ['Deep House', 991, 0]];
     const GB = 64.0, other = 4.8, solco = 16.4, add = 0.6;
     const opt = (on, t, d) => `<div style="border:1px solid ${on ? 'var(--accent)' : 'var(--line-2)'};${on ? 'box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft);' : 'background:var(--bg-1);'}border-radius:10px;padding:12px 14px"><div style="display:flex;gap:10px;align-items:center;font-weight:600;font-size:13.5px"><span class="radio ${on ? 'on' : ''}"></span>${t}</div><div class="dim" style="margin:3px 0 0 26px;font-size:12.5px;line-height:17px">${d}</div></div>`;
     const planRow = (sym, n, words, size) => `<div style="display:flex;align-items:center;gap:12px;height:26px"><span class="accent" style="width:12px;text-align:center">${sym}</span><span style="flex:1"><b style="font-weight:600">${n}</b><span class="dim">${words}</span></span>${size ? `<span class="muted tnum">${size}</span>` : ''}</div>`;

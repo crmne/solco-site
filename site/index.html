@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://getsolco.com/og.png?v=6">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Solco, DJ library app, private alpha. Stop preparing your tracks. Download them, drop them in Solco, find them on stage. A real track's waveform in Solco's blue, orange and cream, with its beatgrid, and Join the waitlist at getsolco.com.">
+<meta property="og:image:alt" content="Solco, DJ library app, private beta. Stop preparing your tracks. Download them, drop them in Solco, find them on stage. A real track's waveform in Solco's blue, orange and cream, with its beatgrid, and Join the waitlist at getsolco.com.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Solco: stop preparing your tracks.">
 <meta name="twitter:description" content="The DJ library app that grids, keys, sorts and tags every download, then writes the USB your CDJs read. No rekordbox needed.">
@@ -192,11 +192,8 @@
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
-        <p class="kicker reveal">DJ library app · Private alpha</p>
         <h1 class="display reveal"><span>Stop preparing</span><span>your tracks<i class="dot" aria-hidden="true"></i></span></h1>
-        <p class="hero-steps reveal">Download&nbsp;them. Drop&nbsp;them&nbsp;in&nbsp;Solco. Find&nbsp;them&nbsp;<span class="scale">on&nbsp;stage</span>.</p>
-        <p class="lead reveal"><b>Solco prepares them for you.</b> It grids every track you add, keys it, hears its genre and character, fixes its tags and files it into smart playlists. Then it writes the USB drive your CDJs read, no rekordbox needed. Keep doing any of it by hand if you like. <b>You just don't have to anymore.</b></p>
-        <button class="film-btn reveal" type="button" data-film-open aria-haspopup="dialog"><span class="film-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>Watch the 90-second film</button>
+        <p class="lead hero-one reveal"><b>You find the music and play it <span class="scale">on&nbsp;stage</span>.</b> Solco does the rest: <b>local AI</b> lays every <b>beatgrid</b>, hears every track's <b>energy, drive and vibe</b>, builds your <b>playlists</b> and writes your <b>USB</b>. <b class="nrb">No rekordbox needed.</b></p>
       </div>
       <aside class="join reveal" id="waitlist" aria-labelledby="join-h">
         <h2 id="join-h">Join the waitlist</h2>
@@ -226,6 +223,7 @@
       </aside>
     </div>
     <div class="wrap">
+      <p class="film-under"><button class="film-btn reveal" type="button" data-film-open aria-haspopup="dialog"><span class="film-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>Watch the 90-second film</button></p>
       <div class="hero-stage reveal-frame">
         <div class="glow" aria-hidden="true"></div>
         <div class="stage shell" data-demo="hero" role="img" aria-label="Solco's library window. A deck plays Glad To Know You by Chaz Jankel: its blue, orange and cream waveform, its beatgrid with red downbeats, and six readings. The table shows each track's waveform, tempo, key, feel, style and characteristics. In the sidebar, twelve new downloads file themselves into smart playlists: Deep House, House, Disco, Techno."></div>
@@ -307,7 +305,6 @@
             <li><b>Your call.</b> The genre tag is written only when you say so.</li>
           </ul>
         </div>
-        <div class="stage shell reveal-frame" data-demo="genre" role="img" aria-label="Tags, with eight tracks selected: Solco reads each track's style from the audio. One Of Those Nights by Tekkla is tagged Deep House and heard as Disco. Suggest genre from style proposes the style heard as each track's genre, and Apply writes it."></div>
       </article>
 
       <article class="chapter" id="character" data-step="3">
@@ -394,6 +391,20 @@
     </div>
   </section>
 
+  <!-- STATS: Solco against rekordbox 7, in a DJ's terms -->
+  <section class="stats" id="stats" aria-labelledby="stats-h">
+    <div class="wrap">
+      <p class="kicker reveal">Measured against rekordbox 7</p>
+      <h2 id="stats-h" class="reveal">Faster to the USB. Truer to the beat.</h2>
+      <div class="tiles reveal">
+        <div class="tile t-usb"><p class="k">Your USB, 493 tracks</p><p class="big"><b>12 min</b> <span>against 3½ hours</span></p><p class="s">The same tracks on the same stick.</p></div>
+        <div class="tile"><p class="k">Downbeats, where the bar starts</p><p class="big"><b>38%</b> <span>better</span></p><p class="s">Solco places the one better than rekordbox, in every genre we tried. <a class="inline" href="measured.html">How we measured</a></p></div>
+        <div class="tile"><p class="k">Beats on the grid</p><p class="big"><b>12%</b> <span>better</span></p><p class="s">Grids that hold across genres, from disco and hip-hop to jazz, metal and classical. <a class="inline" href="measured.html">How we measured</a></p></div>
+      </div>
+      <p class="lead reveal">We put both apps through the same 998 tracks that people had marked beat by beat, in ten genres, and the same USB stick. No settings tuned for the test. <a class="inline" href="measured.html">How we measured</a></p>
+    </div>
+  </section>
+
   <!-- PAYOFF -->
   <section class="payoff" aria-label="Ready to play">
     <div class="ready reveal" data-ready>
@@ -466,9 +477,9 @@
         <details><summary>Which players read the drive?</summary><p>Any Pioneer DJ or AlphaTheta player that reads the rekordbox Device Library (<code>export.pdb</code>), from the CDJ-2000 to the CDJ-3000, XDJ-XZ and XDJ-RX3. I have played Solco USBs on the XDJ-RX3, CDJ-2000NXS2, CDJ-2000 and XDJ-1000MK2. Players that read only the newer OneLibrary (the CDJ-3000X, XDJ-AZ, OPUS-QUAD and OMNIS-DUO) are not covered yet. Tell me what you play on when you sign up.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-supported-players-computers-and-apps">More in the help centre</a></p></details>
         <details><summary>What comes over from my rekordbox library?</summary><p>Playlists, folders, hot cues, memory cues, loops, ratings and colours. Beatgrids stay behind, because Solco grids every track itself. Your rekordbox library is only read, never changed.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-importing-from-other-apps">More in the help centre</a></p></details>
         <details><summary>Is my music uploaded?</summary><p>No. Every analysis runs on your computer. The optional playlist assistant looks things up in your library step by step and proposes a plan, a folder of playlists you review before you create it, or a change to a playlist you already have, which you review before it is made. Sending it a message shares your request, the conversation, and the names and details of the tracks and playlists it looks up with Solco's service. Never audio or file paths.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-privacy-and-diagnostics">More in the help centre</a></p></details>
-        <details><summary>What does it cost?</summary><p>The alpha is free. Builds don't expire: your licence key lasts 180 days, and new builds with fixes come out often. The price of the full release is not set yet; people on the waitlist hear it first.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-the-private-alpha">More in the help centre</a></p></details>
+        <details><summary>What does it cost?</summary><p>The beta is free, and your licence key renews itself while the beta lasts. New builds with fixes come out often. The price of the full release is not set yet; people on the waitlist hear it first.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-the-private-alpha">More in the help centre</a></p></details>
         <details><summary>Which computers does it run on?</summary><p>macOS on Apple Silicon, Windows and Linux. Intel Macs are not supported.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-installing-solco">More in the help centre</a></p></details>
-        <details><summary>What does private alpha mean?</summary><p>Solco is early, and it works only with a licence key made for you. Join the waitlist, and when there is a seat your personal key comes by email. Activate it once while online, on up to three of your computers; after that Solco works offline. I let DJs in small groups, read every message, and ship updates often. Keep a backup of your music, as you always should.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-the-private-alpha">More in the help centre</a></p></details>
+        <details><summary>What does private beta mean?</summary><p>Solco is early, and it works only with a licence key made for you. Join the waitlist, and when there is a seat your personal key comes by email. Activate it once while online, on up to three of your computers; after that Solco works offline, and renews your key by itself while the beta lasts. I let DJs in small groups, read every message, and ship updates often. Keep a backup of your music, as you always should.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-the-private-alpha">More in the help centre</a></p></details>
       </div>
     </div>
   </section>
@@ -490,7 +501,7 @@
     <div class="wrap final-grid">
       <div>
         <h2 id="final-h" class="reveal"><span>Download them.</span><span>Drop them in Solco.</span><span>Find them on stage.</span></h2>
-        <p class="lead reveal">Solco is in private alpha for macOS on Apple Silicon, Windows and Linux. Join the waitlist, and when there is a seat for you, your licence key comes by email.</p>
+        <p class="lead reveal">Solco is in private beta for macOS on Apple Silicon, Windows and Linux. Join the waitlist, and when there is a seat for you, your licence key comes by email.</p>
         <a class="btn-cta reveal" href="#waitlist" data-join>Join the waitlist <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
       </div>
       <div class="flow" aria-hidden="true" data-flow>

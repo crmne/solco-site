@@ -112,6 +112,7 @@
     stages.forEach(s => io.observe(s.el));
     // The two looks in the comparison are one picture: they share a single clock and visibility.
     const pair = stages.filter(s => s.el.hasAttribute('data-wipe-side'));
+    const REST = 2.6; // seconds a finished scene rests before it plays again
     const loop = now => {
       if (pair.length > 1) {
         const t0 = pair.map(s => s.t0).filter(v => v != null).sort((x, y) => x - y)[0];
@@ -121,10 +122,15 @@
       for (const s of stages) {
         if (!s.built) continue;
         if (s.after && s.t0 == null) { const p = stages.find(x => x.name === s.after); if (p && p.done) s.t0 = now + 200; }
+        // Each scene plays again by itself after a short rest, while it is on screen.
+        if (s.done && s.visible && s.demo.dur < 1e8 && now - s.doneAt > REST * 1000) {
+          s.t0 = now; s.done = false; s.el.classList.remove('done');
+          stages.forEach(x => { if (x.after === s.name) { x.t0 = null; x.done = false; x.el.classList.remove('done'); if (x.built) render(x, 0); } });
+        }
         if (s.t0 == null || !s.visible || s.done) continue;
         const t = Math.max(0, (now - s.t0) / 1000);
         render(s, Math.min(t, s.demo.dur));
-        if (t >= s.demo.dur) { s.done = true; s.el.classList.add('done'); }
+        if (t >= s.demo.dur) { s.done = true; s.doneAt = now; s.el.classList.add('done'); }
       }
       requestAnimationFrame(loop);
     };
@@ -231,7 +237,7 @@
   }
 
   /* ---------- the launch film, loaded only when asked for ---------- */
-  const film = document.querySelector('[data-film]'), filmVideo = film && film.querySelector('[data-film-video]');
+  const film = document.querySelector('dialog[data-film]'), filmVideo = film && film.querySelector('[data-film-video]');
   if (film && filmVideo) {
     const close = () => { filmVideo.pause(); film.close(); };
     // A browser may refuse to start it with sound without a click; the controls are then there to press play.
