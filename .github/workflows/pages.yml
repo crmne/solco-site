@@ -27,8 +27,12 @@ jobs:
       - name: Check titles, descriptions, structured data and the sitemap
         run: ruby script/check_seo.rb
       - uses: actions/configure-pages@v6
+      - name: Plan IndexNow submission
+        run: ruby .github/scripts/indexnow.rb plan site "$RUNNER_TEMP/indexnow.json"
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site
       - id: deployment
         uses: actions/deploy-pages@v5
+      - name: Submit changed URLs to IndexNow
+        run: ruby .github/scripts/indexnow.rb submit "$RUNNER_TEMP/indexnow.json"
