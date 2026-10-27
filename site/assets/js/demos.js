@@ -270,20 +270,32 @@
   function analysis(root, o = {}) {
     const W = o.cmp ? 560 : 1040, H = 580; root.style.width = W + 'px'; root.style.height = H + 'px';
     const d = S.deck;
-    const rows = [{ t: d.title, a: d.artist, s: 'Disco', bpm: d.bpm, k: d.camelot, e: Math.round(d.energy), dr: Math.round(d.arousal), f: d.feel, _w: d.overview, lufs: d.lufs }, ...S.recent.slice(1, 12)];
-    const cols = { wave: !o.cmp, style: false, nums: o.cmp ? ['Energy'] : ['Energy', 'Drive'] };
+    const rows = [{ t: d.title, a: d.artist, s: d.styles[0], bpm: d.bpm, k: d.camelot, e: d.energy, dr: d.arousal, p: d.peak, stb: d.stability, hp: d.happy, sd: d.sad, cl: d.calm, dn: d.dance, pa: d.party, ed: d.edge, v: d.vocal, f: d.feel, _w: d.overview, lufs: d.lufs }, ...S.recent.slice(1, 12)];
+    // The Character preset, as the app opens on it: waveform, title, BPM, key, feel, style, then every
+    // characteristic. It is wider than the window, so once the tracks are read the table scrolls sideways, the
+    // waveform and title staying put, as the app does (ADR 0256).
+    const cols = { wave: true, style: true };
     root.innerHTML = `<div style="position:absolute;inset:0;display:flex;background:var(--bg-main)">${o.cmp ? '' : sidebar({ sel: 'recent', recent: 12, steps: { 1: { c: '12', s: 'next' }, 2: { c: '', s: 'done' } }, act: 'Analysing 1 of 12' })}
       <div class="main"><div class="lib-head"><span class="ttl">Recently added</span><span class="sub">12 tracks</span><div class="search">${I('search', 's16')}<span class="ph">Search 12 tracks</span></div></div>
-      <div class="table">${libHeadOf(cols)}<div class="rows">${rows.map(t => libRow(t, { ...cols, attr: 'data-r' })).join('')}</div></div></div></div>`;
+      <div class="table pins">${libHeadOf(cols)}<div class="rows">${rows.map(t => libRow(t, { ...cols, attr: 'data-r' })).join('')}</div></div></div></div>`;
     const R = $$(root, '[data-r]').map((r, i) => ({ cv: $(r, '[data-wave]'), row: rows[i] }));
     const race = analysisRace(root);
+    const table = $(root, '.table');
+    const moving = [...$$(root, '.table [data-v]'), ...$$(root, '.ghead.lib .c').filter(c => !c.matches('.c-gut, .c-wave, .c-title'))];
+    let pan = 0;
+    const measure = () => { const last = $$(root, '.ghead.lib .c').pop(); if (last && table.clientWidth) pan = Math.max(0, last.offsetLeft + last.offsetWidth - table.clientWidth + 12); };
+    measure(); requestAnimationFrame(measure);
+    const P0 = race.end + .5, panTime = () => Math.min(3.2, Math.max(2.2, pan / 280));
     const act = $(root, '[data-k=act]'), spin = $(root, '[data-k=spin]'), actico = $(root, '[data-k=actico]'), cnt = $(root, '[data-step="1"] .cnt');
     let painted = false;
     return {
-      dur: rStart(11) + RLEN + .8, still: rStart(11) + RLEN + .7,
+      dur: rStart(11) + RLEN + 5.2, still: rStart(11) + RLEN + 5.1,
       render(t) {
         if (!painted) { painted = true; R.forEach(r => r.cv && window.UI.paintPreview(r.cv, r.row)); }
         const done = race.render(t, t, !!window.__still);
+        if (!pan) measure();
+        const px = -pan * E.inOut(seg(window.__still ? 0 : t, P0, P0 + panTime()));
+        moving.forEach(c => { c.style.translate = px ? `${px.toFixed(1)}px 0` : ''; });
         if (act) { txt(act, done >= race.n ? 'Library up to date' : `Analysing ${Math.min(race.n, done + 1)} of ${race.n}`); spin.style.transform = `rotate(${t * 360}deg)`; actico.style.display = 'none'; txt(cnt, String(race.n - done)); }
       }
     };
