@@ -16,6 +16,32 @@
   const SIZE = { hero: [1280, 800], addMusic: [1040, 560, 560], analysis: [1040, 580, 560], duplicates: [1040, 540, 560], tags: [1100, 620, 560],
     gridLab: [1040, 500, 560, 470], genre: [1040, 470, 560], playlists: [1100, 660, 560, 520], exportDemo: [1100, 560, 560], player: [640, 400] };
 
+  /* ---------- counting what happens, through Plausible: no cookies, nothing about the person, only
+     the event and a word of context (docs/analytics.md lists every event and its goal) ---------- */
+  const track = (name, props) => { try { if (window.plausible) window.plausible(name, props ? { props } : {}); } catch (e) { /* counting never breaks the page */ } };
+  window.solcoTrack = track;
+  const once = new Set(), trackOnce = (name, props) => { if (once.has(name)) return; once.add(name); track(name, props); };
+  // Where on the page a link or button sits: its chapter or section, or the top bar.
+  const placeOf = el => { const p = el.closest('.topbar, .foot, article[id], section[id], section[class]'); return !p ? 'page' : p.id || p.className.split(' ')[0]; };
+  if (params.get('ref') || params.get('ref_id')) track('Referral: Visit', { landing: 'getsolco.com' });
+  document.querySelectorAll('.faq details').forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) track('FAQ: Opened', { question: d.querySelector('summary').textContent.trim() });
+  }));
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href^="https://support.getsolco.com"]'); if (!a) return;
+    const article = new URL(a.href).pathname.replace(/^\/hc\/solco\/articles\/(solco-)?/, '').replace(/^\/$/, '') || 'home';
+    track('Help centre: Click', { article, place: placeOf(a) });
+  });
+  // The story's chapters, each counted once when it reaches the middle of the screen.
+  const story = [...document.querySelectorAll('.chapter[id], #stats, #faq, [data-final]')];
+  if (story.length) {
+    const seen = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; seen.unobserve(e.target);
+      track('Chapter: Reached', { chapter: e.target.id || 'final' });
+    }), { rootMargin: '-45% 0px -45% 0px' });
+    story.forEach(c => seen.observe(c));
+  }
+
   /* ---------- live interface stages ---------- */
   const stages = [...document.querySelectorAll('[data-demo]')].map(el => ({ el, name: el.dataset.demo, after: el.dataset.after, needs: el.dataset.needs, built: false, t0: null, t: 0, visible: false, done: false }));
   window.__stages = stages;
@@ -209,16 +235,22 @@
   if (film && filmVideo) {
     const close = () => { filmVideo.pause(); film.close(); };
     // A browser may refuse to start it with sound without a click; the controls are then there to press play.
-    const open = () => {
+    const open = from => {
       if (film.open) return;
       if (!filmVideo.src) filmVideo.src = 'media/solco-launch.mp4';
       film.showModal(); filmVideo.play().catch(() => {});
-      if (window.plausible) window.plausible('Film play');
+      track('Film play', { from });
     };
-    document.querySelectorAll('[data-film-open]').forEach(b => b.addEventListener('click', open));
+    document.querySelectorAll('[data-film-open]').forEach(b => b.addEventListener('click', () => open(placeOf(b))));
+    // How far people watch: a quarter, half, and to the end, each counted once per visit.
+    filmVideo.addEventListener('timeupdate', () => {
+      const k = filmVideo.duration ? filmVideo.currentTime / filmVideo.duration : 0;
+      if (k >= .25) trackOnce('Film: 25%'); if (k >= .5) trackOnce('Film: 50%'); if (k >= .98) trackOnce('Film: Finished');
+    });
+    filmVideo.addEventListener('ended', () => trackOnce('Film: Finished'));
     // getsolco.com/#film (the app's "Watch the tour") opens the film straight away, and again whenever the
     // address changes to it; closing it drops the #film, so the same link works the next time.
-    const fromHash = () => { if (location.hash === '#film') open(); };
+    const fromHash = () => { if (location.hash === '#film') open('link'); };
     fromHash(); addEventListener('hashchange', fromHash);
     film.addEventListener('close', () => { if (location.hash === '#film') history.replaceState(null, '', location.pathname + location.search); });
     film.querySelector('[data-film-close]').addEventListener('click', close);
@@ -259,29 +291,37 @@
       wl.querySelectorAll('.wl-go').forEach(b => b.disabled = true); say('Adding you…');
       const answers = {};
       if (withAnswers) $('qs').querySelectorAll('select').forEach((s, i) => { if (s.value) answers[questions[i][0]] = s.value; });
+      let status = 'network';
       try {
         const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           // website is a field people never see; elapsed_ms is how long the page was open (bots are quicker than 3 seconds).
           body: JSON.stringify({ email: email.value.trim(), answers, website: wl.querySelector('#wl-website').value, elapsed_ms: Date.now() - shown, ...(ref ? { ref } : {}) }) });
+        status = String(res.status);
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error((data && data.message) || '');
         $('s1').hidden = true; $('s2').hidden = true; $('done').hidden = false; say('');
         $('done').focus();
+        // Never the address or the answers themselves: only whether there were any, and whether a referral brought them.
+        track('Waitlist: Submitted', { answers: Object.keys(answers).length ? 'answered' : 'skipped', referral: ref ? 'yes' : 'no' });
       } catch (e) {
+        track('Waitlist: Error', { status });
         say(`${e.message ? esc(e.message) + ' ' : 'That did not go through. '}${fallback}`, true);
       } finally { busy = false; wl.querySelectorAll('.wl-go').forEach(b => b.disabled = false); }
     };
     wl.addEventListener('submit', e => {
       e.preventDefault();
       if (step !== 1) return submit(true);
-      if (!email.checkValidity() || !email.value.trim()) { say('Please enter a valid email address.', true); email.focus(); return; }
+      if (!email.checkValidity() || !email.value.trim()) { say('Please enter a valid email address.', true); email.focus(); track('Waitlist: Error', { status: 'invalid email' }); return; }
       say('');
       step = 2; renderQs(); $('s1').hidden = true; $('s2').hidden = false;
       wl.querySelector('#wl-q0').focus({ preventScroll: true });
+      track('Waitlist: Questions shown');
     });
     $('skip').addEventListener('click', () => submit(false));
+    email.addEventListener('input', () => trackOnce('Waitlist: Started'));
   }
   document.querySelectorAll('[data-join]').forEach(a => a.addEventListener('click', e => {
+    track('Waitlist: CTA click', { place: placeOf(a) });
     const target = document.getElementById('waitlist'); if (!target) return;
     e.preventDefault();
     target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
