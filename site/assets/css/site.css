@@ -488,7 +488,7 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .film-btn:hover { border-color: var(--violet); background: color-mix(in oklab, var(--violet) 10%, transparent); transform: translateY(-1px); }
 .film-btn:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
 .film-play { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--violet); color: var(--violet-ink); }
-.film-play svg { width: 15px; height: 15px; fill: currentColor; margin-left: 2px; }
+.film-play svg { width: 15px; height: 15px; fill: currentColor; }
 dialog.film { margin: auto; padding: 0; border: 0; background: transparent; max-width: min(1200px, 94vw); width: 100%; overflow: visible; }
 dialog.film::backdrop { background: rgba(4, 4, 6, .86); backdrop-filter: blur(6px); }
 .film-frame { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 40px 120px -20px rgba(0,0,0,.8); background: #000; }
@@ -590,3 +590,23 @@ section.stats .lead { margin: 44px 0 34px; max-width: 42em; }
 .film-under + .hero-stage { margin-top: 28px; }
 @media (max-width: 699px) { .film-under { margin: 20px 0 0; } .film-under + .hero-stage { margin-top: 18px; } }
 .tile .s a.inline { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
+/* the hero: the film right under the subtitle; the copy and the waitlist card balanced, the product below both */
+.hero-grid { align-items: stretch; }
+.hero-grid > div:first-child { display: flex; flex-direction: column; justify-content: center; }
+.film-under, .film-under + .hero-stage { margin: 0; }
+.hero .film-under { justify-content: flex-start; margin-top: 22px; }
+.hero .join { display: flex; flex-direction: column; padding: 22px 24px 16px; }
+.hero .join h2 { font-size: 22px; }
+.hero .join > p { font-size: 14px; }
+.hero .join .wl { margin-top: 14px; }
+.hero .join .platforms { margin-top: auto; padding-top: 12px; }
+.hero-stage { margin-top: 48px; }
+@media (max-width: 699px) { .hero .film-under { margin-top: 16px; } .hero-stage { margin-top: 22px; } .hero .join { padding: 20px 18px 14px; } }
+.hero .join { padding: 16px 22px 12px; }
+.hero .join .wl { margin-top: 10px; }
+.hero .join .wl input { height: 44px; }
+.hero .join .wl .wl-go { height: 44px; margin-top: 8px; }
+.hero .join .wl-fine { margin-top: 8px; }
+.hero .join .platforms { padding-top: 8px; }
+@media (min-width: 700px) { .hero-grid > div:first-child { justify-content: space-between; } }
+.hero .join .platforms { font-size: 10.5px; letter-spacing: .06em; white-space: nowrap; }
