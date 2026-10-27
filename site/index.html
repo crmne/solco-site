@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Solco: stop preparing your tracks. The DJ library app with AI beatgrids and CDJ USB export</title>
-<meta name="description" content="Stop preparing your tracks. Download them, drop them in Solco, find them on stage: AI beatgrids, keys, genre from the sound, smart playlists and USB drives your CDJs read. Private alpha.">
+<title>Solco: DJ library app with AI beatgrids and CDJ USB export</title>
+<meta name="description" content="Stop preparing your tracks: Solco's local AI lays every beatgrid and finds keys, then it fixes tags, builds playlists and writes your CDJ USB. No rekordbox.">
 <link rel="canonical" href="https://getsolco.com/">
 <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
@@ -15,6 +15,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Solco">
+<meta property="og:locale" content="en_GB">
 <meta property="og:url" content="https://getsolco.com/">
 <meta property="og:title" content="Solco: stop preparing your tracks.">
 <meta property="og:description" content="The DJ library app that grids, keys, sorts and tags every download, then writes the USB your CDJs read. No rekordbox needed.">
@@ -26,6 +27,7 @@
 <meta name="twitter:title" content="Solco: stop preparing your tracks.">
 <meta name="twitter:description" content="The DJ library app that grids, keys, sorts and tags every download, then writes the USB your CDJs read. No rekordbox needed.">
 <meta name="twitter:image" content="https://getsolco.com/og.png?v=6">
+<meta name="twitter:image:alt" content="Solco, DJ library app, private beta. Stop preparing your tracks. A real track's waveform with its beatgrid.">
 <link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
@@ -35,6 +37,141 @@
 <script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://getsolco.com/#website",
+      "url": "https://getsolco.com/",
+      "name": "Solco",
+      "inLanguage": "en-GB",
+      "publisher": {"@id": "https://getsolco.com/#organization"}
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://getsolco.com/#organization",
+      "name": "Plenty",
+      "legalName": "PlentyLabs UG (haftungsbeschränkt) & Co. KG",
+      "url": "https://getsolco.com/",
+      "email": "hello@getsolco.com",
+      "address": {"@type": "PostalAddress", "streetAddress": "Brunnenstraße 169", "postalCode": "10119", "addressLocality": "Berlin", "addressCountry": "DE"},
+      "founder": {"@type": "Person", "name": "Carmine Paolino"}
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://getsolco.com/#solco",
+      "name": "Solco",
+      "url": "https://getsolco.com/",
+      "description": "A DJ library app: local AI lays every beatgrid, finds the key, reads each track's energy and style, fixes tags and covers, finds duplicates, builds playlists and writes the rekordbox-format USB drive Pioneer CDJ and XDJ players read, without rekordbox.",
+      "applicationCategory": "MultimediaApplication",
+      "applicationSubCategory": "DJ library management",
+      "operatingSystem": "macOS 13.4 or later (Apple Silicon), Windows (64-bit), Linux (x86-64, ARM64)",
+      "softwareVersion": "Private beta",
+      "image": "https://getsolco.com/og.png?v=6",
+      "screenshot": "https://getsolco.com/media/app/hero.webp",
+      "featureList": ["AI beatgrids that follow tempo changes", "Key detection in Camelot or classical notation", "Loudness in LUFS", "Style and character readings: energy, drive, mood, danceability and vocals", "Tags and covers found by audio fingerprint", "Duplicates found by their sound", "Smart Playlists and a playlist assistant", "Exports rekordbox-format USB drives for Pioneer CDJ and XDJ players", "Imports from rekordbox, Traktor and Apple Music", "Exports Traktor collections and M3U8 playlists"],
+      "publisher": {"@id": "https://getsolco.com/#organization"},
+      "subjectOf": {"@id": "https://getsolco.com/#film"}
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "https://getsolco.com/#film",
+      "name": "Solco in 90 seconds",
+      "description": "The Solco film: new tracks dropped in, analysed with their beatgrids, tagged, duplicates removed, playlists built and the USB written for the CDJs.",
+      "thumbnailUrl": "https://getsolco.com/media/solco-launch-poster.jpg",
+      "contentUrl": "https://getsolco.com/media/solco-launch.mp4",
+      "embedUrl": "https://getsolco.com/#film",
+      "uploadDate": "2026-10-26",
+      "duration": "PT1M31S",
+      "inLanguage": "en",
+      "publisher": {"@id": "https://getsolco.com/#organization"}
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" id="ld-faq">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://getsolco.com/#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need rekordbox?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Solco writes the USB drive itself, in the rekordbox format Pioneer players read. If you still use rekordbox, Solco can import its library, and rekordbox keeps working as before. Solco is also quicker at writing the drive: putting the same 493 already-analysed tracks on the same USB stick from a Mac mini M4, it took 12 minutes, and rekordbox 7.2.6 took 3½ hours. See the test."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Solco a rekordbox alternative?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For preparing your music, yes. Solco does the DJ library management, from beatgrids, keys and tags to duplicates and playlists, and writes the USB your CDJs and XDJs read, on macOS, Windows and Linux. It isn't for performing: you don't mix in Solco, you play from the USB on the players. If you still use rekordbox, both can add to the same drive, each keeping the other's playlists."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I still organise my library my own way?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Your folders, playlists, cues, grids and tags stay exactly as you set them. Solco adds its readings next to yours. It writes two things into your files by itself: an ID tag, so it can follow a file you move, and its key, so your other apps and players show the same key. Turn key writing off, or put your files' own keys back, in Settings › Analysis. Every other tag waits for you. Do as much by hand as you like, or none of it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which players read the drive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Any Pioneer DJ or AlphaTheta player that reads the rekordbox Device Library (export.pdb), from the CDJ-2000 to the CDJ-3000, XDJ-XZ and XDJ-RX3. I have played Solco USBs on the XDJ-RX3, CDJ-2000NXS2, CDJ-2000 and XDJ-1000MK2. Players that read only the newer OneLibrary (the CDJ-3000X, XDJ-AZ, OPUS-QUAD and OMNIS-DUO) are not covered yet. Tell me what you play on when you sign up."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What comes over from my rekordbox library?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Playlists, folders, hot cues, memory cues, loops, ratings and colours. Beatgrids stay behind, because Solco grids every track itself. Your rekordbox library is only read, never changed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my music uploaded?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Every analysis runs on your computer. The optional playlist assistant looks things up in your library step by step and proposes a plan, a folder of playlists you review before you create it, or a change to a playlist you already have, which you review before it is made. Sending it a message shares your request, the conversation, and the names and details of the tracks and playlists it looks up with Solco's service. Never audio or file paths."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The beta is free, and your licence key renews itself while the beta lasts. New builds with fixes come out often. The price of the full release is not set yet; people on the waitlist hear it first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which computers does it run on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "macOS on Apple Silicon, Windows and Linux. Intel Macs are not supported."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does private beta mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Solco is early, and it works only with a licence key made for you. Join the waitlist, and when there is a seat your personal key comes by email. Activate it once while online, on up to three of your computers; after that Solco works offline, and renews your key by itself while the beta lasts. I let DJs in small groups, read every message, and ship updates often. Keep a backup of your music, as you always should."
+      }
+    }
+  ]
+}
 </script>
 </head>
 <body>
@@ -324,6 +461,7 @@
       <h2 id="faq-h" class="reveal">What DJs ask first.</h2>
       <div class="faq-list reveal">
         <details><summary>Do I need rekordbox?</summary><p>No. Solco writes the USB drive itself, in the rekordbox format Pioneer players read. If you still use rekordbox, Solco can import its library, and rekordbox keeps working as before. Solco is also quicker at writing the drive: putting the same 493 already-analysed tracks on the same USB stick from a Mac mini M4, it took 12 minutes, and rekordbox 7.2.6 took 3½ hours. <a class="faq-inline" href="#usb-speed">See the test</a>.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-exporting-to-a-cdj-usb">More in the help centre</a></p></details>
+        <details><summary>Is Solco a rekordbox alternative?</summary><p>For preparing your music, yes. Solco does the DJ library management, from beatgrids, keys and tags to duplicates and playlists, and writes the USB your CDJs and XDJs read, on macOS, Windows and Linux. It isn't for performing: you don't mix in Solco, you play from the USB on the players. If you still use rekordbox, both can add to the same drive, each keeping the other's playlists.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-supported-players-computers-and-apps">More in the help centre</a></p></details>
         <details><summary>Can I still organise my library my own way?</summary><p>Yes. Your folders, playlists, cues, grids and tags stay exactly as you set them. Solco adds its readings next to yours. It writes two things into your files by itself: an ID tag, so it can follow a file you move, and its key, so your other apps and players show the same key. Turn key writing off, or put your files' own keys back, in <b>Settings › Analysis</b>. Every other tag waits for you. Do as much by hand as you like, or none of it.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-tags-and-keys-in-your-files">More in the help centre</a></p></details>
         <details><summary>Which players read the drive?</summary><p>Any Pioneer DJ or AlphaTheta player that reads the rekordbox Device Library (<code>export.pdb</code>), from the CDJ-2000 to the CDJ-3000, XDJ-XZ and XDJ-RX3. I have played Solco USBs on the XDJ-RX3, CDJ-2000NXS2, CDJ-2000 and XDJ-1000MK2. Players that read only the newer OneLibrary (the CDJ-3000X, XDJ-AZ, OPUS-QUAD and OMNIS-DUO) are not covered yet. Tell me what you play on when you sign up.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-supported-players-computers-and-apps">More in the help centre</a></p></details>
         <details><summary>What comes over from my rekordbox library?</summary><p>Playlists, folders, hot cues, memory cues, loops, ratings and colours. Beatgrids stay behind, because Solco grids every track itself. Your rekordbox library is only read, never changed.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-importing-from-other-apps">More in the help centre</a></p></details>

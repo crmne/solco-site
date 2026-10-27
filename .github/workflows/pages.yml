@@ -24,6 +24,8 @@ jobs:
       - uses: actions/checkout@v7
       - name: Check help center links
         run: ruby script/check_help_links.rb
+      - name: Check titles, descriptions, structured data and the sitemap
+        run: ruby script/check_seo.rb
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

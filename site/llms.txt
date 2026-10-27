@@ -1,8 +1,8 @@
 # Solco
 
-> Solco is a DJ library app in private alpha. It grids, keys, sorts and tags every track you add, on your own computer, then writes the rekordbox-format USB drive Pioneer CDJ and XDJ players read, with no rekordbox needed. It runs on macOS on Apple Silicon, Windows and Linux.
+> Solco is a DJ library app in private beta. It grids, keys, sorts and tags every track you add, on your own computer, then writes the rekordbox-format USB drive Pioneer CDJ and XDJ players read, with no rekordbox needed. It runs on macOS on Apple Silicon, Windows and Linux.
 
-Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music, and exports Traktor collections and M3U8 playlists as well as USB drives. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The alpha is free, and DJs are invited in small groups from the waitlist at getsolco.com.
+Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music, and exports Traktor collections and M3U8 playlists as well as USB drives. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The beta is free, and DJs are invited in small groups from the waitlist at getsolco.com, each with a personal licence key.
 
 ## Site
 
@@ -15,18 +15,32 @@ Guides to every step, at https://support.getsolco.com. The articles are in Engli
 
 - [Getting started with Solco](https://support.getsolco.com/hc/solco/articles/solco-getting-started): Add your music, let Solco prepare every track, build playlists and put them on a USB drive your CDJs and XDJs read.
 - [Installing Solco on macOS, Windows and Linux](https://support.getsolco.com/hc/solco/articles/solco-installing-solco): Which computers Solco runs on, which download to choose, and how to install it on a Mac, a Windows PC or Linux.
-- [The private alpha and your licence key](https://support.getsolco.com/hc/solco/articles/solco-the-private-alpha): Why Solco needs a licence key during the private alpha, how to enter it, how long it lasts, and what happens when it ends or is revoked.
+- [The private beta and your licence key](https://support.getsolco.com/hc/solco/articles/solco-the-private-alpha): Why Solco needs a licence key during the private beta, how to enter it, how long it lasts, and what happens when it ends or is revoked.
 - [Contacting the Solco team](https://support.getsolco.com/hc/solco/articles/solco-contacting-the-solco-team): Send a message from inside Solco, attach a diagnostic summary you can read first, and get replies in the app.
-- [Planning a gig with the assistant](https://support.getsolco.com/hc/solco/articles/solco-planning-a-gig-with-the-assistant): Describe the night and the assistant plans a folder of playlists from your own library, for you to review and create.
+- [Planning a gig with the assistant](https://support.getsolco.com/hc/solco/articles/solco-planning-a-gig-with-the-assistant): Describe the night and the assistant plans a folder of playlists from your library, or changes a playlist you have. You review every change first.
 - [Tags and keys in your files](https://support.getsolco.com/hc/solco/articles/solco-tags-and-keys-in-your-files): What Solco writes into your music files, how it keeps them safe, and how to put your files' own keys back.
+- [What the characteristics mean](https://support.getsolco.com/hc/solco/articles/solco-what-the-characteristics-mean): Energy, Drive, Peak, Mood, Dance and the rest of Solco's readings, what each one measures and how to read its number.
+- [Searching and smart playlists](https://support.getsolco.com/hc/solco/articles/solco-searching-and-smart-playlists): Find tracks by words, tempo, key and character, and save a search as a smart playlist that fills itself as your library grows.
+- [Music folders, Downloads and gathering your files](https://support.getsolco.com/hc/solco/articles/solco-music-folders-and-gathering-files): Add and order your music folders, sort new downloads through Incoming, and gather music spread over several folders into one.
+- [Analysing your tracks](https://support.getsolco.com/hc/solco/articles/solco-analysing-your-tracks): What Solco measures in every track, how to follow and pause analysis, and how to analyse a track again.
+- [Fixing tags and covers](https://support.getsolco.com/hc/solco/articles/solco-fixing-tags-and-covers): Look up titles, artists, albums and covers for your tracks, review each change, and edit a track's tags yourself.
+- [Finding and removing duplicates](https://support.getsolco.com/hc/solco/articles/solco-finding-and-removing-duplicates): How Solco finds the same recording in more than one place, which copy it keeps, and how to remove the rest safely.
+- [Checking and fixing beatgrids](https://support.getsolco.com/hc/solco/articles/solco-checking-and-fixing-beatgrids): Find the few grids Solco isn't sure about, check them by ear, and fix the tempo, the downbeat or a track whose tempo moves.
+- [Hot cues, memory cues and loops on the deck](https://support.getsolco.com/hc/solco/articles/solco-hot-cues-memory-cues-and-loops): Play a track on Solco's deck, set hot cues, memory cues and loops the way your players do, and edit or remove them.
+- [Playlists, folders and similar tracks](https://support.getsolco.com/hc/solco/articles/solco-playlists-and-folders): Make playlists and folders, add and reorder tracks, rate and colour them, and start a playlist from tracks that sound alike.
+- [Keyboard shortcuts](https://support.getsolco.com/hc/solco/articles/solco-keyboard-shortcuts): Every keyboard shortcut in Solco, for the library, the deck, the waveform and reviewing tags, on a Mac and on Windows and Linux.
+- [Solco's settings at a glance](https://support.getsolco.com/hc/solco/articles/solco-settings-at-a-glance): What each page of Solco's settings holds, from music folders and analysis to looks, key names and updates.
 - [Supported players, computers and apps](https://support.getsolco.com/hc/solco/articles/solco-supported-players-computers-and-apps): The players, computers, operating systems and DJ apps Solco works with, what has been tested, and the known limitations.
+- [Why do my waveforms look smaller on the CDJ?](https://support.getsolco.com/hc/solco/articles/solco-why-do-my-waveforms-look-smaller-on-the-cdj): Solco draws every waveform at the track's real level, so a quiet track looks smaller on the player. That's your cue to raise the trim.
 - [Importing from rekordbox, Traktor and Apple Music](https://support.getsolco.com/hc/solco/articles/solco-importing-from-other-apps): Bring your playlists, cues, loops, ratings and colours into Solco without changing your files or the other app's library.
 - [Exporting to a CDJ or XDJ USB drive](https://support.getsolco.com/hc/solco/articles/solco-exporting-to-a-cdj-usb): Put your playlists on a USB drive Pioneer players read, set what the players show, continue a rekordbox drive, and eject safely.
 - [Exporting playlists for Traktor and other apps](https://support.getsolco.com/hc/solco/articles/solco-traktor-and-m3u8-export): Write your playlists as a Traktor collection with cues, loops and grids, or as M3U8 files for Serato, Engine DJ, rekordbox and others.
-- [Updating Solco](https://support.getsolco.com/hc/solco/articles/solco-updating-solco): How Solco finds and installs new alphas, what it sends to check and where, and how to update by hand.
+- [Updating Solco](https://support.getsolco.com/hc/solco/articles/solco-updating-solco): How Solco finds and installs new betas, what it sends to check and where, and how to update by hand.
 - [Privacy, error reports and diagnostics](https://support.getsolco.com/hc/solco/articles/solco-privacy-and-diagnostics): What Solco sends, to whom and when, what stays on your computer, what it asks first, and which of it you can turn off.
 - [Troubleshooting USB drives and exports](https://support.getsolco.com/hc/solco/articles/solco-troubleshooting-usb-exports): What to do when Solco misses a USB drive, writes slowly, finds rekordbox using it, or an export stops or runs slow, and how to check a drive before a gig.
 - [Backing up and restoring your Solco library](https://support.getsolco.com/hc/solco/articles/solco-backing-up-your-library): Save a backup of your playlists and preparation, what Solco backs up by itself, and how to go back to a backup.
+- [Missing files and moved music](https://support.getsolco.com/hc/solco/articles/solco-missing-files): Why tracks show under Missing files, how to find and reconnect them, and how to forget the ones that are really gone.
+- [When Solco cannot open its window](https://support.getsolco.com/hc/solco/articles/solco-when-solco-cannot-open-its-window): Solco draws its window with your computer's graphics. What to do when it says it cannot open its window, or opens slowly without a graphics driver.
 
 ## Optional
 
