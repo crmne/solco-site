@@ -118,7 +118,11 @@
     // stages tick through, the grid is laid across the waveform, then the reading lands in the header (BPM
     // counting up, the key, the loudness) and the readings fill in, each in its colour. Then it simply plays.
     const STAGES = ['Fingerprint', 'Loudness', 'Key', 'Beatgrid', 'Character'];
-    const A = { stages: [.2, 1.5], grid: [.75, 1.45], land: 1.5 };
+    const A = { stages: [.3, 2.2], grid: [.9, 2.3], land: 2.3 };
+    // Every CYCLE seconds Solco races through the table again: rows clear, then each row's cells fill in, several
+    // rows at once, while the grid is laid on the deck and its readings fill in. Between runs the deck just plays.
+    const CYCLE = 15;
+    const tRows = $$(root, '.table .rows .row').map(r => ({ cells: $$(r, '[data-v]'), wave: $(r, '[data-wave]') }));
     const vals = $$(root, '.deck .stats .stat .v'), bpmV = vals[0], keyV = vals[1], lufsV = vals[3];
     const bpmHtml = bpmV.innerHTML, keyHtmlFull = keyV.innerHTML, lufsHtml = lufsV.innerHTML;
     const meta = $(root, '.deck .meta .muted'), styleTxt = meta ? meta.textContent : '';
@@ -131,17 +135,25 @@
         const at = smp.L0 + 1.2 + t;
         const lines = steadyLines(d, at - 5, at + 5);
         const still = window.__still, f = A.land;
-        const g = still ? 1 : E.inOut(seg(t, A.grid[0], A.grid[1])), left = at - 3.5;
+        // Each cycle: a quick clear, then the race. The music keeps time throughout.
+        const ph = still ? 99 : t % CYCLE, clear = still ? 0 : (t >= CYCLE ? 1 - seg(ph, 0, .25) : 0);
+        const tt = ph;
+        tRows.forEach((r, i) => {
+          const a = .35 + i * .13;
+          if (r.wave) { const k = still ? 1 : Math.max(clear, E.out(seg(tt, a, a + .35))); r.wave.style.opacity = k; }
+          r.cells.forEach((c, j) => { const k = still ? 1 : Math.max(clear, E.out(seg(tt, a + .08 + j * .045, a + .38 + j * .045))); c.style.opacity = k; c.style.transform = k < 1 ? `translateY(${(1 - k) * 5}px)` : ''; });
+        });
+        const g = still ? 1 : E.inOut(seg(tt, A.grid[0], A.grid[1])), left = at - 3.5;
         const laid = g >= 1 ? lines : lines.filter(L => (L.t - left) / 7 <= g);
         // bar labels follow the real downbeats of the loop
         paintZoom(zc, d, { t: at, span: 7, sampler: smp, cues: g >= 1 ? cues : cues.filter(c => (c.t - left) / 7 <= g), lines: laid.map(L => ({ ...L, label: L.down ? String(89 + Math.round((L.t - smp.L0) / (4 * smp.beat))) : null })) });
-        if (meta) { const sk = seg(t, A.stages[0], A.stages[1]); txt(meta, still || t >= f + .6 ? styleTxt : sk <= 0 ? 'Waiting' : `Analysing · ${STAGES[Math.min(4, Math.floor(sk * 5))]}`); }
-        if (still || t >= f + .7) { if (bpmV.innerHTML !== bpmHtml) bpmV.innerHTML = bpmHtml; }
-        else txt(bpmV, t < f ? '–' : lerp(90, d.bpm, E.out5(seg(t, f, f + .6))).toFixed(2));
-        if (still || t >= f + .15) { if (keyV.innerHTML !== keyHtmlFull) keyV.innerHTML = keyHtmlFull; } else if (keyV.textContent !== '–') keyV.textContent = '–';
-        if (still || t >= f + .9) { if (lufsV.innerHTML !== lufsHtml) lufsV.innerHTML = lufsHtml; }
-        else lufsV.innerHTML = t < f + .3 ? '–' : `${lerp(-30, d.lufs, E.out5(seg(t, f + .3, f + .9))).toFixed(1).replace('-', '−')}<small>LUFS</small>`;
-        bars.forEach((b, j) => { const k = still ? 1 : E.out(seg(t, f + .2 + j * .08, f + 1.1 + j * .08)); b.i.style.width = b.v * k + '%'; b.i.style.background = window.UI.charColor(b.v * k); txt(b.n, String(Math.round(b.v * k))); });
+        if (meta) { const sk = seg(tt, A.stages[0], A.stages[1]); txt(meta, still || tt >= f + .6 ? styleTxt : sk <= 0 ? 'Waiting' : `Analysing · ${STAGES[Math.min(4, Math.floor(sk * 5))]}`); }
+        if (still || tt >= f + .7) { if (bpmV.innerHTML !== bpmHtml) bpmV.innerHTML = bpmHtml; }
+        else txt(bpmV, tt < f ? '–' : lerp(90, d.bpm, E.out5(seg(tt, f, f + .6))).toFixed(2));
+        if (still || tt >= f + .15) { if (keyV.innerHTML !== keyHtmlFull) keyV.innerHTML = keyHtmlFull; } else if (keyV.textContent !== '–') keyV.textContent = '–';
+        if (still || tt >= f + .9) { if (lufsV.innerHTML !== lufsHtml) lufsV.innerHTML = lufsHtml; }
+        else lufsV.innerHTML = tt < f + .3 ? '–' : `${lerp(-30, d.lufs, E.out5(seg(tt, f + .3, f + .9))).toFixed(1).replace('-', '−')}<small>LUFS</small>`;
+        bars.forEach((b, j) => { const k = still ? 1 : E.out(seg(tt, f + .2 + j * .08, f + 1.1 + j * .08)); b.i.style.width = b.v * k + '%'; b.i.style.background = window.UI.charColor(b.v * k); txt(b.n, String(Math.round(b.v * k))); });
         paintOverview(ov, d, { at: smp.L0 + 1.2 + (t % 400), cues, window: 7 });
         txt(rem, `−${mmss(d.dur - (smp.L0 + 1.2 + t))}`);
         if (!rem.querySelector('small')) rem.insertAdjacentHTML('beforeend', `<small>of ${mmss(d.dur)}</small>`);
