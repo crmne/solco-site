@@ -620,3 +620,9 @@ section.stats .lead { margin: 44px 0 34px; max-width: 42em; }
 .hero .join .wl-fine, .hero .join .wl-msg:not(:empty) { margin-top: var(--rhythm); }
 .hero .join .platforms { margin-top: var(--rhythm); padding-top: 0; text-align: center; }
 .hero .join h2 + p { margin-top: var(--rhythm); }
+/* the grid figures, measured against rekordbox, in the chapter's facts style */
+.facts.measured { grid-template-columns: repeat(2, 1fr); margin-top: 18px; border-top: 0; padding-top: 0; }
+.facts.measured dt { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-variation-settings: "opsz" 60; font-weight: 700; font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -.03em; line-height: 1.05; margin-bottom: 6px; }
+.facts.measured dt b { color: var(--ink-3); font-weight: 700; }
+.facts.measured a.inline { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+@media (max-width: 760px) { .facts.measured { grid-template-columns: 1fr; } }
