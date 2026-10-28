@@ -78,9 +78,9 @@
 .ui .tt .meta { color:var(--text-2); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .ui .tt .meta .sep { color:var(--text-4); margin:0 6px; }
 .ui .stats { display:flex; gap:26px; flex:none; }
-.ui .stat .v { font-size:24px; line-height:30px; font-weight:500; letter-spacing:-.01em; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.ui .stat .v { height:30px; font-size:24px; line-height:30px; font-weight:500; letter-spacing:-.01em; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .ui .stat .v.dim { color:var(--text-2); }
-.ui .stat .v small { font-size:13px; color:var(--text-2); margin-left:5px; font-weight:400; letter-spacing:0; }
+.ui .stat .v small { line-height:0; font-size:13px; color:var(--text-2); margin-left:5px; font-weight:400; letter-spacing:0; }
 .ui .stat .k { font-size:11.5px; color:var(--text-3); margin-top:2px; }
 .ui .deck-menu { display:flex; flex-direction:column; gap:8px; color:var(--text-2); margin-left:2px; align-self:flex-start; padding-top:4px; }
 .ui .deck-mid { display:flex; gap:0; padding:5px 0 0; align-items:stretch; }
