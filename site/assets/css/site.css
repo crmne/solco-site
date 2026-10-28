@@ -626,3 +626,22 @@ section.stats .lead { margin: 44px 0 34px; max-width: 42em; }
 .facts.measured dt b { color: var(--ink-3); font-weight: 700; }
 .facts.measured a.inline { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 @media (max-width: 760px) { .facts.measured { grid-template-columns: 1fr; } }
+
+/* ---------- the hero window on phones: it scrolls sideways under your finger ---------- */
+.swipe-hint { display: none; }
+@media (max-width: 760px) {
+  .hero-stage { margin: 56px calc(-1 * var(--gutter)) 0; }
+  .film-under + .hero-stage { margin-top: 18px; }
+  .hero-stage .glow { display: none; }
+  .hero-scroll { overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; scrollbar-width: none; padding: 4px var(--gutter) 28px; }
+  .hero-scroll::-webkit-scrollbar { display: none; }
+  .hero-scroll .stage.shell { border-radius: 12px; }
+  /* a soft edge says there is more to the right; it goes once you reach the end */
+  .hero-stage::after { content: ""; position: absolute; top: 0; right: 0; bottom: 24px; width: 44px; pointer-events: none; background: linear-gradient(90deg, transparent, var(--bg)); opacity: 0; transition: opacity .3s; }
+  .hero-stage.can-scroll:not(.at-end)::after { opacity: 1; }
+  .swipe-hint { display: flex; align-items: center; gap: 7px; position: absolute; right: calc(var(--gutter) + 10px); bottom: 40px; z-index: 2; margin: 0; padding: 6px 12px 6px 10px; border-radius: 999px; background: color-mix(in srgb, var(--panel) 86%, transparent); backdrop-filter: blur(10px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 12%, transparent), 0 8px 20px -8px rgba(0,0,0,.5); font-size: 12.5px; font-weight: 550; color: var(--ink); pointer-events: none; transition: opacity .4s, transform .4s var(--ease); }
+  .swipe-hint svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .hero-stage:not(.can-scroll) .swipe-hint, .hero-stage.swiped .swipe-hint { opacity: 0; transform: translateY(6px); }
+}
+@media (max-width: 699px) { .hero-stage { margin-top: 22px; } }
+@media (max-width: 760px) { .hero > .wrap, .hero-stage, .hero-scroll { min-width: 0; } .hero > .wrap { width: 100%; } }

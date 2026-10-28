@@ -55,7 +55,7 @@
     if (s.built || inWipe(s)) return;
     const z = SIZE[s.name] || [1040, 560]; const c = cmpFor(s);
     const W = c && z[2] ? z[2] : z[0], H = c && z[3] ? z[3] : z[1];
-    let k = Math.min(1, s.el.clientWidth / W); if (s.name === 'hero' && compact()) k = .62;
+    let k = Math.min(1, s.el.clientWidth / W); if (s.name === 'hero' && compact()) { k = .62; s.el.style.width = Math.round(W * k) + 'px'; }
     s.el.style.height = Math.round(H * k) + 'px';
   }
   function build(s) {
@@ -81,7 +81,9 @@
     if (!s.built) return reserve(s);
     const W = s.root.offsetWidth, H = s.root.offsetHeight;
     let k = Math.min(1, s.el.clientWidth / W);
-    if (s.name === 'hero' && compact()) k = .62; // the window bleeds off the right edge on phones
+    // On phones the window keeps a readable size and its frame scrolls sideways under your finger.
+    if (s.name === 'hero' && compact()) { k = .62; s.el.style.width = Math.round(W * k) + 'px'; }
+    else if (s.name === 'hero') s.el.style.width = '';
     if (inWipe(s)) { const wp = s.el.closest('.wipe'); k = compact() ? wp.clientHeight / H : wp.clientWidth / W; s.el.style.width = wp.clientWidth + 'px'; s.el.style.height = '100%'; }
     else s.el.style.height = Math.round(H * k) + 'px';
     s.root.style.transform = `scale(${k})`;
@@ -195,6 +197,21 @@
         if (i >= n) setTimeout(() => { tick.style.transition = 'none'; i = 0; tick.style.transform = 'translateX(0)'; }, 420);
       }, 500);
     }
+  }
+
+  /* ---------- the hero window on phones: drag it sideways, the hint fades once you have ---------- */
+  const heroScroll = document.querySelector('[data-hero-scroll]');
+  if (heroScroll) {
+    const stageEl = heroScroll.closest('.hero-stage');
+    const update = () => {
+      const max = heroScroll.scrollWidth - heroScroll.clientWidth;
+      stageEl.classList.toggle('can-scroll', max > 4);
+      stageEl.classList.toggle('at-end', heroScroll.scrollLeft >= max - 4);
+      if (heroScroll.scrollLeft > 12) stageEl.classList.add('swiped');
+    };
+    heroScroll.addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update); new ResizeObserver(update).observe(heroScroll);
+    update();
   }
 
   /* ---------- dark and light, side by side ---------- */
