@@ -43,6 +43,18 @@
   .hero .join { max-width: none; }
   .hero .lead { max-width: 38em; }
 }
+@media (max-width: 760px) {
+  .payoff { gap: 20px; padding: 56px var(--gutter); }
+  .payoff .ready { flex-direction: column; gap: 14px; }
+  .payoff .ready .check { width: 40px; height: 40px; border-radius: 50%; }
+  .payoff .ready svg { width: 22px; height: 22px; }
+  .payoff .ready p { font-size: clamp(28px, 8vw, 34px); line-height: 1.1; }
+  .payoff .ready p span { display: block; }
+  .payoff .mid-cta.center { flex-direction: column; width: 100%; max-width: 24rem; gap: 16px; padding: 0; border: 0; border-radius: 0; background: none; }
+  .payoff .mid-cta p { flex: none; font-size: 15px; line-height: 1.5; color: var(--ink-2); text-wrap: balance; }
+  .payoff .mid-cta .btn-cta { height: 44px; padding: 0 22px; }
+  .trust { padding-top: 56px; }
+}
 @media (max-width: 600px) {
   .hero { padding-top: 84px; padding-bottom: 40px; }
   .hero-grid { display: grid; gap: 26px; }

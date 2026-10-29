@@ -137,6 +137,10 @@ Launch-day checks are outside that comparison window. Do not compare the
 earlier production page against this revision: that would mix headline,
 layout, copy and audience changes.
 
+On launch day, the shared mobile "Ready to play" section was corrected:
+stacked heading, compact spacing and no wrapping capsule around its signup
+prompt. This applies to both variants before the comparison window above.
+
 - A: **Stop preparing your tracks.** (`stop-preparing`)
 - B: **Find the set hiding in your library.** (`find-the-set`)
 
