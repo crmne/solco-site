@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-hero-hook="find-the-set">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Solco: DJ library app with AI beatgrids and CDJ USB export</title>
-<meta name="description" content="Stop preparing your tracks: Solco's local AI lays every beatgrid and finds keys, then it fixes tags, builds playlists and writes your CDJ USB. No rekordbox.">
+<title>Solco: DJ library management, smart playlists and USB prep</title>
+<meta name="description" content="Find tracks by sound and feel, build playlists and prepare your DJ library with Solco. Free private beta for Mac, Windows and Linux.">
 <link rel="canonical" href="https://getsolco.com/">
 <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
@@ -17,26 +17,31 @@
 <meta property="og:site_name" content="Solco">
 <meta property="og:locale" content="en_GB">
 <meta property="og:url" content="https://getsolco.com/">
-<meta property="og:title" content="Solco: stop preparing your tracks.">
-<meta property="og:description" content="The DJ library app that grids, keys, sorts and tags every download, then writes the USB your CDJs read. No rekordbox needed.">
-<meta property="og:image" content="https://getsolco.com/og.png?v=7">
+<meta property="og:title" content="Solco: find the set hiding in your library.">
+<meta property="og:description" content="Find the right tracks in your own collection. Build playlists, review your prep and export for your next set. Join the free private beta.">
+<meta property="og:image" content="https://getsolco.com/og.png?v=9">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Solco, DJ library app, private beta. Stop preparing your tracks. Download them, drop them in Solco, find them on stage. A real track's waveform in Solco's blue, orange and cream, with its beatgrid, and Join the waitlist at getsolco.com.">
+<meta property="og:image:alt" content="Solco, the prep app for DJs. Find the set hiding in your library. Join the free private beta at getsolco.com.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Solco: stop preparing your tracks.">
-<meta name="twitter:description" content="The DJ library app that grids, keys, sorts and tags every download, then writes the USB your CDJs read. No rekordbox needed.">
-<meta name="twitter:image" content="https://getsolco.com/og.png?v=7">
-<meta name="twitter:image:alt" content="Solco, DJ library app, private beta. Stop preparing your tracks. A real track's waveform with its beatgrid.">
+<meta name="twitter:title" content="Solco: find the set hiding in your library.">
+<meta name="twitter:description" content="Find the right tracks in your own collection. Build playlists, review your prep and export for your next set. Join the free private beta.">
+<meta name="twitter:image" content="https://getsolco.com/og.png?v=9">
+<meta name="twitter:image:alt" content="Solco, the prep app for DJs. Find the set hiding in your library. Join the free private beta at getsolco.com.">
 <link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/site.css?v=hero-hook-v1">
 <link rel="stylesheet" href="assets/css/ui.css">
+<link rel="stylesheet" href="assets/css/home.css">
 <!-- Privacy-friendly analytics by Plausible -->
+<script src="assets/js/hook-test.js"></script>
 <script async src="https://stats.paolino.me/js/pa-JCPJyXqwkHhNzi2O06dWQ.js"></script>
 <script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
+  plausible.init({
+    customProperties: function () { return window.solcoHookTest ? window.solcoHookTest.props : {}; },
+    transformRequest: function (event) { return window.solcoHookTest && window.solcoHookTest.preview ? null : event; }
+  })
 </script>
 <script type="application/ld+json">
 {
@@ -70,7 +75,7 @@
       "applicationSubCategory": "DJ library management",
       "operatingSystem": "macOS 13.4 or later (Apple Silicon), Windows (64-bit), Linux (x86-64, ARM64)",
       "softwareVersion": "Private beta",
-      "image": "https://getsolco.com/og.png?v=7",
+      "image": "https://getsolco.com/og.png?v=9",
       "screenshot": "https://getsolco.com/media/app/hero.webp",
       "featureList": ["AI beatgrids that follow tempo changes", "Key detection in Camelot or classical notation", "Loudness in LUFS", "Style and character readings: energy, drive, mood, danceability and vocals", "Tags and covers found by audio fingerprint", "Duplicates found by their sound", "Smart Playlists and a playlist assistant", "Exports rekordbox-format USB drives for Pioneer CDJ and XDJ players", "Imports from rekordbox, Traktor and Apple Music", "Exports Traktor collections and M3U8 playlists"],
       "publisher": {"@id": "https://getsolco.com/#organization"},
@@ -181,7 +186,7 @@
 <header class="topbar">
   <a class="brand" href="#top" aria-label="Solco, back to the top"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
   <nav aria-label="Sections">
-    <a href="#grids">Beatgrids</a><a href="#genre">Genre</a><a href="#character">Character</a><a href="#playlists">Playlists</a><a href="#export">Export</a>
+    <a href="#playlists">Build a set</a><a href="#character">Find tracks</a><a href="#grids">Prepare</a><a href="#export">Export</a>
   </nav>
   <a class="topbar-link" href="https://support.getsolco.com">Help</a>
   <a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a>
@@ -192,13 +197,18 @@
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
-        <h1 class="display reveal"><span>Stop preparing</span><span>your tracks<i class="dot" aria-hidden="true"></i></span></h1>
-        <p class="lead hero-one reveal"><b>You find the music and play it <span class="scale">on&nbsp;stage</span>.</b> Solco does the rest: <b>local AI</b> lays every <b>beatgrid</b>, hears every track's <b>energy, drive and vibe</b>, builds your <b>playlists</b> and writes your <b>USB</b>. <b class="nrb">No rekordbox needed.</b></p>
-        <p class="film-under"><button class="film-btn reveal" type="button" data-film-open aria-haspopup="dialog"><span class="film-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.33 5.5v13l11-6.5z"/></svg></span>Watch the 90-second film</button></p>
+        <p class="kicker reveal">The prep app for DJs</p>
+        <h1 class="display reveal">
+          <span data-hero-copy="stop-preparing"><span>Stop preparing</span><span class="music-line scale">your tracks<i class="dot" aria-hidden="true"></i></span></span>
+          <span data-hero-copy="find-the-set"><span>Find the set</span><span>hiding in</span><span class="music-line scale">your library<i class="dot" aria-hidden="true"></i></span></span>
+        </h1>
+        <p class="lead hero-one reveal">Solco listens to your collection: tempo, key, energy, mood and style. Rediscover forgotten tracks, build smart playlists or ask the AI assistant for suggestions. <b>You shape the set.</b> Solco handles the grids, tags and USB prep.</p>
+        <p class="film-under"><button class="film-btn reveal" type="button" data-film-open aria-haspopup="dialog"><span class="film-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.33 5.5v13l11-6.5z"/></svg></span>See Solco in 90 seconds</button></p>
       </div>
       <aside class="join reveal" id="waitlist" aria-labelledby="join-h">
+        <p class="beta-label">Free during the private beta</p>
         <h2 id="join-h">Join the waitlist</h2>
-        <p>Leave your email. I let DJs in small groups, and when there is a seat for you, your personal licence key comes by email.</p>
+        <p>I invite DJs in small groups and send your personal key by email when a place opens up. No card needed.</p>
         <form class="wl" data-wl novalidate action="https://waitlist.plenty.is/p/solco" method="get">
           <div data-s1>
             <label class="wl-label" for="wl-email">Email</label>
@@ -207,7 +217,7 @@
             <div class="wl-trap" aria-hidden="true"><label for="wl-website">Leave this empty</label><input id="wl-website" type="text" tabindex="-1" autocomplete="off"></div>
           </div>
           <div data-s2 hidden>
-            <p class="wl-head"><b>One more step.</b> Four quick questions help me choose who gets in first. All optional.</p>
+            <p class="wl-head"><b>A little about your setup?</b> Four optional questions help me make Solco better for you. Skip them if you prefer.</p>
             <div class="wl-qs" data-qs></div>
             <button class="btn-cta wl-go" type="submit">Join the waitlist</button>
             <button class="wl-skip" type="button" data-skip>Skip the questions and join</button>
@@ -217,10 +227,10 @@
             <p>I've sent you a link to confirm your place. Once you confirm, you're on the list, and when there is a seat for you, your licence key comes by email.</p>
           </div>
           <p class="wl-msg" data-msg role="status" aria-live="polite"></p>
-          <p class="wl-fine">I'll email you a link to confirm. You can leave the list at any time. <a href="/privacy.html#english">Privacy</a></p>
+          <p class="wl-fine">Confirm your email, then look out for your invitation. One follow-up if you haven't activated. Leave at any time. <a href="/privacy.html#english">Privacy</a></p>
         </form>
         <noscript><p class="wl-msg">Without JavaScript, the button opens our waitlist page to finish there. You can also write to <a href="mailto:hello@getsolco.com?subject=Solco%20waitlist">hello@getsolco.com</a>.</p></noscript>
-        <p class="platforms">macOS · Windows · Linux</p>
+        <p class="platforms">Mac (Apple Silicon) · Windows · Linux</p>
       </aside>
     </div>
     <div class="wrap">
@@ -234,36 +244,66 @@
     </div>
   </section>
 
-  <!-- THESIS -->
-  <section class="thesis" aria-label="Why Solco">
-    <p class="big reveal">You find new music.</p>
-    <p class="big reveal">Then the other job starts: grids, tags, playlists, the USB export.</p>
-    <p class="big reveal"><span>Solco does all that for you, so you can focus on what you love: <em>finding music and playing it for people.</em></span></p>
-  </section>
+<!-- THESIS -->
+<section class="thesis" aria-label="Why Solco">
+  <p class="kicker reveal">Your taste. Your collection. Your next set.</p>
+  <p class="big reveal">You already have the music.<br><em>Find what belongs together.</em></p>
+  <p class="thesis-note reveal">Solco is a desktop app for preparing your library before you play. Search your own collection, shape the playlists and review the results. Then take them to your DJ setup.</p>
+  <nav class="outcomes reveal" aria-label="Explore Solco">
+    <a href="#playlists"><span>01</span> Build a set <span aria-hidden="true">↗</span></a>
+    <a href="#character"><span>02</span> Rediscover your tracks <span aria-hidden="true">↗</span></a>
+    <a href="#export"><span>03</span> Take it to the booth <span aria-hidden="true">↗</span></a>
+  </nav>
+</section>
 
-  <!-- CHAPTERS -->
-  <section class="chapters" aria-label="What happens to every new track">
+<!-- CHAPTERS -->
+
+  <section class="chapters" aria-label="From your library to your next set">
     <aside class="rail" aria-label="Steps">
       <div class="rail-in">
-        <div class="rail-head"><span>Every new track</span><span class="rail-left" data-rail-left>8 steps</span></div>
+        <div class="rail-head"><span>Your library, ready</span><span class="rail-left" data-rail-left>8 steps</span></div>
         <ol>
-          <li><a href="#add"><i>1</i><span>Dropped in</span></a></li>
-          <li><a href="#grids"><i>2</i><span>Beatgrid</span></a></li>
-          <li><a href="#genre"><i>3</i><span>Genre</span></a></li>
-          <li><a href="#character"><i>4</i><span>Character</span></a></li>
-          <li><a href="#playlists"><i>5</i><span>Smart playlists</span></a></li>
+          <li><a href="#playlists"><i>1</i><span>Build a set</span></a></li>
+          <li><a href="#character"><i>2</i><span>Find tracks</span></a></li>
+          <li><a href="#add"><i>3</i><span>Add music</span></a></li>
+          <li><a href="#grids"><i>4</i><span>Beatgrids</span></a></li>
+          <li><a href="#genre"><i>5</i><span>Genre</span></a></li>
           <li><a href="#tags"><i>6</i><span>Tags and cover</span></a></li>
           <li><a href="#dupes"><i>7</i><span>Duplicates</span></a></li>
-          <li><a href="#export"><i>8</i><span>On the USB</span></a></li>
+          <li><a href="#export"><i>8</i><span>USB export</span></a></li>
         </ol>
-        <p class="rail-note">What Solco does to every track you add. You step in only when it asks.</p>
+        <p class="rail-note">Explore the tools. Use the ones that fit how you prepare.</p>
       </div>
     </aside>
 
     <div class="chapter-list">
-      <article class="chapter" id="add" data-step="0">
+      <article class="chapter" id="playlists" data-step="0">
         <header class="ch-head">
-          <p class="step-tag reveal"><i>1</i>Dropped in</p>
+          <p class="step-tag reveal"><i>1</i>Smart playlists</p>
+          <h2 class="reveal">A set that sounds like you.</h2>
+          <p class="lead reveal">Describe the night and the playlist assistant proposes a folder of playlists from your own collection. Review it, change it and make it yours. Or save your own search as a smart playlist: new tracks that fit join automatically.</p>
+        </header>
+        <div class="stage shell reveal-frame" data-demo="playlists" role="img" aria-label="Typing bpm:120..124, key:8A and energy:>=60 turns each rule into a chip and narrows the list. The assistant proposes Disco Night 22 to 01, a folder of four playlists with rising energy, and Create folder adds it to the library. Asked to make DN 2 build more slowly, it shows the changed playlist, and Update playlist changes it."></div>
+      </article>
+
+      <article class="chapter" id="character" data-step="1">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>2</i>Character</p>
+          <h2 class="reveal">Find the track you forgot you had.</h2>
+          <p class="lead reveal">Narrow your library by tempo, key, genre, energy, mood or vocals. Find a calmer opener, a driving next track or something that changes the room. Solco analyses the sound on your computer, giving you another way into the music you already own.</p>
+        </header>
+        <div class="stage shell reveal-frame" data-demo="analysis" role="img" aria-label="Recently added while Solco listens: each track turns from waiting to analysed, and its waveform, BPM, key, feel, energy and drive appear. The sidebar says how many tracks are still being analysed."></div>
+        <div class="ticker" aria-hidden="true"><div class="ticker-row" data-ticker></div></div>
+        <dl class="facts reveal">
+          <div><dt>Key your way</dt><dd>Camelot like 8A, or classical like E minor.</dd></div>
+          <div><dt>Loudness you can mix by</dt><dd>Every track measured in LUFS, so level jumps show before you mix.</dd></div>
+          <div><dt>Improves over time</dt><dd>When an AI model gets better, only its readings are redone. Nothing else is touched.</dd></div>
+        </dl>
+      </article>
+
+      <article class="chapter" id="add" data-step="2">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>3</i>Dropped in</p>
           <h2 class="reveal">Drop in tonight's downloads.</h2>
           <p class="lead reveal">Point Solco at your music folders once. New files land in Recently added and Solco starts listening straight away. Copy or move, your call.</p>
         </header>
@@ -277,9 +317,9 @@
         <p class="imports-note reveal">From rekordbox: playlists, folders, hot cues, memory cues, loops, ratings and colours. Beatgrids stay behind, because Solco grids every track itself. Your rekordbox library is only read, never changed.</p>
       </article>
 
-      <article class="chapter feature" id="grids" data-step="1">
+      <article class="chapter feature" id="grids" data-step="3">
         <header class="ch-head">
-          <p class="step-tag reveal"><i>2</i>Beatgrid</p>
+          <p class="step-tag reveal"><i>4</i>Beatgrid</p>
           <h2 class="reveal">Beatgrids that follow <span class="scale">every tempo change.</span></h2>
           <p class="lead reveal">Solco's local AI hears beats and bars in the audio itself. It locks onto a four-to-the-floor kick, finds the bars in a piano piece, and follows a live drummer through every tempo change, bar by bar. It gets almost every grid right: of the 9,434 tracks in my own library, 848 change tempo, and Solco asked me to check just 16 grids.</p>
         </header>
@@ -301,8 +341,8 @@
         <div class="mid-cta reveal"><p>Want grids like these on your own tracks?</p><a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a></div>
       </article>
 
-      <article class="chapter field blue" id="genre" data-step="2">
-        <p class="step-tag reveal"><i>3</i>Genre</p>
+      <article class="chapter field blue" id="genre" data-step="4">
+        <p class="step-tag reveal"><i>5</i>Genre</p>
         <p class="poster reveal" aria-label="House, crossed out. Disco."><s>House.</s><br>Disco.</p>
         <div class="field-cols">
           <div><h2 class="field-h reveal">Local AI tags the genre for you.</h2><p class="lead reveal">It listens on your computer and hears what a track is, even when its tag is wrong or empty. Then it writes the genre tag, if you want.</p></div>
@@ -312,30 +352,6 @@
             <li><b>Your call.</b> The genre tag is written only when you say so.</li>
           </ul>
         </div>
-      </article>
-
-      <article class="chapter" id="character" data-step="3">
-        <header class="ch-head">
-          <p class="step-tag reveal"><i>4</i>Character</p>
-          <h2 class="reveal">Local AI figures out the energy, drive, dance and vocals.</h2>
-          <p class="lead reveal">Trained on how listeners rate music, it scores every track from 0 to 100, on your computer: Energy, Drive, Peak, Stability, Happy, Sad, Calm, Dance, Party, Edge and Vocals, and Mood if you add its column. Then search by all of it, together with key, BPM and genre, and find the tracks you forgot you had.</p>
-        </header>
-        <div class="stage shell reveal-frame" data-demo="analysis" role="img" aria-label="Recently added while Solco listens: each track turns from waiting to analysed, and its waveform, BPM, key, feel, energy and drive appear. The sidebar says how many tracks are still being analysed."></div>
-        <div class="ticker" aria-hidden="true"><div class="ticker-row" data-ticker></div></div>
-        <dl class="facts reveal">
-          <div><dt>Key your way</dt><dd>Camelot like 8A, or classical like E minor.</dd></div>
-          <div><dt>Loudness you can mix by</dt><dd>Every track measured in LUFS, so level jumps show before you mix.</dd></div>
-          <div><dt>Improves over time</dt><dd>When an AI model gets better, only its readings are redone. Nothing else is touched.</dd></div>
-        </dl>
-      </article>
-
-      <article class="chapter" id="playlists" data-step="4">
-        <header class="ch-head">
-          <p class="step-tag reveal"><i>5</i>Smart playlists</p>
-          <h2 class="reveal">Playlists that sort themselves.</h2>
-          <p class="lead reveal">Save any search as a smart playlist: <code>bpm:120..124</code>, <code>key:8A</code>, <code>energy:&gt;=60</code>. Every new track that fits files itself in. Or describe the night: the assistant looks through your library and proposes a folder of playlists, the parts of your set in playing order, for you to review before you create it. Or ask it to change a playlist you already have, and review the change before it is made.</p>
-        </header>
-        <div class="stage shell reveal-frame" data-demo="playlists" role="img" aria-label="Typing bpm:120..124, key:8A and energy:>=60 turns each rule into a chip and narrows the list. The assistant proposes Disco Night 22 to 01, a folder of four playlists with rising energy, and Create folder adds it to the library. Asked to make DN 2 build more slowly, it shows the changed playlist, and Update playlist changes it."></div>
       </article>
 
       <article class="chapter" id="tags" data-step="5">
@@ -393,7 +409,6 @@
           </figure>
         </div>
       </article>
-
     </div>
   </section>
 
@@ -446,7 +461,7 @@
       <figure class="founder-note reveal">
         <blockquote>
           <p>Every time I dig for new music, I spend a whole day getting it ready to play. Beatgrids that don't line up, wrong genre tags, missing covers, duplicates. It all adds up. That's <em>backwards</em>.</p>
-          <p>I built Solco so the music I download is ready right away, and I can focus on what I love most: finding new music and playing it for people.</p>
+          <p>I built Solco to spend less time on that admin and more time with the music. I still choose the tracks and shape the set. Now I want to make it useful for the way you play, too.</p>
         </blockquote>
         <figcaption>
           <img src="assets/founder-carmine-192.webp" alt="Carmine Paolino" width="56" height="56" loading="lazy" decoding="async">
@@ -492,8 +507,8 @@
   <section class="final" aria-labelledby="final-h" data-final>
     <div class="wrap final-grid">
       <div>
-        <h2 id="final-h" class="reveal"><span>Download them.</span><span>Drop them in Solco.</span><span>Find them on stage.</span></h2>
-        <p class="lead reveal">Solco is in private beta for macOS on Apple Silicon, Windows and Linux. Join the waitlist, and when there is a seat for you, your licence key comes by email.</p>
+        <h2 id="final-h" class="reveal"><span>Bring your music.</span><span>Find your next set.</span></h2>
+        <p class="lead reveal">Join the free private beta for Mac on Apple Silicon, Windows and Linux. Confirm your email, and I’ll send your personal key when your place is ready. No card needed.</p>
         <a class="btn-cta reveal" href="#waitlist" data-join>Join the waitlist <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
       </div>
       <div class="flow" aria-hidden="true" data-flow>
@@ -530,6 +545,6 @@
 <script src="assets/js/icons.js" defer></script>
 <script src="assets/js/ui.js" defer></script>
 <script src="assets/js/demos.js" defer></script>
-<script src="assets/js/site.js" defer></script>
+<script src="assets/js/site.js?v=hero-hook-v1" defer></script>
 </body>
 </html>

@@ -28,7 +28,7 @@ waitlist's own.
 
 | Event | When | Properties |
 | --- | --- | --- |
-| `Waitlist: CTA click` | A "Join the waitlist" link or button that scrolls to the form | `place`: `topbar`, `grids`, `payoff`, `final` |
+| `Waitlist: CTA click` | A waitlist link or button that scrolls to the form | `place`: `topbar`, `grids`, `payoff`, `final` |
 | `Waitlist: Started` | The first letter typed into the email field, once per page | |
 | `Waitlist: Questions shown` | A valid address sent, step two (the four questions) shown | |
 | `Waitlist: Submitted` | The waitlist accepted the form | `answers`: `answered` or `skipped`; `referral`: `yes` or `no`; `form`: `hosted` when it came from the waitlist's own page |
@@ -46,8 +46,9 @@ waitlist's own.
 Properties show in the dashboard only once they are listed in Site
 settings, Custom properties: `place`, `answers`, `referral`, `status`,
 `landing`, `cut`, `action`, `from`, `question`, `article`, `chapter`, `path`,
-`form` (and `url`, which Plausible adds to outbound clicks and downloads).
-All are listed.
+`form`, `experiment`, `variant` (and `url`, which Plausible adds to outbound
+clicks and downloads). All are listed. The two headline-test properties were
+added on 29 October 2026; the existing properties were preserved.
 
 The waitlist's pages (crmne/waitlist, `analytics` in waitlist-deploy's
 `products.yml`) report to this site as `/waitlist/form`, `/waitlist/thanks`
@@ -104,3 +105,93 @@ Keep `#film` after the query string when a post should open the film:
   site links them, Plausible's `File Download` goal counts it.
 - **Licence activations**: the app sends nothing to Plausible, and
   shouldn't. Count activations from solco-server's licence records instead.
+
+## Homepage revision, 29 October 2026
+
+This revision leads with finding tracks and building sets, retains the
+existing brand and working demos, puts the free private beta offer beside the
+signup, and places the form before the large demo on phones. It clarifies
+that Solco prepares a collection and that the DJ chooses and reviews the music.
+The two leading survey needs were finding the right track (21 of 66 answers)
+and building playlists (17 of 66); those chapters now lead the tour.
+
+These are hypotheses, not measured conversion gains. Keep the event names
+above stable. Compare `Waitlist: Submitted` against landing visitors within
+the same source, campaign, device and country; paid delivery changed the
+country mix substantially on 28–29 October, so an overall before/after rate
+would be misleading. Use distinct UTM content values for the two Reddit
+communities in future posts, without identifying individual people.
+
+Use the waitlist database for confirmed and invited cohorts, and the existing
+licence records for activation within seven days of invitation. Plausible
+cannot join the confirmation email's new session to the original visit.
+Compare reminder cohorts only after each has had the same time to activate;
+an uncontrolled before/after comparison does not establish causation.
+
+## Headline A/B test: hero-hook-v1
+
+Approved for publication on 29 October 2026. Assignment begins when this
+revision reaches GitHub Pages. Use 30 October through 12 November 2026 inclusive
+(Europe/Berlin) as the first two complete weeks; review on 13 November.
+Launch-day checks are outside that comparison window. Do not compare the
+earlier production page against this revision: that would mix headline,
+layout, copy and audience changes.
+
+- A: **Stop preparing your tracks.** (`stop-preparing`)
+- B: **Find the set hiding in your library.** (`find-the-set`)
+
+The supporting copy, imagery, type settings, form and entire rest of the page
+are identical. Each headline takes its natural height, with the same gap before
+the supporting copy; the shorter hook does not reserve an empty third line.
+The resulting movement of content is part of the headline treatment.
+`hook-test.js` runs before the body and analytics, chooses each version with
+probability 1/2, and keeps
+that choice in memory for that page load. There is no cookie, local/session
+storage, visitor ID or fingerprint. A fresh page load can choose differently;
+this is a randomised **page-load** test, not a persistent visitor test.
+
+`plausible.init({customProperties})` adds `experiment=hero-hook-v1` and
+`variant=stop-preparing|find-the-set` to the initial pageview and every event
+on this homepage. This is supported by both the
+[Plausible configuration](https://plausible.io/docs/script-extensions) and the
+actual self-hosted script checked on 29 October. No address, answer or typed
+content is added. Other pages and email confirmations carry no assignment.
+
+Review links are `/?hook=stop-preparing` and `/?hook=find-the-set`.
+Any `hook` query parameter means preview: recognised values select the copy,
+anything else shows B, and `transformRequest` suppresses all Plausible events.
+Never use these links in ads, announcements or outreach for the experiment;
+use the ordinary homepage with UTM tags. CTA navigation preserves the query
+string, so previews stay excluded after reload and campaigns stay intact.
+Without JavaScript, B and the hosted-form fallback remain usable, unmeasured.
+
+### Reading the result
+
+Primary metric: **accepted form submissions / assigned homepage pageviews**,
+separately for A and B, filtered to `experiment=hero-hook-v1`. Use total
+`Waitlist: Submitted` events and total pageviews, not the dashboard's unique
+visitor conversion percentage: a person can see both hooks. Count at most one
+submission per successful page load. A retry after an error may submit again,
+but repeating after success sends and counts nothing.
+
+An accepted form response is not proof of a new confirmed person. The waitlist
+intentionally gives the same response for existing addresses and silently
+refused spam. Confirmations and activations happen later without a headline
+label; this test does not attribute them to A or B. Review those totals as a
+quality check and do not call the result sales, customer acquisition or revenue.
+
+Run both hooks concurrently with the same campaigns. Check source, country and
+device splits for gross imbalance, and the error rate for a broken form. Keep
+copy and targeting stable during the comparison. Do not select a winner from
+one day's few submissions or keep stopping whenever one version happens to
+lead. Review the fixed two-week window above; conclude inconclusive if the
+evidence is sparse, and plan any further window before collecting its data.
+Repeated visitors,
+ad-blocking, spam and the page-load assignment limit statistical independence
+and interpretation. This is an initial directional test, not a claim of proven
+visitor-level uplift. Log launch/end dates and any interruptions here.
+
+To end the experiment, keep the chosen headline in the HTML, remove the other
+copy, assignment script and customProperties/transformRequest configuration,
+and remove the two-variant visibility selectors. Do not reuse `hero-hook-v1`
+for another change. The default without the assignment script is B.

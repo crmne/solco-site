@@ -308,9 +308,9 @@
       $('qs').innerHTML = questions.map(([q, answers], i) => `<div><label for="wl-q${i}">${esc(q)}</label><select id="wl-q${i}" class="empty"><option value="">Choose one</option>${answers.map(a => `<option value="${esc(a)}">${esc(a)}</option>`).join('')}</select></div>`).join('');
       $('qs').querySelectorAll('select').forEach(s => s.addEventListener('change', () => s.classList.toggle('empty', !s.value)));
     };
-    let step = 1, busy = false;
+    let step = 1, busy = false, submitted = false;
     const submit = async withAnswers => {
-      if (busy) return; busy = true;
+      if (busy || submitted) return; busy = true;
       wl.querySelectorAll('.wl-go').forEach(b => b.disabled = true); say('Adding you…');
       const answers = {};
       if (withAnswers) $('qs').querySelectorAll('select').forEach((s, i) => { if (s.value) answers[questions[i][0]] = s.value; });
@@ -322,6 +322,7 @@
         status = String(res.status);
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error((data && data.message) || '');
+        submitted = true;
         $('s1').hidden = true; $('s2').hidden = true; $('done').hidden = false; say('');
         $('done').focus();
         // Never the address or the answers themselves: only whether there were any, and whether a referral brought them.
@@ -350,6 +351,6 @@
     target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
     const focus = () => { const i = [...target.querySelectorAll('#wl-email, select, [data-done]')].find(el => el.offsetParent !== null); if (i) i.focus({ preventScroll: true }); else { target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true }); } };
     setTimeout(focus, reduce ? 0 : 700);
-    history.replaceState(null, '', '#waitlist');
+    history.replaceState(null, '', location.pathname + location.search + '#waitlist');
   }));
 })();

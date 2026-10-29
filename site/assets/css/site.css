@@ -215,7 +215,7 @@ h3 { font-size: 17px; font-weight: 600; letter-spacing: -.005em; }
 .step-tag i { width: 24px; height: 24px; border-radius: 12px; display: grid; place-items: center; font-style: normal; font-size: 12px; font-weight: 650; background: var(--violet); color: var(--violet-ink); }
 .ch-head h2 { margin-bottom: 22px; max-width: 13em; }
 .chapter.feature h2 { font-size: clamp(44px, 6.6vw, 100px); line-height: .9; letter-spacing: -.048em; font-weight: 800; max-width: 11em; }
-.chapter.feature h2 .scale { background: linear-gradient(90deg, var(--c-blue), var(--c-violet) 55%, var(--c-orange)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.chapter.feature h2 .scale, .hero .display .music-line { background: linear-gradient(90deg, var(--c-blue), var(--c-violet) 55%, var(--c-orange)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .caption { margin-top: 18px; font-size: 13.5px; color: var(--ink-3); line-height: 1.5; max-width: 60em; }
 .caption b { color: var(--ink-2); font-weight: 550; }
 

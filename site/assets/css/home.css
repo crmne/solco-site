@@ -1,0 +1,65 @@
+/* The home page: the invitation is part of the first screen on phones,
+   and the story starts with finding music and building a set. */
+.hero { display: block; padding-top: 116px; padding-bottom: 100px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 370px; gap: 66px; align-items: center; }
+.hero-grid > div:first-child { display: block; order: initial; padding: 0; }
+.hero .kicker { margin: 0 0 22px; color: var(--ink-2); }
+/* Match the featured beatgrids heading's type scale, weight and spacing. */
+.hero .display { font-size: clamp(44px, 6.6vw, 100px); font-weight: 800; line-height: .9; letter-spacing: -.048em; text-wrap: balance; }
+/* Each hook takes its natural height. The default in the HTML remains usable
+   when JavaScript is unavailable. */
+.hero .display > [data-hero-copy] { display: none; }
+:root[data-hero-hook="stop-preparing"] .hero .display > [data-hero-copy="stop-preparing"],
+:root[data-hero-hook="find-the-set"] .hero .display > [data-hero-copy="find-the-set"] { display: block; }
+.hero .display .music-line { width: fit-content; }
+.hero .display .music-line .dot { background: var(--c-orange); }
+.hero .lead { margin-top: 24px; max-width: 32em; font-size: 18px; line-height: 1.6; }
+.hero .film-under { margin-top: 22px; }
+.hero .film-btn { margin-top: 0; }
+.hero .join { order: initial; margin: 0; padding: 27px 26px 24px; border: 1px solid var(--line-2); box-shadow: 0 20px 70px -40px var(--glow-violet); }
+.hero .join .beta-label { color: var(--violet); font-size: 12px; font-weight: 600; letter-spacing: .03em; margin-top: 0; }
+.hero .join h2 { font-size: 30px; line-height: 1.08; }
+.hero .join h2 + p { font-size: 14px; line-height: 1.6; }
+.hero .join .wl { margin-top: 20px; }
+.hero .join .wl input, .hero .join .wl .wl-go { height: 48px; font-size: 16px; }
+.hero .join .wl-fine { font-size: 12px; line-height: 1.55; }
+.hero .join .platforms { font-family: "Geist", sans-serif; font-size: 11px; text-transform: none; letter-spacing: 0; white-space: normal; color: var(--ink-2); }
+.hero-stage { margin-top: 64px; }
+.thesis { max-width: 1000px; margin: auto; padding: 36px var(--gutter) 100px; }
+.thesis .kicker { margin-bottom: 25px; }
+.thesis .big { font-size: clamp(32px, 4.6vw, 60px); line-height: 1.12; letter-spacing: -.035em; }
+.thesis-note { max-width: 660px; margin: 28px auto 0; color: var(--ink-2); font-size: 18px; line-height: 1.7; text-wrap: pretty; }
+.outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 46px; text-align: left; }
+.outcomes a { display: flex; align-items: center; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line-2); font-size: 14px; font-weight: 500; }
+.outcomes a > span:first-child { font-family: "Geist Mono", monospace; color: var(--ink-3); font-size: 11px; }
+.outcomes a > span:last-child { color: var(--violet); margin-left: auto; }
+.outcomes a:hover { color: var(--violet); }
+@media (max-width: 1100px) and (min-width: 901px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; }
+}
+@media (max-width: 900px) {
+  .hero { padding-top: 96px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 30px; }
+  .hero .join { max-width: none; }
+  .hero .lead { max-width: 38em; }
+}
+@media (max-width: 600px) {
+  .hero { padding-top: 84px; padding-bottom: 40px; }
+  .hero-grid { display: grid; gap: 26px; }
+  .hero .kicker { margin-bottom: 17px; font-size: 10px; }
+  .hero .lead { margin-top: 18px; font-size: 16px; line-height: 1.55; }
+  .hero .film-under { margin-top: 16px; }
+  .hero .film-btn { font-size: 13px; gap: 9px; padding: 4px 14px 4px 4px; }
+  .hero .film-play { width: 28px; height: 28px; }
+  .hero .join { order: initial; margin: 0; padding: 20px; --rhythm: 10px; }
+  .hero .join h2 { font-size: 27px; }
+  .hero .join .wl { margin-top: 14px; }
+  .hero-stage { margin-top: 36px; }
+  .thesis { padding-top: 28px; padding-bottom: 56px; }
+  .thesis .kicker { font-size: 10px; letter-spacing: .07em; }
+  .thesis .big { font-size: 34px; }
+  .thesis-note { font-size: 16px; margin-top: 22px; }
+  .outcomes { grid-template-columns: 1fr; gap: 0; margin-top: 26px; }
+  .outcomes a { padding: 15px 0; }
+  .topbar .btn-cta.small { font-size: 12px; padding: 0 12px; }
+}

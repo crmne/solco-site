@@ -26,6 +26,8 @@ jobs:
         run: ruby script/check_help_links.rb
       - name: Check titles, descriptions, structured data and the sitemap
         run: ruby script/check_seo.rb
+      - name: Check headline assignment and analytics exclusions
+        run: ruby script/check_hook_test.rb
       - uses: actions/configure-pages@v6
       - name: Plan IndexNow submission
         run: ruby .github/scripts/indexnow.rb plan site "$RUNNER_TEMP/indexnow.json"

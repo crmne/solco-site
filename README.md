@@ -15,3 +15,15 @@ publish workflow. `site/llms.txt` lists every article; print the list with
 `ruby script/check_seo.rb` checks titles, descriptions, canonicals, alt text,
 structured data and the sitemap ([docs/seo.md](docs/seo.md)); analytics events
 and goals are in [docs/analytics.md](docs/analytics.md).
+
+`ruby script/check_hook_test.rb` checks headline allocation and analytics
+exclusions using Node's built-in VM, with no network or extra packages.
+
+The homepage uses `site/assets/css/home.css` for its layout.
+Serve `site/` locally to review it; `?still` stops the demos for a
+static comparison, `?hook=stop-preparing` and `?hook=find-the-set` select the
+two headline previews (excluded from analytics), and the page follows the
+system's light or dark appearance.
+The form uses the real waitlist endpoint, so automated checks must intercept
+requests instead of creating test signups. Publishing still happens only on a
+push to `main`; the local review does not publish anything.
