@@ -236,6 +236,13 @@ ad-blocking, spam and the page-load assignment limit statistical independence
 and interpretation. This is an initial directional test, not a claim of proven
 visitor-level uplift. Log launch/end dates and any interruptions here.
 
+30 October: the owner enabled getting-started reminders after one day and
+one week. The shared consent notice now says up to two follow-ups, in all
+three arms; no headline, allocation or form behaviour changed. Reminders
+check activation before each send, and older invitations wait at least six
+days between them. Activation comparisons span this rollout and must account
+for reminder exposure, rather than assigning any change to the homepage alone.
+
 The retired `hero-hook-v1` keeps its own Plausible filter and saved signup
 labels. Its admin cohort has an exclusive end time at the configured v2
 start, so new unattributed entries do not also increase its historic report.
