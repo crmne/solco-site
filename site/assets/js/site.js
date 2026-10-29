@@ -316,9 +316,12 @@
       if (withAnswers) $('qs').querySelectorAll('select').forEach((s, i) => { if (s.value) answers[questions[i][0]] = s.value; });
       let status = 'network';
       try {
+        // Keep the original signup's fixed labels even if analytics is blocked.
+        // Review links deliberately contribute no experiment assignment.
+        const attribution = window.solcoHookTest && !window.solcoHookTest.preview ? window.solcoHookTest.props : {};
         const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           // website is a field people never see; elapsed_ms is how long the page was open (bots are quicker than 3 seconds).
-          body: JSON.stringify({ email: email.value.trim(), answers, website: wl.querySelector('#wl-website').value, elapsed_ms: Date.now() - shown, ...(ref ? { ref } : {}) }) });
+          body: JSON.stringify({ email: email.value.trim(), answers, website: wl.querySelector('#wl-website').value, elapsed_ms: Date.now() - shown, ...(ref ? { ref } : {}), ...attribution }) });
         status = String(res.status);
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error((data && data.message) || '');

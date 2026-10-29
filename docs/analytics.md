@@ -33,7 +33,7 @@ waitlist's own.
 | `Waitlist: Questions shown` | A valid address sent, step two (the four questions) shown | |
 | `Waitlist: Submitted` | The waitlist accepted the form | `answers`: `answered` or `skipped`; `referral`: `yes` or `no`; `form`: `hosted` when it came from the waitlist's own page |
 | `Waitlist: Error` | The address was refused, or the request failed | `status`: `invalid email`, an HTTP status, or `network` |
-| `Waitlist: Confirmed` | The confirmation page on waitlist.plenty.is | `referral`: `yes` or `no` |
+| `Waitlist: Confirmed` | The confirmation page on waitlist.plenty.is | `referral`: `yes` or `no`; saved `experiment` and `variant` when known |
 | `Referral: Visit` | A page opened with `?ref=` or `?ref_id=` (the code itself is not sent) | `landing`: `getsolco.com` or `waitlist form` |
 | `Referral: Link copied` | Copy on the confirmation page's referral link | |
 | `Film play` | The 90-second film opened | `from`: `top` (the hero button) or `link` (getsolco.com/#film, the app's "Watch the tour") |
@@ -125,6 +125,8 @@ communities in future posts, without identifying individual people.
 Use the waitlist database for confirmed and invited cohorts, and the existing
 licence records for activation within seven days of invitation. Plausible
 cannot join the confirmation email's new session to the original visit.
+The saved experiment label can identify its original headline, without
+joining the sessions or sending any personal identifier to Plausible.
 Compare reminder cohorts only after each has had the same time to activate;
 an uncontrolled before/after comparison does not establish causation.
 
@@ -159,11 +161,15 @@ this is a randomised **page-load** test, not a persistent visitor test.
 on this homepage. This is supported by both the
 [Plausible configuration](https://plausible.io/docs/script-extensions) and the
 actual self-hosted script checked on 29 October. No address, answer or typed
-content is added. Other pages and email confirmations carry no assignment.
+content is added. Other pageviews carry no assignment. The homepage's form
+also sends these two fixed labels to the waitlist, which stores them only
+on a new signup and includes them in its later `Waitlist: Confirmed` event.
+Confirmation pageviews remain unlabelled, preserving the homepage denominator.
 
 Review links are `/?hook=stop-preparing` and `/?hook=find-the-set`.
 Any `hook` query parameter means preview: recognised values select the copy,
 anything else shows B, and `transformRequest` suppresses all Plausible events.
+Preview forms also omit experiment labels from the signup request.
 Never use these links in ads, announcements or outreach for the experiment;
 use the ordinary homepage with UTM tags. CTA navigation preserves the query
 string, so previews stay excluded after reload and campaigns stay intact.
@@ -180,9 +186,27 @@ but repeating after success sends and counts nothing.
 
 An accepted form response is not proof of a new confirmed person. The waitlist
 intentionally gives the same response for existing addresses and silently
-refused spam. Confirmations and activations happen later without a headline
-label; this test does not attribute them to A or B. Review those totals as a
-quality check and do not call the result sales, customer acquisition or revenue.
+refused spam. For actual new entries, use the **Signup experiment** table at
+[the waitlist admin](https://waitlist.plenty.is/admin/products/solco). It shows
+signed up, confirmed and pending for each variant, across all list filters.
+The CSV also includes `experiment` and `variant`. Duplicate submissions
+neither add a row nor replace or backfill its original assignment. Unknown,
+legacy and preview assignments remain **Unattributed**. These counts are
+retained records: leaving, expiry and deletion remove them, including
+unconfirmed entries after seven days. They are not lifetime event totals.
+
+The saved labels survive a missing browser analytics event and a later email
+confirmation. Plausible's labelled `Waitlist: Confirmed` events remain partial
+when analytics is blocked or unavailable. Use the admin for actual retained
+entries, and Plausible for measured traffic and funnel behaviour. Do not treat
+database signups divided by partially measured pageviews as a precise rate,
+or call any of these metrics sales, customer acquisition or revenue.
+
+Launch-day repair: the database had one new site signup at 16:20:42 UTC on
+29 October, while Plausible recorded no submission after the 14:55:29 UTC
+deployment, even without a variant filter. Its missing event's cause and
+headline could not be established. Keep that entry unattributed. Saved
+attribution was added on launch day, before the full comparison window.
 
 Run both hooks concurrently with the same campaigns. Check source, country and
 device splits for gross imbalance, and the error rate for a broken form. Keep
