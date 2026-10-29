@@ -32,7 +32,7 @@ def articles(folder)
 end
 
 def links
-  Dir[File.join(SITE, "**", "*.{html,txt,xml}")].sort.flat_map do |path|
+  Dir[File.join(SITE, "**", "*.{html,txt,xml,js}")].sort.flat_map do |path|
     File.read(path).scan(ARTICLE_URL).flatten.map { |slug| [path.delete_prefix("#{ROOT}/"), slug] }
   end
 end

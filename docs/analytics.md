@@ -130,34 +130,50 @@ joining the sessions or sending any personal identifier to Plausible.
 Compare reminder cohorts only after each has had the same time to activate;
 an uncontrolled before/after comparison does not establish causation.
 
-## Headline A/B test: hero-hook-v1
+## Homepage A/B/C test: homepage-v2
 
-Approved for publication on 29 October 2026. Assignment begins when this
-revision reaches GitHub Pages. Use 30 October through 12 November 2026 inclusive
-(Europe/Berlin) as the first two complete weeks; review on 13 November.
-Launch-day checks are outside that comparison window. Do not compare the
-earlier production page against this revision: that would mix headline,
-layout, copy and audience changes.
+The owner added the previous homepage as a control on 29 October 2026.
+This starts a new experiment, `homepage-v2`, rather than changing the old
+test's allocation and combining its data. Use 30 October through 12 November
+2026 inclusive (Europe/Berlin) as the first two complete weeks; review on
+13 November. Launch-day checks are outside that comparison window.
+
+The waitlist cohort boundary is 29 October at 17:36:13 UTC, configured before
+the new page rolls out. The same boundary closes the old report. Cached old
+pages can still send v1 labels; their saved records and Plausible events keep
+those labels, but signups after the cutoff are outside the closed v1 cohort.
+
+These are three concurrent page treatments, allocated equally. Comparing the
+control with either revision estimates the combined effect of layout, copy
+and feature order. Only the two revised arms isolate the headline treatment.
+Historical traffic to the old page is not a control: sources and campaigns
+changed. Three arms need more traffic than two; sparse evidence at the review
+means inconclusive, not a reason to declare the largest small count a winner.
 
 On launch day, the shared mobile "Ready to play" section was corrected:
 stacked heading, compact spacing and no wrapping capsule around its signup
-prompt. This applies to both variants before the comparison window above.
+prompt. This applies to all three variants before the comparison window above.
 
-- A: **Stop preparing your tracks.** (`stop-preparing`)
-- B: **Find the set hiding in your library.** (`find-the-set`)
+- Control: the previous page (`original`), from
+  [the pre-test revision](https://github.com/crmne/solco-site/commit/8dc09205421ce75cc76e31033f48885b8710c87b),
+  including its "Stop preparing your tracks" hero, description, signup layout,
+  feature order and closing copy. Current consent wording and mobile fixes
+  apply, as do the same form code, demos, analytics and public privacy notice.
+- A: revised page, **Stop preparing your tracks.** (`stop-preparing`)
+- B: revised page, **Find the set hiding in your library.** (`find-the-set`)
 
-The supporting copy, imagery, type settings, form and entire rest of the page
-are identical. Each headline takes its natural height, with the same gap before
+Between A and B, the supporting copy, imagery, type settings, form and entire
+rest of the page are identical. Each headline takes its natural height, with the same gap before
 the supporting copy; the shorter hook does not reserve an empty third line.
 The resulting movement of content is part of the headline treatment.
-`hook-test.js` runs before the body and analytics, chooses each version with
-probability 1/2, and keeps
+`homepage-test.js` runs before the body and analytics, chooses each version
+with probability 1/3, and keeps
 that choice in memory for that page load. There is no cookie, local/session
 storage, visitor ID or fingerprint. A fresh page load can choose differently;
 this is a randomised **page-load** test, not a persistent visitor test.
 
-`plausible.init({customProperties})` adds `experiment=hero-hook-v1` and
-`variant=stop-preparing|find-the-set` to the initial pageview and every event
+`plausible.init({customProperties})` adds `experiment=homepage-v2` and
+`variant=original|stop-preparing|find-the-set` to the initial pageview and every event
 on this homepage. This is supported by both the
 [Plausible configuration](https://plausible.io/docs/script-extensions) and the
 actual self-hosted script checked on 29 October. No address, answer or typed
@@ -166,7 +182,8 @@ also sends these two fixed labels to the waitlist, which stores them only
 on a new signup and includes them in its later `Waitlist: Confirmed` event.
 Confirmation pageviews remain unlabelled, preserving the homepage denominator.
 
-Review links are `/?hook=stop-preparing` and `/?hook=find-the-set`.
+Review links are `/?hook=original`, `/?hook=stop-preparing` and
+`/?hook=find-the-set`.
 Any `hook` query parameter means preview: recognised values select the copy,
 anything else shows B, and `transformRequest` suppresses all Plausible events.
 Preview forms also omit experiment labels from the signup request.
@@ -178,9 +195,9 @@ Without JavaScript, B and the hosted-form fallback remain usable, unmeasured.
 ### Reading the result
 
 Primary metric: **accepted form submissions / assigned homepage pageviews**,
-separately for A and B, filtered to `experiment=hero-hook-v1`. Use total
+separately for the control, A and B, filtered to `experiment=homepage-v2`. Use total
 `Waitlist: Submitted` events and total pageviews, not the dashboard's unique
-visitor conversion percentage: a person can see both hooks. Count at most one
+visitor conversion percentage: a person can see more than one version. Count at most one
 submission per successful page load. A retry after an error may submit again,
 but repeating after success sends and counts nothing.
 
@@ -208,7 +225,7 @@ deployment, even without a variant filter. Its missing event's cause and
 headline could not be established. Keep that entry unattributed. Saved
 attribution was added on launch day, before the full comparison window.
 
-Run both hooks concurrently with the same campaigns. Check source, country and
+Run all three versions concurrently with the same campaigns. Check source, country and
 device splits for gross imbalance, and the error rate for a broken form. Keep
 copy and targeting stable during the comparison. Do not select a winner from
 one day's few submissions or keep stopping whenever one version happens to
@@ -219,7 +236,14 @@ ad-blocking, spam and the page-load assignment limit statistical independence
 and interpretation. This is an initial directional test, not a claim of proven
 visitor-level uplift. Log launch/end dates and any interruptions here.
 
-To end the experiment, keep the chosen headline in the HTML, remove the other
-copy, assignment script and customProperties/transformRequest configuration,
-and remove the two-variant visibility selectors. Do not reuse `hero-hook-v1`
-for another change. The default without the assignment script is B.
+The retired `hero-hook-v1` keeps its own Plausible filter and saved signup
+labels. Its admin cohort has an exclusive end time at the configured v2
+start, so new unattributed entries do not also increase its historic report.
+Confirmations still update people who signed up inside that earlier cohort.
+Leave `hook-test.js` available for cached old pages. Do not combine v1 and v2
+traffic or claim the preliminary two-way test established a winner.
+
+To end v2, put the selected complete page in the HTML, remove the other
+treatments, assignment script and customProperties/transformRequest config,
+and simplify the variant CSS. Do not reuse `homepage-v2` for another change.
+The default without the assignment script remains B.
