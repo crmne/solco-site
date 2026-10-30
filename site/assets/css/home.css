@@ -77,3 +77,15 @@
   :root:not([data-hero-hook="original"]) .outcomes a { padding: 15px 0; }
   :root:not([data-hero-hook="original"]) .topbar .btn-cta.small { font-size: 12px; padding: 0 12px; }
 }
+
+/* Shared confirmation state for all homepage variants. */
+.hero .join.awaiting-confirmation .beta-label { margin: 0 0 12px; color: var(--violet); font: 600 12px/1.5 Geist, sans-serif; letter-spacing: .03em; }
+.hero .join.awaiting-confirmation h2 { font-size: 30px; line-height: 1.1; }
+.hero .join.awaiting-confirmation h2 + p { margin-top: 14px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.hero .join.awaiting-confirmation .wl { margin-top: 22px; }
+.wl-inbox-hint { display: flex; align-items: flex-start; gap: 12px; border: 1px solid color-mix(in srgb, var(--violet) 22%, transparent); background: color-mix(in srgb, var(--violet) 7%, transparent); padding: 16px; border-radius: 12px; }
+.wl-inbox-hint svg { flex: 0 0 22px; margin-top: 2px; width: 22px; height: 22px; color: var(--violet); }
+.wl-inbox-hint strong { display: block; font-size: 14px; line-height: 1.5; font-weight: 600; color: var(--ink); }
+.wl-inbox-hint p { margin-top: 4px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.wl-done p.wl-next { margin-top: 20px; font-size: 13px; line-height: 1.65; color: var(--ink-2); }
+@media (max-width: 600px) { .hero .join.awaiting-confirmation h2 { font-size: 27px; } }

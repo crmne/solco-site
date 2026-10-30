@@ -243,6 +243,13 @@ check activation before each send, and older invitations wait at least six
 days between them. Activation comparisons span this rollout and must account
 for reminder exposure, rather than assigning any change to the homepage alone.
 
+30 October: all three variants now replace the signup card's heading with
+"Check your email" after an accepted submission, explain that the confirmation
+link completes signup, and prominently suggest checking spam or junk. The
+allocation, submission and confirmation events, and saved attribution are
+unchanged. Account for this shared change when comparing confirmation rates
+before and after the rollout.
+
 The retired `hero-hook-v1` keeps its own Plausible filter and saved signup
 labels. Its admin cohort has an exclusive end time at the configured v2
 start, so new unattributed entries do not also increase its historic report.

@@ -32,9 +32,9 @@
 <link rel="preload" href="assets/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css?v=hero-hook-v1">
 <link rel="stylesheet" href="assets/css/ui.css">
-<link rel="stylesheet" href="assets/css/home.css?v=homepage-v2">
+<link rel="stylesheet" href="assets/css/home.css?v=confirmation-20261030">
 <!-- Privacy-friendly analytics by Plausible -->
-<script src="assets/js/homepage-test.js?v=homepage-v2-reminders-20261030"></script>
+<script src="assets/js/homepage-test.js?v=homepage-v2-confirmation-20261030"></script>
 <script async src="https://stats.paolino.me/js/pa-JCPJyXqwkHhNzi2O06dWQ.js"></script>
 <script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
@@ -223,8 +223,11 @@
             <button class="wl-skip" type="button" data-skip>Skip the questions and join</button>
           </div>
           <div class="wl-done" data-done hidden tabindex="-1">
-            <p class="wl-done-h">Check your email.</p>
-            <p>I've sent you a link to confirm your place. Once you confirm, you're on the list, and when there is a seat for you, your licence key comes by email.</p>
+            <div class="wl-inbox-hint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+              <div><strong>Not in your inbox?</strong><p>Check your spam or junk folder.</p></div>
+            </div>
+            <p class="wl-next">After you confirm, I’ll email your licence key when a place opens up.</p>
           </div>
           <p class="wl-msg" data-msg role="status" aria-live="polite"></p>
           <p class="wl-fine">Confirm your email, then look out for your invitation. Up to two follow-ups if you haven't activated. Leave at any time. <a href="/privacy.html#english">Privacy</a></p>
@@ -545,6 +548,6 @@
 <script src="assets/js/icons.js" defer></script>
 <script src="assets/js/ui.js" defer></script>
 <script src="assets/js/demos.js" defer></script>
-<script src="assets/js/site.js?v=hero-hook-v1-attribution" defer></script>
+<script src="assets/js/site.js?v=confirmation-20261030" defer></script>
 </body>
 </html>

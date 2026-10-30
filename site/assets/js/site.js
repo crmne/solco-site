@@ -327,6 +327,19 @@
         if (!res.ok) throw new Error((data && data.message) || '');
         submitted = true;
         $('s1').hidden = true; $('s2').hidden = true; $('done').hidden = false; say('');
+        const card = wl.closest('.join'), heading = card.querySelector('h2');
+        card.classList.add('awaiting-confirmation');
+        let kicker = card.querySelector('.beta-label');
+        if (!kicker) { kicker = document.createElement('p'); kicker.className = 'beta-label'; heading.before(kicker); }
+        kicker.textContent = 'One last step';
+        heading.textContent = 'Check your email.';
+        heading.nextElementSibling.id = 'wl-confirm-instructions';
+        heading.nextElementSibling.textContent = 'Click the link in the email from Solco to finish joining the waitlist.';
+        card.querySelector('.platforms').hidden = true;
+        // Include the new heading and next action when focus moves to the message.
+        $('done').setAttribute('role', 'region');
+        $('done').setAttribute('aria-labelledby', heading.id);
+        $('done').setAttribute('aria-describedby', 'wl-confirm-instructions');
         $('done').focus();
         // Never the address or the answers themselves: only whether there were any, and whether a referral brought them.
         track('Waitlist: Submitted', { answers: Object.keys(answers).length ? 'answered' : 'skipped', referral: ref ? 'yes' : 'no' });
