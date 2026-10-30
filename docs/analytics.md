@@ -210,7 +210,9 @@ The CSV also includes `experiment` and `variant`. Duplicate submissions
 neither add a row nor replace or backfill its original assignment. Unknown,
 legacy and preview assignments remain **Unattributed**. These counts are
 retained records: leaving, expiry and deletion remove them, including
-unconfirmed entries after seven days. They are not lifetime event totals.
+unconfirmed entries after their confirmation deadline (normally 14 days with
+the reminders enabled on 30 October, extended for late reminders). They are
+not lifetime event totals.
 
 The saved labels survive a missing browser analytics event and a later email
 confirmation. Plausible's labelled `Waitlist: Confirmed` events remain partial
@@ -249,6 +251,15 @@ link completes signup, and prominently suggest checking spam or junk. The
 allocation, submission and confirmation events, and saved attribution are
 unchanged. Account for this shared change when comparing confirmation rates
 before and after the rollout.
+
+30 October: confirmation reminders were enabled after one day and one week,
+at least six days apart, for recent unconfirmed signups. The confirmation
+window is now normally 14 days, extended for delayed reminders. The older
+imported group keeps its one-off reminder and existing deadline. Confirmation
+rates and retained pending counts span this rollout; account for exposure to
+these emails and the longer retention when evaluating the homepage. The
+shared signup notice and privacy page explain both reminder stages. Saved
+experiment labels, allocation and analytics events are unchanged.
 
 The retired `hero-hook-v1` keeps its own Plausible filter and saved signup
 labels. Its admin cohort has an exclusive end time at the configured v2
