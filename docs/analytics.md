@@ -130,7 +130,42 @@ joining the sessions or sending any personal identifier to Plausible.
 Compare reminder cohorts only after each has had the same time to activate;
 an uncontrolled before/after comparison does not establish causation.
 
-## Homepage A/B/C test: homepage-v2
+## Current homepage test: homepage-v3
+
+On 1 November 2026, the owner requested removing **Find the set** and restoring
+the **Stop preparing your tracks** share image. This is a practical reduction
+of the test, not a statistically established winner or loser. The complete
+30–31 October window had 10 saved signups for revised Stop preparing, 9 for
+the original and 6 for Find the set, with one activation each at review time.
+
+The new `homepage-v3` allocates equally between `original` and `stop-preparing`.
+Their page content, form, consent text and reminder settings are unchanged.
+`homepage-test-v3.js` runs before analytics; the old v2 script remains untouched
+for cached HTML. The default without JavaScript and the fallback for an unknown
+or retired `?hook=` value are now Stop preparing. All preview links still
+suppress analytics and omit signup attribution.
+
+The waitlist configuration closes v2 and opens v3 at **1 November 2026,
+01:28:00 UTC (02:28 Berlin)**, before the site rollout. Deployment-day traffic,
+including any gap between configuration and publication and cached v2 pages,
+is diagnostic. Read v3 separately using **2–12 November inclusive, Berlin**
+as the remaining complete-day window, and review on 13 November. Keep all
+historic experiment definitions and saved labels; later confirmations still
+update their original cohorts. Do not pool v2 and v3 conversion rates.
+
+Plausible events and accepted new signups carry `experiment=homepage-v3` and
+`variant=original|stop-preparing`. The existing goals and registered properties
+already support these values. The primary metric remains accepted submissions
+per assigned pageview, with the database supplying actual new signups,
+confirmations and later licence activation checks. This remains a randomised
+page-load test, not a persistent visitor test. Sparse results remain inconclusive.
+
+The OG image, its 2x/JPEG versions and `og/og.html` are restored from the
+[previous Stop preparing artwork](https://github.com/crmne/solco-site/commit/e86fafa).
+The homepage's Open Graph and Twitter titles/alt text match it and use
+`og.png?v=10`. Previously cached social previews may need a platform recrawl.
+
+## Retired homepage A/B/C test: homepage-v2
 
 The owner added the previous homepage as a control on 29 October 2026.
 This starts a new experiment, `homepage-v2`, rather than changing the old
