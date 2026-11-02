@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buy Solco</title>
+<meta name="description" content="Buy a Solco licence: keep the app for good, with 12 months of updates and the playlist assistant.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://getsolco.com/buy/">
+<meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/buy.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 40 40" fill="none" stroke="currentColor"><circle cx="20" cy="20" r="18.5" stroke-width="1.8"/><circle cx="20" cy="20" r="13.5" stroke-opacity=".55" stroke-width="1.5"/><circle cx="20" cy="20" r="8.5" stroke-opacity=".3" stroke-width="1.5"/><circle cx="20" cy="20" r="3.2" fill="currentColor" stroke="none"/></symbol></svg>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Solco, home"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+  <a class="topbar-link" href="https://support.getsolco.com" style="margin-left:auto">Help</a>
+</header>
+<main id="main" class="buy">
+  <!-- Nothing on this page says a price until the server says Solco is on sale:
+       the prices come from GET /v1/billing/offer, never from this file. -->
+  <section data-state="closed">
+    <p class="kicker">Private beta</p>
+    <h1>Not on sale yet</h1>
+    <p class="lead">Solco is in private beta. You'll be able to buy it when 1.0 is out. Join the waitlist and you'll hear first.</p>
+    <p><a class="btn-cta" href="/#waitlist">Join the waitlist</a></p>
+  </section>
+
+  <section data-state="open" hidden>
+    <p class="kicker">Solco 1.0</p>
+    <h2 class="big">Buy it once. Keep it.</h2>
+    <p class="lead">Solco never stops working. Your licence comes with 12 months of updates and the playlist assistant. After that, the last version from your 12 months is yours to keep, and only updates and the assistant stop.</p>
+
+    <div class="prices">
+      <article class="price">
+        <h2>Licence</h2>
+        <p class="amount" data-price="standard-eur"></p>
+        <p class="small">In the EU, VAT included</p>
+        <p class="amount" data-price="standard-usd"></p>
+        <p class="small">Everywhere else, before tax</p>
+      </article>
+      <article class="price">
+        <h2>Renewal</h2>
+        <p class="amount" data-price="renewal-eur"></p>
+        <p class="small">In the EU, VAT included</p>
+        <p class="amount" data-price="renewal-usd"></p>
+        <p class="small">Everywhere else, before tax</p>
+      </article>
+    </div>
+    <p class="launch" data-launch hidden>On the waitlist or in the private beta? Your launch price is <b data-price="launch-eur"></b> or <b data-price="launch-usd"></b>, and it comes off by itself when you use the same email.</p>
+
+    <ul class="plain">
+      <li>Works on up to three of your computers.</li>
+      <li>A year of the playlist assistant is included, with no credits to buy: about 100 messages a month.</li>
+      <li>Renew when you like for 12 more months. If your updates have already ended, the 12 months start the day you renew.</li>
+      <li>EU business with a VAT ID? You pay the price without VAT, under reverse charge.</li>
+    </ul>
+
+    <form id="details" class="order" novalidate>
+      <h2>Your details</h2>
+      <div class="choice" role="radiogroup" aria-label="What you're buying">
+        <label><input type="radio" name="kind" value="licence" checked> A new licence</label>
+        <label><input type="radio" name="kind" value="renewal"> Renew my licence</label>
+      </div>
+      <label data-for="licence">Email<input name="email" type="email" autocomplete="email" required>
+        <small>Your key goes here. It stays tied to this address.</small></label>
+      <label data-for="renewal" hidden>Your licence key<textarea name="licence_key" rows="3" spellcheck="false" autocomplete="off"></textarea>
+        <small>Paste the whole key from your email, or copy it from Solco.</small></label>
+      <label>Name<input name="name" autocomplete="name" required></label>
+      <label>Address<input name="address_line1" autocomplete="address-line1" required></label>
+      <label>Address, second line (optional)<input name="address_line2" autocomplete="address-line2"></label>
+      <div class="two">
+        <label>Postcode<input name="postal_code" autocomplete="postal-code"></label>
+        <label>City<input name="city" autocomplete="address-level2" required></label>
+      </div>
+      <label>State or region (optional)<input name="region" autocomplete="address-level1"></label>
+      <label>Country<select name="country" autocomplete="country" required></select></label>
+      <details>
+        <summary>Buying for a business?</summary>
+        <label>VAT or tax number (optional)<input name="vat_id" autocomplete="off"></label>
+        <label class="tick"><input type="checkbox" name="business_declared"> I'm buying for a business</label>
+        <label>Business website or company number<input name="business_evidence"><small>Only needed where we can sell just to businesses and you have no VAT or tax number.</small></label>
+      </details>
+      <p class="problem" role="alert" hidden></p>
+      <button class="btn-cta" type="submit">Review your order</button>
+    </form>
+
+    <form id="review" class="order" hidden>
+      <h2>Your order</h2>
+      <dl class="sum">
+        <div><dt data-q="item"></dt><dd data-q="total"></dd></div>
+        <div data-q-row="net"><dt>Before VAT</dt><dd data-q="net"></dd></div>
+        <div data-q-row="vat"><dt data-q="vat-label"></dt><dd data-q="vat"></dd></div>
+        <div><dt>Buyer</dt><dd data-q="buyer"></dd></div>
+      </dl>
+      <p class="small" data-q="note"></p>
+      <label class="tick" data-q-row="consent"><input type="checkbox" name="consent"> <span data-q="consent"></span></label>
+      <p class="small">Your <a href="/terms.html">terms</a> and <a href="/withdrawal/">right of withdrawal</a> apply. The contract is made when your payment goes through. Our payment partner Stripe takes the payment on the next page.</p>
+      <p class="problem" role="alert" hidden></p>
+      <div class="buttons">
+        <button class="btn-cta" type="submit" data-q="button">Order with obligation to pay</button>
+        <button class="link" type="button" data-back>Change your details</button>
+      </div>
+    </form>
+  </section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="brand" href="/"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+      <nav aria-label="Footer">
+        <a href="https://support.getsolco.com">Help centre</a><a href="/terms.html">Terms</a><a href="/withdrawal/">Withdrawal</a><a href="/impressum.html">Impressum</a><a href="/privacy.html">Datenschutz / Privacy</a><span>© 2026 Plenty</span>
+      </nav>
+    </div>
+    <p class="legal">rekordbox, Pioneer DJ, CDJ and XDJ are trademarks of their owners; Solco is not affiliated with them.</p>
+  </div>
+</footer>
+<script src="/assets/js/buy.js" defer></script>
+</body>
+</html>

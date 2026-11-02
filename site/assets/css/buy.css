@@ -1,0 +1,41 @@
+/* The buy, thanks and withdrawal pages, on the site's tokens. */
+[hidden] { display: none !important; }
+.buy { max-width: 760px; margin: 0 auto; padding: 120px var(--gutter) 100px; }
+.buy h1, .buy h2.big { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: clamp(42px, 6vw, 72px); letter-spacing: -.045em; line-height: .95; margin: 14px 0 22px; font-variation-settings: "opsz" 96; }
+.buy h2 { font-size: 24px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 12px; }
+.buy > p, .buy section > p { margin-top: 14px; }
+.buy a:not(.btn-cta) { text-decoration: underline; text-underline-offset: 2px; }
+.prices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+.price { padding: 22px; border: 1px solid var(--line-2); border-radius: 16px; background: var(--panel); }
+.price .amount { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -.03em; line-height: 1.1; margin-top: 10px; }
+.buy .small { font-size: 14.5px; color: var(--ink-2); }
+.launch { margin-top: 18px; color: var(--ink-2); }
+.launch b { color: var(--ink); }
+.plain { margin: 22px 0 0 1.2em; color: var(--ink-2); }
+.plain li + li { margin-top: 6px; }
+.order { margin-top: 44px; padding: 24px; border: 1px solid var(--line-2); border-radius: 16px; background: var(--panel); display: grid; gap: 16px; }
+.order label { display: grid; gap: 6px; font-size: 14px; font-weight: 550; color: var(--ink-2); min-width: 0; }
+.order small { font-weight: 400; color: var(--ink-3); font-size: 13px; }
+.order input:not([type=radio], [type=checkbox]), .order select, .order textarea { width: 100%; min-height: 46px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line-3); background: var(--bg); color: var(--ink); font: inherit; font-size: 15.5px; }
+.order textarea { font-family: "Geist Mono", monospace; font-size: 13px; word-break: break-all; }
+.order input:focus-visible, .order select:focus-visible, .order textarea:focus-visible { outline: 2px solid var(--violet); outline-offset: 1px; }
+.order .two { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
+.order .choice { display: flex; flex-wrap: wrap; gap: 18px; }
+.order .choice label, .order .tick { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--ink); font-weight: 450; }
+.order details { display: grid; gap: 12px; }
+.order details > * + * { margin-top: 12px; }
+.order summary { cursor: pointer; color: var(--ink-2); font-size: 15px; }
+.order .problem { color: #e5484d; font-size: 15px; }
+.sum { display: grid; gap: 10px; }
+.sum div { display: flex; justify-content: space-between; gap: 18px; }
+.sum dt { color: var(--ink-2); }
+.sum dd { text-align: right; white-space: nowrap; }
+.sum dd[data-q="buyer"] { white-space: normal; overflow-wrap: anywhere; }
+.buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+button.link { background: none; border: 0; color: var(--ink-2); font: inherit; text-decoration: underline; cursor: pointer; }
+.btn-cta[disabled] { opacity: .6; cursor: wait; }
+@media (max-width: 560px) {
+  .prices { grid-template-columns: 1fr; }
+  .order { padding: 18px; }
+  .order .two { grid-template-columns: 1fr; }
+}
