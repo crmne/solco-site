@@ -162,7 +162,7 @@
     return out;
   }
   // the deck's six readings, in its two columns (Solco ADR 0250)
-  const charBars = d => [['Energy', d.energy], ['Drive', d.arousal], ['Peak', d.peak], ['Mood', d.valence], ['Vocals', d.vocal], ['Party', d.party]];
+  const charBars = d => [['Energy', d.energy], ['Drive', d.arousal], ['Peak', d.peak], ['Mood', d.valence], ['Vocals', d.vocal], ['Club', d.party]];
   const charBox = (d, k = 1) => `<div class="charbox">${charBars(d).map(([n, v]) => `<div class="cb"><span class="k">${n}</span><span class="bar"><i style="width:${v * k}%;background:${charColor(v)}"></i></span><span class="n">${Math.round(v * k)}</span></div>`).join('')}</div>`;
   // hot cues in the app's slot colours: A red, B blue, C green, D violet, E teal
   const CUES = [{ l: 'A', name: 'Intro', bar: 1, c: '#f03943' }, { l: 'B', name: 'Bass in', bar: 17, c: '#3c9bf4' }, { l: 'C', name: 'Vocal', bar: 49, c: '#5ccd8f' }, { l: 'D', name: 'Break', bar: 89, c: '#d88cff' }, { l: 'E', name: 'Outro', bar: 169, c: '#30c8b0' }];

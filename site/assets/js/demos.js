@@ -61,7 +61,7 @@
   // The library table on Character (Solco ADRs 0247, 0250, 0266): the waveform, the title with its artist under
   // it, BPM, key, feel and style, then every characteristic from 0 to 100 in one colour scale. Mood is off by
   // default. At this width the table scrolls sideways, so the last columns sit past the edge, as in the app.
-  const NUMS = [['Energy', 'e'], ['Drive', 'dr'], ['Peak', 'p'], ['Stability', 'stb'], ['Happy', 'hp'], ['Sad', 'sd'], ['Calm', 'cl'], ['Party', 'pa'], ['Dance', 'dn'], ['Edge', 'ed'], ['Vocals', 'v']];
+  const NUMS = [['Energy', 'e'], ['Drive', 'dr'], ['Peak', 'p'], ['Stability', 'stb'], ['Happy', 'hp'], ['Sad', 'sd'], ['Calm', 'cl'], ['Club', 'pa'], ['Dance', 'dn'], ['Edge', 'ed'], ['Vocals', 'v']];
   // o.nums picks the readings shown (all by default); o.wave and o.style can leave those columns out on narrow stages
   const numsOf = o => o.nums ? NUMS.filter(([n]) => o.nums.includes(n)) : NUMS;
   const reading = (t, k) => t[k] == null ? '<span class="nd">–</span>' : Math.round(t[k]);
