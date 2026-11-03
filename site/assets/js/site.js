@@ -183,7 +183,7 @@
   const tick = document.querySelector('[data-ticker]');
   if (tick && window.SOLCO) {
     const d = window.SOLCO.deck, UI = window.UI;
-    const words = [['Energy', d.energy], ['Drive', d.arousal], ['Peak', d.peak], ['Stability', d.stability], ['Happy', d.happy], ['Sad', d.sad], ['Calm', d.calm], ['Club', d.party], ['Dance', d.dance], ['Edge', d.edge], ['Vocals', d.vocal]].map(([n, v]) => [n, Math.round(v)]);
+    const words = [['Energy', d.energy], ['Club', d.party], ['Edge', d.edge], ['Vocals', d.vocal], ['Happy', d.happy], ['Stability', d.stability], ['Drive', d.arousal], ['Peak', d.peak], ['Sad', d.sad], ['Calm', d.calm], ['Dance', d.dance]].map(([n, v]) => [n, Math.round(v)]);
     const one = words.map(([n, v]) => `<span style="color:${UI.charColor(v)}">${n}<small>${v}</small></span>`).join('');
     tick.innerHTML = one + one + one;
     if (!still) {

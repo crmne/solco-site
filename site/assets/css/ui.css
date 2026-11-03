@@ -8,8 +8,9 @@
   --text-1:#eceae6; --text-2:#a9abb0; --text-3:#74777e; --text-4:#4d5057;
   --accent:#b9a3ff; --accent-ink:#17122b; --accent-soft:rgba(185,163,255,.13); --accent-line:rgba(185,163,255,.45);
   --ok:#4cc38a; --ok-soft:rgba(76,195,138,.13); --danger:#f0585e; --danger-soft:rgba(240,88,94,.13); --warn:#f2c94c;
-  /* the deck's waveform: blue lows, orange mids, a cream core; red downbeats (ADRs 0224, 0261) */
-  --wf-low:#1857e8; --wf-mid:#f48918; --wf-high:#f6e5cd; --wf-bg:#0c0d0f; --wf-ruler:rgba(0,0,0,.35);
+  /* the deck's waveform, Three-band (ADR 0337): blue lows, deep orange where the mids overlap them, bright orange
+     above them, cream highs in front at 80%; red downbeats */
+  --wf-low:#1857e8; --wf-mid:#f48918; --wf-overlap:#b06210; --wf-high-a:.8; --wf-high:#f6e5cd; --wf-bg:#0c0d0f; --wf-ruler:rgba(0,0,0,.35);
   --wf-down:rgba(238,55,73,.68); --wf-beat:rgba(169,171,176,.28); --wf-shade:rgba(0,0,0,.3); --wf-wash:rgba(255,255,255,.063);
   --grid-rgb:255,255,255; --row-sel:#2b2f35; --stripe:rgba(255,255,255,.012);
   --r-sm:5px; --r-md:7px; --r-lg:10px; --r-xl:14px;
@@ -184,7 +185,7 @@
 .ui .row.lib .c-stability, .ui .ghead.lib .c-stability { width:72px; }
 .ui .row.lib .c-happy, .ui .ghead.lib .c-happy { width:53px; }
 .ui .row.lib .c-sad, .ui .ghead.lib .c-sad, .ui .row.lib .c-edge, .ui .ghead.lib .c-edge { width:46px; }
-.ui .row.lib .c-calm, .ui .ghead.lib .c-calm, .ui .row.lib .c-dance, .ui .ghead.lib .c-dance, .ui .row.lib .c-party, .ui .ghead.lib .c-party { width:56px; }
+.ui .row.lib .c-calm, .ui .ghead.lib .c-calm, .ui .row.lib .c-dance, .ui .ghead.lib .c-dance, .ui .row.lib .c-club, .ui .ghead.lib .c-club { width:56px; }
 .ui .row.lib .c-vocals, .ui .ghead.lib .c-vocals { width:62px; }
 .ui .row.lib.sel .c-title .tl { color:var(--text-1); }
 .ui .row.lib .nd { color:var(--text-4); }
@@ -247,7 +248,7 @@
   --text-1:#1b1b1d; --text-2:#55575c; --text-3:#85878c; --text-4:#b4b5b8;
   --accent:#6a4fd8; --accent-ink:#ffffff; --accent-soft:rgba(106,79,216,.10); --accent-line:rgba(106,79,216,.42);
   --ok:#1f9d62; --danger:#d93a40; --warn:#b7791f;
-  --wf-low:#1857e8; --wf-mid:#f48918; --wf-high:#968e84; --wf-bg:#f3f2ee; --wf-ruler:rgba(0,0,0,.03);
+  --wf-low:#1857e8; --wf-mid:#f48918; --wf-overlap:#b06210; --wf-high-a:.7; --wf-high:#968e84; --wf-bg:#f3f2ee; --wf-ruler:rgba(0,0,0,.03);
   --wf-beat:rgba(85,87,92,.28); --wf-shade:rgba(255,255,255,.43); --wf-wash:rgba(0,0,0,.055);
   --grid-rgb:40,36,30; --row-sel:#e9e6f7; --stripe:rgba(0,0,0,.02); }
 .ui.light .play { background:var(--text-1); color:var(--bg-2); }
@@ -305,12 +306,27 @@
 .ui .c-wave { position: relative; }
 .ui .c-wave .na { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9.5px; color: var(--text-3); pointer-events: none; }
 .ui .c-gut { position: relative; }
-.ui .c-gut .aspin { position: absolute; left: 6px; top: 50%; width: 11px; height: 11px; margin-top: -5.5px; border-radius: 50%; border: 1.5px solid var(--line-3); border-top-color: var(--accent); opacity: 0; }
-.ui .aprog { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; gap: 10px; opacity: 0; pointer-events: none; }
-.ui .aprog .lines { display: flex; gap: 4px; }
-.ui .aprog i { width: 18px; height: 3px; border-radius: 2px; background: var(--bg-4); overflow: hidden; display: block; }
-.ui .aprog i b { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(0); }
-.ui .aprog .lab { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+/* Analysing, in the Waveform cell: five steps lit in the accent, then the step's name */
+.ui .aprog { position: absolute; inset: 0; display: flex; align-items: center; gap: 4px; padding-left: 6px; opacity: 0; pointer-events: none; }
+.ui .aprog .segs { display: flex; gap: 2px; flex: none; }
+.ui .aprog i { width: 6px; height: 3px; border-radius: 2px; background: var(--line-2); display: block; }
+.ui .aprog i.on { background: var(--accent); }
+.ui .aprog .lab { font-size: 12px; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* after the title: a faint dot while a track waits, the turning ring while it is analysed */
+.ui .row.lib .c-title { position: relative; }
+.ui .row.lib.marked .c-title { padding-right: 24px; }
+.ui .amark { position: absolute; right: 4px; top: 50%; width: 16px; height: 16px; margin-top: -8px; opacity: 0; pointer-events: none; }
+.ui .amark .dot { position: absolute; left: 5.5px; top: 5.5px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-4); }
+.ui .amark svg { position: absolute; left: 1px; top: 1px; width: 14px; height: 14px; display: none; fill: none; stroke: var(--line-2); stroke-width: 1.5; }
+.ui .amark svg .arc { stroke: var(--accent); stroke-linecap: round; }
+.ui .amark.run .dot { display: none; } .ui .amark.run svg { display: block; }
+/* a reading not read yet: a dim dash, or Waiting under Style while Solco will analyse it */
+.ui .row.lib [data-v] { position: relative; }
+.ui .row.lib [data-v] > .v { display: inline-flex; align-items: center; transform-origin: center; }
+.ui .row.lib [data-v] > .ph { position: absolute; inset: 0 8px; display: flex; align-items: center; color: var(--text-4); opacity: 0; pointer-events: none; }
+.ui .row.lib .c-num > .ph { justify-content: flex-end; }
+.ui .row.lib [data-v] > .ph.w { color: var(--text-3); }
+.ui .deck .meta .st.warn { color: var(--warn); }
 .ui .row.lib [data-v], .ui .row.lib [data-wave] { transform-origin: center; }
 /* the Character table scrolled sideways: the waveform and title stay put, the readings slide under them */
 .ui .table.pins .row.lib > .c-gut, .ui .table.pins .row.lib > .c-wave, .ui .table.pins .row.lib > .c-title,

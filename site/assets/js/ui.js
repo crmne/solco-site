@@ -37,23 +37,41 @@
   const keyHtml = k => k ? `<span class="key" style="color:${keyColor(k)}">${k}</span>` : '<span class="muted">–</span>';
   const bpmf = b => (!Number.isFinite(b) ? '–' : Math.abs(b - Math.round(b)) < 0.05 ? String(Math.round(b)) : b.toFixed(1));
 
-  /* ---------- waveform: Solco's own look (Solco ADRs 0252, 0257, 0261) ----------
-     A column's height comes from its RMS level (rms^0.62) at the gain the track plays
-     at; the bands share it out by their share of the column: blue lows from 44% to all
-     of it, orange mids from 18% to 76%, a light core of highs from 3% to 32%. */
-  const energyOf = rms => Math.pow(clamp(rms), 0.62);
-  const NEUTRAL = [0.5, 0.32, 0.18];
-  const layersOf = c => {
-    const e = [c[1], c[2], c[3]].map(x => Math.pow(Math.max(0, x), 1.45)), t = e[0] + e[1] + e[2];
-    const sh = t > 1e-9 ? e.map(x => x / t) : NEUTRAL;
-    return [0.44 + 0.56 * Math.sqrt(sh[0]), 0.18 + 0.58 * Math.sqrt(sh[1]), 0.03 + 0.29 * Math.sqrt(sh[2])];
-  };
+  /* ---------- waveform: Three-band, the look Solco opens on (Solco ADRs 0337, 0341) ----------
+     Rekordbox's shapes in Solco's colours. Each column holds the lows', mids' and highs' levels. The zoomed
+     deck draws them mirrored and in layers: blue lows, deep orange where the mids overlap them, bright orange
+     where the mids rise above them, and the highs translucent in front. The overview and the table's previews
+     stack lows, mids and highs up from the baseline. A band's shape keeps the slow release rekordbox gives
+     it, and the whole track is scaled by one honest factor from its loudness, so a quiet track draws smaller
+     with the same shape. Solco's earlier look is a choice in its Settings, not the default. */
+  const OV_LEVEL = [0.515, 0.33, 0.30], DETAIL_HALF = 0.755, RELEASE = 0.94;
+  // the page's columns hold each band's RMS level; this brings them to the balance of rekordbox's filters
+  const TILT = [1, 0.58, 0.42];
+  // ADR 0254's curve: the share of the full height a level this many dB below a loud master draws at
+  const dbHeight = db => db >= 0 ? 1 : 0.25 * Math.pow(10, db / 20) + 0.75 * Math.max(0, 1 + db / 48);
+  // one factor for the whole track: its loudness at the gain it plays at, against a loud master (-6 dB)
+  const honestOf = lufs => { const l = lufs ?? -9; return dbHeight(l + 20 * Math.log10(gainOf({ lufs: l })) + 6); };
+  // each band's envelope with the release, column by column, then scaled so the track's loud moments
+  // reach the top of the well; cached on the column array
+  function bandsOf(cols) {
+    if (cols.__bands) return cols.__bands;
+    const e = [0, 0, 0], out = cols.map(c => { for (let b = 0; b < 3; b++) e[b] = Math.max(c[b + 1] || 0, e[b] * RELEASE); return e.slice(); });
+    const peaks = out.map(x => Math.max(x[0], x[1], x[2])).sort((a, b) => a - b), ref = peaks[Math.floor(peaks.length * .99)] || 1;
+    return (cols.__bands = out.map(x => x.map((v, b) => Math.min(1.15, v / ref * TILT[b]))));
+  }
+  // the overview's stack: each band's share of the strip, the tallest moment at the honest share
+  function stackOf(cols, lufs) {
+    if (cols.__stack) return cols.__stack;
+    const raw = cols.map(c => OV_LEVEL.map((w, b) => (c[b + 1] || 0) * w * TILT[b]));
+    const tallest = Math.max(1e-9, ...raw.map(r => r[0] + r[1] + r[2])), fill = honestOf(lufs) / tallest;
+    return (cols.__stack = raw.map(r => r.map(v => v * fill)));
+  }
   // the gain the deck plays a track at: to -9 LUFS, at most +6 dB
   const gainOf = d => Math.pow(10, clamp(-9 - (d.lufs ?? -9), -18, 6) / 20);
   // colours come from the interface theme the canvas sits in (graphite or paper)
   const themeOf = cv => {
     const cs = getComputedStyle(cv), g = k => cs.getPropertyValue(k).trim();
-    return { low: g('--wf-low') || '#1857e8', mid: g('--wf-mid') || '#f48918', high: g('--wf-high') || '#f6e5cd', bg: g('--wf-bg') || '#0c0d0f', ruler: g('--wf-ruler') || 'rgba(0,0,0,.35)', tick: g('--line-3') || '#474b53', down: g('--wf-down') || 'rgba(238,55,73,.68)', beat: g('--wf-beat') || 'rgba(169,171,176,.28)', play: g('--ok') || '#4cc38a', shade: g('--wf-shade') || 'rgba(0,0,0,.3)', wash: g('--wf-wash') || 'rgba(255,255,255,.06)', grid: g('--grid-rgb') || '255,255,255', text: g('--text-1') || '#eceae6', text2: g('--text-2') || '#a9abb0', dim: g('--text-3') || '#74777e', light: cv.closest('.light') != null };
+    return { low: g('--wf-low') || '#1857e8', mid: g('--wf-mid') || '#f48918', overlap: g('--wf-overlap') || '#b06210', highA: parseFloat(g('--wf-high-a')) || .8, line: g('--line-2') || '#33373e', high: g('--wf-high') || '#f6e5cd', bg: g('--wf-bg') || '#0c0d0f', ruler: g('--wf-ruler') || 'rgba(0,0,0,.35)', tick: g('--line-3') || '#474b53', down: g('--wf-down') || 'rgba(238,55,73,.68)', beat: g('--wf-beat') || 'rgba(169,171,176,.28)', play: g('--ok') || '#4cc38a', shade: g('--wf-shade') || 'rgba(0,0,0,.3)', wash: g('--wf-wash') || 'rgba(255,255,255,.06)', grid: g('--grid-rgb') || '255,255,255', text: g('--text-1') || '#eceae6', text2: g('--text-2') || '#a9abb0', dim: g('--text-3') || '#74777e', light: cv.closest('.light') != null };
   };
   function fit(cv) {
     const dpr = Math.min(6, (window.devicePixelRatio || 1) * (window.__uiScale || 1));
@@ -61,10 +79,18 @@
     if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
     return { W: w, H: h, dpr };
   }
-  // one column of layers, mirrored about yMid (or standing on yMid when `up`)
-  function column(ctx, th, x, w, yMid, base, fr, up) {
-    const cols = [th.low, th.mid, th.high];
-    for (let i = 0; i < 3; i++) { const h = Math.round(base * fr[i]); if (h <= 0) continue; ctx.fillStyle = cols[i]; up ? ctx.fillRect(x, yMid - h, w, h) : ctx.fillRect(x, yMid - h, w, h * 2); }
+  // one column of the zoomed view, mirrored about yMid: the lows, the mids over and above them, the highs in front
+  function column(ctx, th, x, w, yMid, half, [l, m, h]) {
+    const L = Math.round(half * l), M = Math.round(half * m), H = Math.round(half * h), o = Math.min(L, M);
+    if (L > o) { ctx.fillStyle = th.low; ctx.fillRect(x, yMid - L, w, L - o); ctx.fillRect(x, yMid + o, w, L - o); }
+    if (M > o) { ctx.fillStyle = th.mid; ctx.fillRect(x, yMid - M, w, M - o); ctx.fillRect(x, yMid + o, w, M - o); }
+    if (o > 0) { ctx.fillStyle = th.overlap; ctx.fillRect(x, yMid - o, w, o * 2); }
+    if (H > 0) { ctx.globalAlpha *= th.highA; ctx.fillStyle = th.high; ctx.fillRect(x, yMid - H, w, H * 2); ctx.globalAlpha /= th.highA; }
+  }
+  // one column of a stack, standing on `bottom`: lows, then mids, then highs
+  function stack(ctx, th, x, w, bottom, full, sh) {
+    let y = bottom;
+    [th.low, th.mid, th.high].forEach((c, b) => { const h = sh[b] * full; if (h <= 0) return; ctx.fillStyle = c; ctx.fillRect(x, y - h, w, h); y -= h; });
   }
   // the cue's lettered tag, as the deck and the table draw it
   function cueTag(ctx, x, top, c, dpr, name) {
@@ -79,13 +105,14 @@
   function paintOverview(cv, d, o = {}) {
     const { W, H, dpr } = fit(cv); const ctx = cv.getContext('2d'); ctx.clearRect(0, 0, W, H);
     const th = cv.__th || (cv.__th = themeOf(cv));
-    const cols = d.overview, n = cols.length, g = gainOf(d);
+    const cols = stackOf(d.overview, d.lufs), n = cols.length;
     const lane = o.tempo ? 16 * dpr : 0, bottom = H - lane - dpr;
     ctx.fillStyle = th.bg; ctx.fillRect(0, 0, W, H - lane);
     for (let x = 0; x < W; x += dpr) {
-      const c = cols[Math.min(n - 1, Math.floor(x / W * n))]; if (!c) continue;
-      const base = Math.min(1, energyOf(c[0] * g) * 1.65) * (bottom - 2 * dpr);
-      column(ctx, th, x, dpr, bottom, base, layersOf(c), true);
+      // the tallest moment under each pixel, as the app draws a strip narrower than its columns
+      const a = Math.floor(x / W * n), b = Math.max(a + 1, Math.floor((x + dpr) / W * n));
+      let c = cols[Math.min(n - 1, a)]; for (let i = a + 1; i < b && i < n; i++) if (cols[i][0] + cols[i][1] + cols[i][2] > c[0] + c[1] + c[2]) c = cols[i];
+      if (c) stack(ctx, th, x, dpr, bottom, bottom - dpr, c);
     }
     if (o.tempo) {
       const f = d.downbeats, pts = [];
@@ -112,7 +139,7 @@
   /* zoomed waveform. `loopBars` makes a seamless loop out of whole bars of the real
      analysis, so a steady groove can play for as long as the page is open. */
   function zoomSampler(d, loopBars) {
-    const cols = d.zoom; const t0 = d.at - d.window / 2, span = d.window, n = cols.length;
+    const cols = bandsOf(d.zoom); const t0 = d.at - d.window / 2, span = d.window, n = cols.length;
     const beat = 60 / d.bpm;
     const first = d.beats.find(b => b[1] === 1 && b[0] > t0 + 0.2);
     const L0 = first ? first[0] : t0 + 0.5, L = loopBars ? loopBars * 4 * beat : 0;
@@ -131,10 +158,10 @@
     // scrolls, and the whole strip moves in whole device pixels: no shimmer.
     const step = dpr, n = Math.ceil(W / step) + 2, mid = Math.round(H / 2);
     const dt = span * step / W, k0 = Math.floor((center - span / 2) / dt);
-    const x0 = Math.round(X(k0 * dt)), g = gainOf(d) * (o.gain ?? 1), half = mid - 3 * dpr;
+    const x0 = Math.round(X(k0 * dt)), half = (mid - 3 * dpr) * DETAIL_HALF * honestOf(d.lufs) * (o.gain ?? 1);
     ctx.globalAlpha = o.alpha ?? 1;
     for (let i = 0; i < n; i++) { const c = smp.at((k0 + i + 0.5) * dt); if (!c) continue;
-      column(ctx, th, x0 + i * step, step, mid, energyOf(c[0] * g) * half, layersOf(c), false); }
+      column(ctx, th, x0 + i * step, step, mid, half, c); }
     ctx.globalAlpha = 1;
     // grid lines over the waveform, a hairline each: downbeats red, beats faint
     const lines = o.lines || [], hair = Math.max(1, Math.round(dpr));
@@ -167,16 +194,18 @@
   // hot cues in the app's slot colours: A red, B blue, C green, D violet, E teal
   const CUES = [{ l: 'A', name: 'Intro', bar: 1, c: '#f03943' }, { l: 'B', name: 'Bass in', bar: 17, c: '#3c9bf4' }, { l: 'C', name: 'Vocal', bar: 49, c: '#5ccd8f' }, { l: 'D', name: 'Break', bar: 89, c: '#d88cff' }, { l: 'E', name: 'Outro', bar: 169, c: '#30c8b0' }];
   const cueTimes = d => CUES.map(c => ({ ...c, t: d.downbeats[c.bar - 1] })).filter(c => c.t != null);
-  // a table row's waveform preview: one-sided, from its 96 stored columns
+  // a table row's waveform preview: the Three-band stack, from its 96 stored columns
   const previewCols = w => { const b = Uint8Array.from(atob(w), c => c.charCodeAt(0)), r = []; for (let i = 0; i < b.length; i += 4) r.push([b[i] / 255, b[i + 1] / 255, b[i + 2] / 255, b[i + 3] / 255]); return r; };
   function paintPreview(cv, row, cues = []) {
     if (!row.w && !row._w) return;
     const { W, H, dpr } = fit(cv); const ctx = cv.getContext('2d'); ctx.clearRect(0, 0, W, H);
     const th = cv.__th || (cv.__th = themeOf(cv));
-    const cols = row._w || (row._w = previewCols(row.w)), n = cols.length, g = gainOf({ lufs: row.lufs ?? -9 });
-    const top = cues.length ? 10 * dpr : 2 * dpr, bottom = H;
-    for (let x = 0; x < W; x += dpr) { const c = cols[Math.min(n - 1, Math.floor(x / W * n))];
-      column(ctx, th, x, dpr, bottom, Math.min(1, energyOf(c[0] * g) * 1.65) * (bottom - top), layersOf(c), true); }
+    const cols = stackOf(row._w || (row._w = previewCols(row.w)), row.lufs), n = cols.length;
+    // the well, the stack standing on its baseline, and the baseline's hairline, as the table draws them
+    const bottom = H - dpr, full = H - 2 * dpr;
+    ctx.fillStyle = th.bg; ctx.fillRect(0, 0, W, H);
+    for (let x = 0; x < W; x += dpr) stack(ctx, th, x, dpr, bottom, full, cols[Math.min(n - 1, Math.floor(x / W * n))]);
+    ctx.fillStyle = th.line; ctx.fillRect(0, bottom, W, dpr);
     cues.forEach((c, i) => { const x = Math.round(c.f * W); ctx.fillStyle = c.c; ctx.fillRect(x, 0, dpr, H);
       ctx.beginPath(); ctx.roundRect(x - 4 * dpr + 4.5 * dpr, 0, 10 * dpr, 10 * dpr, 2 * dpr); ctx.fill();
       ctx.fillStyle = '#fff'; ctx.font = `600 ${7.5 * dpr}px Geist, system-ui`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(c.l, x + 5.5 * dpr, 5.5 * dpr); ctx.textAlign = 'left'; });
@@ -195,5 +224,5 @@
     return path[path.length - 1];
   }
 
-  window.UI = { S, I, esc, num, mmss, clamp, seg, lerp, E, keyColor, charColor, feelHtml, keyHtml, bpmf, paintOverview, paintZoom, zoomSampler, steadyLines, charBox, charBars, cueTimes, CUES, fit, paintPreview, CURSOR_SVG, cursorPos };
+  window.UI = { S, I, esc, num, mmss, clamp, seg, lerp, E, bandsOf, keyColor, charColor, feelHtml, keyHtml, bpmf, paintOverview, paintZoom, zoomSampler, steadyLines, charBox, charBars, cueTimes, CUES, fit, paintPreview, CURSOR_SVG, cursorPos };
 })();
