@@ -45,4 +45,5 @@ Guides to every step, at https://support.getsolco.com. The articles are in Engli
 ## Optional
 
 - [Website privacy policy](https://getsolco.com/privacy.html): How getsolco.com and the waitlist handle personal data, in German and English.
+- [Terms of sale and licence](https://getsolco.com/terms.html): What a Solco licence includes, prices, updates and renewal, the 14-day right of withdrawal, and the law that applies.
 - [Impressum](https://getsolco.com/impressum.html): The legal notice for getsolco.com, in German and English.
