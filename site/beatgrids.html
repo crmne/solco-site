@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beat grids that follow tempo changes: how Solco finds them</title>
+<meta name="description" content="How Solco grids every track by listening, follows a live drummer bar by bar, finds the downbeat, and lists only the few grids worth checking.">
+<link rel="canonical" href="https://getsolco.com/beatgrids.html">
+<meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Solco">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://getsolco.com/beatgrids.html">
+<meta property="og:title" content="Beat grids that follow every tempo change">
+<meta property="og:description" content="How Solco grids every track by listening, follows a live drummer bar by bar, finds the downbeat, and lists only the few grids worth checking.">
+<meta property="og:image" content="https://getsolco.com/og.png?v=10">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Solco, DJ library app, private beta. Stop preparing your tracks. A track's waveform with its beatgrid, and Join the waitlist at getsolco.com.">
+<meta property="article:modified_time" content="2026-11-05">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beat grids that follow every tempo change">
+<meta name="twitter:description" content="How Solco grids every track by listening, follows a live drummer bar by bar, finds the downbeat, and lists only the few grids worth checking.">
+<meta name="twitter:image" content="https://getsolco.com/og.png?v=10">
+<meta name="twitter:image:alt" content="Solco, DJ library app, private beta. A track's waveform with its beatgrid.">
+<link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=guides-20261105">
+<link rel="stylesheet" href="assets/css/ui.css">
+<link rel="stylesheet" href="assets/css/home.css?v=guides-20261105">
+<link rel="stylesheet" href="assets/css/guide.css?v=guides-20261105">
+<script>document.documentElement.classList.add('hero-rise')</script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://stats.paolino.me/js/pa-JCPJyXqwkHhNzi2O06dWQ.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://getsolco.com/beatgrids.html#page",
+      "url": "https://getsolco.com/beatgrids.html",
+      "name": "Beat grids that follow tempo changes: how Solco finds them",
+      "description": "How Solco grids every track by listening, follows a live drummer bar by bar, finds the downbeat, and lists only the few grids worth checking.",
+      "inLanguage": "en-GB",
+      "dateModified": "2026-11-05",
+      "isPartOf": {
+        "@id": "https://getsolco.com/#website"
+      },
+      "about": {
+        "@id": "https://getsolco.com/#solco"
+      },
+      "breadcrumb": {
+        "@id": "https://getsolco.com/beatgrids.html#breadcrumb"
+      },
+      "primaryImageOfPage": "https://getsolco.com/og.png?v=10"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://getsolco.com/beatgrids.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Solco",
+          "item": "https://getsolco.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How Solco finds beat grids",
+          "item": "https://getsolco.com/beatgrids.html"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://getsolco.com/beatgrids.html#howto",
+      "name": "Check and fix a beat grid in Solco",
+      "inLanguage": "en-GB",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Solco"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Open the grids worth a look",
+          "text": "Click Beatgrids in the sidebar. The Uncertain tab lists only the grids Solco couldn't settle, with the reason, such as Maybe twice too fast.",
+          "url": "https://getsolco.com/beatgrids.html#fix"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Listen with the click",
+          "text": "Load a track on the deck and play it with Click on: a metronome on the grid, accented on beat one.",
+          "url": "https://getsolco.com/beatgrids.html#fix"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Fix the tempo",
+          "text": "Use ½× or ×2 beside the BPM, or click the BPM to type an exact value. None of these changes how fast the track plays.",
+          "url": "https://getsolco.com/beatgrids.html#fix"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Fix the downbeat",
+          "text": "Put the playhead on beat one where you hear it and click Downbeat. Mark it again further on if the grid drifts.",
+          "url": "https://getsolco.com/beatgrids.html#fix"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Mark it right",
+          "text": "Click the tick at the right end of the deck's toolbar. The track moves to Checked and goes on your USB beat for beat.",
+          "url": "https://getsolco.com/beatgrids.html#fix"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" id="ld-faq">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://getsolco.com/beatgrids.html#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Solco handle tracks whose tempo changes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A track played by a live band or drummer gets a grid that follows it bar by bar, and the deck shows the tempo at the playhead. A steady club track gets one exact tempo for the whole track."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I fix a grid that is twice too fast?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Click ½× beside the BPM, or ×2 for one at half speed. When Solco can't tell whether DJs count a track at 70 or 140, the deck asks, with Use 70.00 BPM and Keep 140.00."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are my rekordbox grids imported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Cues, loops, playlists, ratings and colours come over from rekordbox, but Solco grids every track itself, so its grids stay behind. Your rekordbox library is only read, never changed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do the grids go on my CDJ USB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, beat for beat, including grids that follow a changing tempo and the downbeats you marked. Grids Solco isn't sure about go on with the grid it has, and the export plan names them. How the USB export works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my music uploaded to make the grids?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Every analysis runs on your computer, on the graphics card when there is a supported one and on the processor otherwise."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body class="guide">
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 40 40" fill="none" stroke="currentColor"><circle cx="20" cy="20" r="18.5" stroke-width="1.8"/><circle cx="20" cy="20" r="13.5" stroke-opacity=".55" stroke-width="1.5"/><circle cx="20" cy="20" r="8.5" stroke-opacity=".3" stroke-width="1.5"/><circle cx="20" cy="20" r="3.2" fill="currentColor" stroke="none"/></symbol></svg>
+
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Solco, home"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+  <nav aria-label="Guides"><a href="/cdj-usb-without-rekordbox.html">CDJ USB</a><a href="/onelibrary.html">OneLibrary</a><a href="/beatgrids.html" aria-current="page">Beat grids</a><a href="/linux.html">Linux</a></nav>
+  <a class="topbar-link" href="https://support.getsolco.com">Help</a>
+  <a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker reveal"><a href="/">Solco</a> · Beat grids</p>
+        <h1 class="display reveal"><span>Grids that follow</span><span class="music-line">the drummer<i class="dot" aria-hidden="true"></i></span></h1>
+        <p class="lead hero-one reveal">Solco listens to each track on your computer and hears its beats and bars in the audio itself. A four-to-the-floor kick gets one exact tempo, like 137.72. A disco band or a live drummer gets a grid that moves with them, bar by bar. <b>And the downbeat lands on the one.</b></p>
+        <p class="lead reveal">When it isn't sure, it says so, and puts that grid in a short list for you to check by ear.</p>
+      </div>
+      <aside class="join reveal" id="waitlist" aria-labelledby="join-h">
+        <p class="beta-label">Free during the private beta</p>
+        <h2 id="join-h">Join the waitlist</h2>
+        <p>I invite DJs in small groups and send your personal key by email when a place opens up. No card needed.</p>
+        <form class="wl" data-wl novalidate action="https://waitlist.plenty.is/p/solco" method="get">
+          <div data-s1>
+            <label class="wl-label" for="wl-email">Email</label>
+            <input id="wl-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+            <button class="btn-cta wl-go" type="submit">Join the waitlist</button>
+            <div class="wl-trap" aria-hidden="true"><label for="wl-website">Leave this empty</label><input id="wl-website" type="text" tabindex="-1" autocomplete="off"></div>
+          </div>
+          <div data-s2 hidden>
+            <p class="wl-head"><b>A little about your setup?</b> Four optional questions help me make Solco better for you. Skip them if you prefer.</p>
+            <div class="wl-qs" data-qs></div>
+            <button class="btn-cta wl-go" type="submit">Join the waitlist</button>
+            <button class="wl-skip" type="button" data-skip>Skip the questions and join</button>
+          </div>
+          <div class="wl-done" data-done hidden tabindex="-1">
+            <div class="wl-inbox-hint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+              <div><strong>Not in your inbox?</strong><p>Check your spam or junk folder.</p></div>
+            </div>
+            <p class="wl-next">After you confirm, I’ll email your licence key when a place opens up.</p>
+          </div>
+          <p class="wl-msg" data-msg role="status" aria-live="polite"></p>
+          <p class="wl-fine">Confirm your email, then look out for your invitation. Up to two reminders to confirm, and two to get started if needed. Leave at any time. <a href="/privacy.html#english">Privacy</a></p>
+        </form>
+        <noscript><p class="wl-msg">Without JavaScript, the button opens our waitlist page to finish there. You can also write to <a href="mailto:hello@getsolco.com?subject=Solco%20waitlist">hello@getsolco.com</a>.</p></noscript>
+        <p class="platforms">Mac (Apple Silicon) · Windows · Linux</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="guide-body">
+    <article class="chapter feature" id="grids">
+      <header class="ch-head">
+        <p class="step-tag reveal"><i>1</i>Real grids</p>
+        <h2 class="reveal">Every beat, <span class="scale">every bar.</span></h2>
+        <p class="lead reveal">Four tracks from a DJ's library, drawn exactly as Solco grids them: every beat and bar line, and the tempo at each beat underneath. Pick one.</p>
+      </header>
+      <div class="reveal-frame">
+        <div class="tabs" role="tablist" aria-label="Choose a track" data-tabs></div>
+        <div class="stage shell" data-demo="gridLab" data-needs="grids" role="img" aria-label="Solco's beatgrid on four real tracks: 9 Hours Into the Future by Surgeon at a steady 137.72 BPM, Le Freak by Chic, Them by Nils Frahm, and Love Is the Drug by Roxy Music, where the tempo moves between 123 and 127 BPM and the grid follows every hit."></div>
+        <p class="caption"><b>Real output, not a mock-up.</b> Solco's analysis, drawn as it comes out.</p>
+      </div>
+      <dl class="facts four reveal">
+        <div><dt>Exact when it is steady</dt><dd>Club tracks get one tempo for the whole track, to two decimals.</dd></div>
+        <div><dt>Follows the band</dt><dd>Disco, funk, old rock and live drummers get a grid that moves with them.</dd></div>
+        <div><dt>Bars, not just beats</dt><dd>Downbeats are found too, so cues, loops and phrase counts land on the one.</dd></div>
+        <div><dt>Asks when unsure</dt><dd>The few uncertain grids wait in one list, each with the reason.</dd></div>
+      </dl>
+    </article>
+
+    <article class="chapter field blue" id="few">
+      <p class="step-tag reveal"><i>2</i>Checking</p>
+      <p class="poster reveal" aria-label="9,434 tracks, 16 to check."><s>9,434.</s><br>16.</p>
+      <div class="field-cols">
+        <div><h2 class="field-h reveal">Check a handful, not thousands.</h2><p class="lead reveal">Of the 9,434 tracks in my own library, 848 change tempo, and Solco asked me to check just 16 grids. The Beatgrids step lists only the ones worth a look.</p></div>
+        <ul class="points reveal">
+          <li><b>Uncertain.</b> Grids the analysis couldn't settle, with the reason: maybe twice too fast, maybe half speed, tempo wanders.</li>
+          <li><b>Changing tempo.</b> Tracks whose tempo moves, such as a live drummer, so you can hear them through.</li>
+          <li><b>Checked.</b> Grids you marked right. A later change asks again.</li>
+          <li><b>From the export.</b> Grids an export would like you to look at, in a tab of their own.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="chapter" id="fix">
+      <div class="steps-wrap">
+        <header class="ch-head">
+          <p class="step-tag reveal"><i>3</i>Fixing</p>
+          <h2 class="reveal">When a grid is wrong, two clicks.</h2>
+          <p class="lead reveal">Every fix keeps your marks: analyse the track again and they stay, and on your USB the players get the grid beat for beat.</p>
+        </header>
+        <ol class="steps reveal">
+          <li><b>Open the grids worth a look.</b> Click <b>Beatgrids</b> in the sidebar; <b>Uncertain</b> lists the grids Solco couldn't settle.</li>
+          <li><b>Listen with the click.</b> Load the track and play it with <b>Click</b> on: a metronome on the grid, accented on beat one.</li>
+          <li><b>Fix the tempo.</b> <b>½×</b> or <b>×2</b> beside the BPM, or click the BPM to type an exact value. The track still plays at its own speed.</li>
+          <li><b>Fix the downbeat.</b> Put the playhead on beat one and click <b>Downbeat</b>. If the grid drifts later, mark it there too.</li>
+          <li><b>Mark it right.</b> Click the tick at the end of the deck's toolbar. For a track Solco hears wrong, <b>Manual grid</b> makes your marks the grid.</li>
+        </ol>
+      </div>
+    </article>
+
+    <article class="chapter" id="measured">
+      <header class="ch-head">
+        <p class="step-tag reveal"><i>4</i>Measured</p>
+        <h2 class="reveal">Tested on music people marked by hand.</h2>
+        <p class="lead reveal">On the 998 song excerpts of the public GTZAN set, where people marked every beat and downbeat, Solco's grids matched the downbeats 38% better than rekordbox 7's and the beats 12% better. GTZAN is ten genres of 30-second excerpts, not DJ sets: it shows the grids hold beyond four-to-the-floor, not that Solco is ahead on any one club genre.</p>
+      </header>
+      <dl class="facts measured reveal" aria-label="Measured against rekordbox 7">
+        <div><dt><b>Downbeats:</b> 38% better</dt><dd>Than rekordbox 7.2.6 in its Auto mode, ahead in all ten genres. <a class="inline" href="/measured.html">How we measured</a></dd></div>
+        <div><dt><b>Beats:</b> 12% better</dt><dd>Clearly ahead in five genres, within the margin in four, level on reggae. <a class="inline" href="/measured.html">How we measured</a></dd></div>
+      </dl>
+    </article>
+  </div>
+
+  <section class="faq" id="faq" aria-labelledby="faq-h">
+    <div class="wrap">
+      <p class="kicker reveal">Questions</p>
+      <h2 id="faq-h" class="reveal">What DJs ask about grids.</h2>
+      <div class="faq-list reveal">
+        <details><summary>Does Solco handle tracks whose tempo changes?</summary><p>Yes. A track played by a live band or drummer gets a grid that follows it bar by bar, and the deck shows the tempo at the playhead. A steady club track gets one exact tempo for the whole track.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-checking-and-fixing-beatgrids">More in the help centre</a></p></details>
+        <details><summary>How do I fix a grid that is twice too fast?</summary><p>Click ½× beside the BPM, or ×2 for one at half speed. When Solco can't tell whether DJs count a track at 70 or 140, the deck asks, with Use 70.00 BPM and Keep 140.00.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-checking-and-fixing-beatgrids">More in the help centre</a></p></details>
+        <details><summary>Are my rekordbox grids imported?</summary><p>No. Cues, loops, playlists, ratings and colours come over from rekordbox, but Solco grids every track itself, so its grids stay behind. Your rekordbox library is only read, never changed.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-importing-from-other-apps">More in the help centre</a></p></details>
+        <details><summary>Do the grids go on my CDJ USB?</summary><p>Yes, beat for beat, including grids that follow a changing tempo and the downbeats you marked. Grids Solco isn't sure about go on with the grid it has, and the export plan names them. <a class="faq-inline" href="/cdj-usb-without-rekordbox.html">How the USB export works</a>.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-exporting-to-a-cdj-usb">More in the help centre</a></p></details>
+        <details><summary>Is my music uploaded to make the grids?</summary><p>No. Every analysis runs on your computer, on the graphics card when there is a supported one and on the processor otherwise.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-analysing-your-tracks">More in the help centre</a></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="next" aria-labelledby="next-h">
+    <div class="wrap">
+      <p class="kicker reveal">Read on</p>
+      <h2 id="next-h" class="reveal">Every step, written down.</h2>
+      <div class="next-grid reveal">
+        <div><h3>Guides</h3><ul><li><a href="/cdj-usb-without-rekordbox.html">CDJ USB without rekordbox <span>Export your playlists to a stick the players read</span></a></li><li><a href="/onelibrary.html">OneLibrary and the Device Library <span>Which players read which library, and a stick for all of them</span></a></li><li><a href="/linux.html">Solco on Linux <span>Prepare your music and write CDJ USBs without Windows or a Mac</span></a></li><li><a href="/">The whole tour <span>Everything Solco does, from your downloads to the booth</span></a></li></ul></div>
+        <div><h3>Help centre</h3><ul><li><a href="https://support.getsolco.com/hc/solco/articles/solco-checking-and-fixing-beatgrids">Checking and fixing beatgrids</a></li><li><a href="https://support.getsolco.com/hc/solco/articles/solco-analysing-your-tracks">Analysing your tracks</a></li><li><a href="https://support.getsolco.com/hc/solco/articles/solco-hot-cues-memory-cues-and-loops">Hot cues, memory cues and loops on the deck</a></li><li><a href="https://support.getsolco.com/hc/solco/articles/solco-keyboard-shortcuts">Keyboard shortcuts</a></li></ul></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="brand" href="/" aria-label="Solco, home"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+      <nav aria-label="Footer">
+        <a href="https://support.getsolco.com">Help centre</a><a href="/impressum.html">Impressum</a><a href="/privacy.html">Datenschutz / Privacy</a><a href="/terms.html">Terms</a><span>© 2026 Plenty</span>
+      </nav>
+    </div>
+    <p class="foot-guides"><span>Guides</span><a href="/cdj-usb-without-rekordbox.html">CDJ USB without rekordbox</a><a href="/onelibrary.html">OneLibrary and the Device Library</a><a href="/beatgrids.html">How Solco finds beat grids</a><a href="/linux.html">Solco on Linux</a><a href="/measured.html">How we measured</a></p>
+    <p class="legal">rekordbox, OneLibrary, Pioneer DJ, AlphaTheta, CDJ, XDJ, OPUS-QUAD and OMNIS-DUO are trademarks of their owners; Solco is not affiliated with, endorsed by or sponsored by them, and names them only to say what Solco works with. Icons: Lucide (ISC). Fonts: Geist, Bricolage Grotesque and Instrument Serif (SIL Open Font License), served from this site.</p>
+  </div>
+</footer>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/icons.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/demos.js" defer></script>
+<script src="assets/js/site.js?v=guides-20261105" defer></script>
+</body>
+</html>

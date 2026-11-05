@@ -3,10 +3,11 @@
 # Checks the pages in site/ for what search engines and link previews read:
 # one title, description and canonical per indexable page, one h1, alt text on
 # every image, valid JSON-LD, a sitemap that lists exactly the indexable pages,
-# and a FAQPage block that says what the visible questions say.
+# and, on every page with questions, a FAQPage block that says what the
+# visible questions say.
 #
 #   ruby script/check_seo.rb           # check, exit 1 on a problem
-#   ruby script/check_seo.rb --write   # rewrite index.html's FAQPage block from its FAQ first
+#   ruby script/check_seo.rb --write   # rewrite each page's FAQPage block from its FAQ first
 #
 # Plain Ruby, no gems: the pages are hand-written, so patterns are enough.
 
@@ -30,11 +31,11 @@ def faq_entries(html)
   end
 end
 
-def faq_block(entries)
+def faq_block(entries, url = "#{ORIGIN}/")
   data = {
     "@context" => "https://schema.org",
     "@type" => "FAQPage",
-    "@id" => "#{ORIGIN}/#faq",
+    "@id" => "#{url}#faq",
     "mainEntity" => entries.map do |q, a|
       { "@type" => "Question", "name" => q, "acceptedAnswer" => { "@type" => "Answer", "text" => a } }
     end
@@ -43,21 +44,25 @@ def faq_block(entries)
 end
 
 FAQ_BLOCK = %r{<script type="application/ld\+json" id="ld-faq">.*?</script>}m
-index_path = File.join(SITE, "index.html")
+pages = Dir.glob("**/*.html", base: SITE).sort
+url_of = ->(rel) { "#{ORIGIN}/#{rel.sub(/(\A|\/)index\.html\z/, '\1')}" }
 
 if ARGV.include?("--write")
-  html = File.read(index_path)
-  abort "index.html has no ld-faq block" unless html.match?(FAQ_BLOCK)
-  File.write(index_path, html.sub(FAQ_BLOCK) { faq_block(faq_entries(html)) })
+  pages.each do |rel|
+    path = File.join(SITE, rel)
+    html = File.read(path)
+    next unless html.match?(FAQ_BLOCK)
+
+    File.write(path, html.sub(FAQ_BLOCK) { faq_block(faq_entries(html), url_of.(rel)) })
+  end
 end
 
-pages = Dir.glob("**/*.html", base: SITE).sort
 indexable = []
 
 pages.each do |rel|
   html = File.read(File.join(SITE, rel))
   noindex = html.match?(/<meta name="robots" content="[^"]*noindex/)
-  url = "#{ORIGIN}/#{rel.sub(/(\A|\/)index\.html\z/, '\1')}"
+  url = url_of.(rel)
   indexable << url unless noindex
 
   titles = html.scan(%r{<title>(.*?)</title>}m).flatten
@@ -86,12 +91,19 @@ pages.each do |rel|
   problems << "#{rel}: canonical is #{canonical.inspect}, expected #{url}" unless canonical == url
 end
 
-index = File.read(index_path)
-block = index[FAQ_BLOCK]
-if block.nil?
-  problems << "index.html: no FAQPage block (ld-faq)"
-elsif block != faq_block(faq_entries(index))
-  problems << "index.html: the FAQPage block doesn't match the visible FAQ (run with --write)"
+faq_count = 0
+pages.each do |rel|
+  html = File.read(File.join(SITE, rel))
+  block = html[FAQ_BLOCK]
+  entries = faq_entries(html)
+  if block.nil?
+    problems << "#{rel}: questions without a FAQPage block (ld-faq)" if entries.any? || rel == "index.html"
+  elsif entries.empty?
+    problems << "#{rel}: a FAQPage block without visible questions"
+  elsif block != faq_block(entries, url_of.(rel))
+    problems << "#{rel}: the FAQPage block doesn't match the visible FAQ (run with --write)"
+  end
+  faq_count += entries.size if block
 end
 
 sitemap = File.read(File.join(SITE, "sitemap.xml")).scan(%r{<loc>(.*?)</loc>}).flatten
@@ -99,7 +111,7 @@ sitemap = File.read(File.join(SITE, "sitemap.xml")).scan(%r{<loc>(.*?)</loc>}).f
 (sitemap - indexable).each { |u| problems << "sitemap.xml: lists #{u}, which isn't an indexable page" }
 
 if problems.empty?
-  puts "SEO checks passed: #{pages.size} pages, #{sitemap.size} in the sitemap, #{faq_entries(index).size} FAQ entries."
+  puts "SEO checks passed: #{pages.size} pages, #{sitemap.size} in the sitemap, #{faq_count} FAQ entries."
 else
   warn problems.map { |p| "- #{p}" }
   exit 1

@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rekordbox on Linux? Make CDJ USBs natively with Solco</title>
+<meta name="description" content="rekordbox doesn't run on Linux. Solco does: it grids and keys your tracks and writes the USB Pioneer CDJs and XDJs read, on x86-64 and ARM64.">
+<link rel="canonical" href="https://getsolco.com/linux.html">
+<meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Solco">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://getsolco.com/linux.html">
+<meta property="og:title" content="Solco on Linux: prepare your music and write CDJ USBs">
+<meta property="og:description" content="rekordbox doesn't run on Linux. Solco does: it grids and keys your tracks and writes the USB Pioneer CDJs and XDJs read, on x86-64 and ARM64.">
+<meta property="og:image" content="https://getsolco.com/og.png?v=10">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Solco, DJ library app, private beta. Stop preparing your tracks. A track's waveform with its beatgrid, and Join the waitlist at getsolco.com.">
+<meta property="article:modified_time" content="2026-11-05">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Solco on Linux: prepare your music and write CDJ USBs">
+<meta name="twitter:description" content="rekordbox doesn't run on Linux. Solco does: it grids and keys your tracks and writes the USB Pioneer CDJs and XDJs read, on x86-64 and ARM64.">
+<meta name="twitter:image" content="https://getsolco.com/og.png?v=10">
+<meta name="twitter:image:alt" content="Solco, DJ library app, private beta. A track's waveform with its beatgrid.">
+<link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=guides-20261105">
+<link rel="stylesheet" href="assets/css/ui.css">
+<link rel="stylesheet" href="assets/css/home.css?v=guides-20261105">
+<link rel="stylesheet" href="assets/css/guide.css?v=guides-20261105">
+<script>document.documentElement.classList.add('hero-rise')</script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://stats.paolino.me/js/pa-JCPJyXqwkHhNzi2O06dWQ.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://getsolco.com/linux.html#page",
+      "url": "https://getsolco.com/linux.html",
+      "name": "rekordbox on Linux? Make CDJ USBs natively with Solco",
+      "description": "rekordbox doesn't run on Linux. Solco does: it grids and keys your tracks and writes the USB Pioneer CDJs and XDJs read, on x86-64 and ARM64.",
+      "inLanguage": "en-GB",
+      "dateModified": "2026-11-05",
+      "isPartOf": {
+        "@id": "https://getsolco.com/#website"
+      },
+      "about": {
+        "@id": "https://getsolco.com/#solco"
+      },
+      "breadcrumb": {
+        "@id": "https://getsolco.com/linux.html#breadcrumb"
+      },
+      "primaryImageOfPage": "https://getsolco.com/og.png?v=10",
+      "mentions": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "rekordbox",
+          "url": "https://rekordbox.com/en/"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://getsolco.com/linux.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Solco",
+          "item": "https://getsolco.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Solco on Linux",
+          "item": "https://getsolco.com/linux.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" id="ld-faq">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://getsolco.com/linux.html#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does rekordbox run on Linux?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "rekordbox's system requirements list Windows and macOS only. Solco runs on Linux natively and writes the USB stick Pioneer CDJ and XDJ players read, so you don't need rekordbox, Wine or a virtual machine for the stick."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which distributions does Solco support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "64-bit x86 and ARM64 Linux. Each release has a .deb for Debian and Ubuntu, an .rpm for Fedora and similar distributions, and a portable .tar.gz archive you unpack anywhere and run solco from."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I import my rekordbox library on Linux?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes: from rekordbox's XML export, or from a USB stick rekordbox made. Playlists, folders, hot cues, memory cues, loops, ratings and colours come over. Your rekordbox library is only read, never changed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does analysis use my graphics card?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When there is a supported one. Otherwise Solco analyses on the processor, which is slower. On some integrated graphics, analysis can make the interface stutter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I mix in Solco?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Solco has one deck for previewing, checking grids and setting cues. It prepares your music and writes the stick, and you play on the CDJs or XDJs."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body class="guide">
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 40 40" fill="none" stroke="currentColor"><circle cx="20" cy="20" r="18.5" stroke-width="1.8"/><circle cx="20" cy="20" r="13.5" stroke-opacity=".55" stroke-width="1.5"/><circle cx="20" cy="20" r="8.5" stroke-opacity=".3" stroke-width="1.5"/><circle cx="20" cy="20" r="3.2" fill="currentColor" stroke="none"/></symbol></svg>
+
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Solco, home"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+  <nav aria-label="Guides"><a href="/cdj-usb-without-rekordbox.html">CDJ USB</a><a href="/onelibrary.html">OneLibrary</a><a href="/beatgrids.html">Beat grids</a><a href="/linux.html" aria-current="page">Linux</a></nav>
+  <a class="topbar-link" href="https://support.getsolco.com">Help</a>
+  <a class="btn-cta small" href="#waitlist" data-join>Join the waitlist</a>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker reveal"><a href="/">Solco</a> · Linux</p>
+        <h1 class="display reveal"><span>CDJ USBs,</span><span class="music-line">made on Linux<i class="dot" aria-hidden="true"></i></span></h1>
+        <p class="lead hero-one reveal">rekordbox lists only Windows and macOS (<a href="https://rekordbox.com/en/download/#system">its system requirements</a>), so DJs on Linux have kept a second computer, a virtual machine or a Wine setup just to write a USB stick. <b>Solco runs on Linux natively</b>, and writes the stick your CDJs and XDJs read.</p>
+        <p class="lead reveal">The same app as on a Mac or Windows: beat grids, key, loudness and character, tags and covers, duplicates, playlists and the USB export.</p>
+      </div>
+      <aside class="join reveal" id="waitlist" aria-labelledby="join-h">
+        <p class="beta-label">Free during the private beta</p>
+        <h2 id="join-h">Join the waitlist</h2>
+        <p>I invite DJs in small groups and send your personal key by email when a place opens up. No card needed.</p>
+        <form class="wl" data-wl novalidate action="https://waitlist.plenty.is/p/solco" method="get">
+          <div data-s1>
+            <label class="wl-label" for="wl-email">Email</label>
+            <input id="wl-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+            <button class="btn-cta wl-go" type="submit">Join the waitlist</button>
+            <div class="wl-trap" aria-hidden="true"><label for="wl-website">Leave this empty</label><input id="wl-website" type="text" tabindex="-1" autocomplete="off"></div>
+          </div>
+          <div data-s2 hidden>
+            <p class="wl-head"><b>A little about your setup?</b> Four optional questions help me make Solco better for you. Skip them if you prefer.</p>
+            <div class="wl-qs" data-qs></div>
+            <button class="btn-cta wl-go" type="submit">Join the waitlist</button>
+            <button class="wl-skip" type="button" data-skip>Skip the questions and join</button>
+          </div>
+          <div class="wl-done" data-done hidden tabindex="-1">
+            <div class="wl-inbox-hint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+              <div><strong>Not in your inbox?</strong><p>Check your spam or junk folder.</p></div>
+            </div>
+            <p class="wl-next">After you confirm, I’ll email your licence key when a place opens up.</p>
+          </div>
+          <p class="wl-msg" data-msg role="status" aria-live="polite"></p>
+          <p class="wl-fine">Confirm your email, then look out for your invitation. Up to two reminders to confirm, and two to get started if needed. Leave at any time. <a href="/privacy.html#english">Privacy</a></p>
+        </form>
+        <noscript><p class="wl-msg">Without JavaScript, the button opens our waitlist page to finish there. You can also write to <a href="mailto:hello@getsolco.com?subject=Solco%20waitlist">hello@getsolco.com</a>.</p></noscript>
+        <p class="platforms">Mac (Apple Silicon) · Windows · Linux</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="guide-body">
+    <article class="chapter" id="install">
+      <header class="ch-head">
+        <p class="step-tag reveal"><i>1</i>Install</p>
+        <h2 class="reveal">A package, not a workaround.</h2>
+        <p class="lead reveal">Each release has a <code>.deb</code> for Debian and Ubuntu, an <code>.rpm</code> for Fedora and similar distributions, and a portable archive you unpack anywhere. For 64-bit x86 and ARM64. Everything Solco needs to analyse your music is inside.</p>
+      </header>
+      <div class="term reveal-frame" role="img" aria-label="A terminal: installing the Solco package on Ubuntu with apt, on Fedora with dnf, and starting it with the solco command.">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+<pre><span class="c"># Debian and Ubuntu</span>
+<span class="p">$ </span>sudo apt install ./solco-*.deb
+<span class="c"># Fedora and similar</span>
+<span class="p">$ </span>sudo dnf install ./solco-*.rpm
+<span class="p">$ </span>solco</pre>
+      </div>
+      <p class="caption">Packages install Solco under <code>/opt/solco</code> with a desktop entry and the <code>solco</code> command. Your library lives in <code>~/.local/share/solco</code>, settings in <code>~/.config/solco</code>. An installed package tells you the command that updates it.</p>
+    </article>
+
+    <article class="chapter" id="listen">
+      <header class="ch-head">
+        <p class="step-tag reveal"><i>2</i>Analysis</p>
+        <h2 class="reveal">Your music stays on your machine.</h2>
+        <p class="lead reveal">Solco analyses every track on your computer, on a supported graphics card when there is one and on the processor otherwise: the beat grid and downbeats, key, loudness, energy, style and the rest. Nothing is uploaded, and there's no account.</p>
+      </header>
+      <div class="stage shell reveal-frame" data-demo="analysis" role="img" aria-label="Recently added while Solco listens: new tracks wait as Not analysed, then each one gets its waveform, feel, style and readings. The sidebar says how many tracks are still being analysed."></div>
+      <a class="deeper reveal" href="/beatgrids.html">How Solco finds beat grids</a>
+    </article>
+
+    <article class="chapter field orange" id="usb">
+      <p class="step-tag reveal"><i>3</i>On the USB</p>
+      <p class="poster reveal">No Wine.<br>No VM.</p>
+      <div class="field-cols">
+        <div><h2 class="field-h reveal">The stick the players read, from Linux.</h2><p class="lead reveal">Solco writes both libraries Pioneer players read, the Device Library and OneLibrary, with grids, cues, waveforms, artwork and playlists. <a href="/cdj-usb-without-rekordbox.html">How the export works</a>.</p></div>
+        <ul class="points reveal">
+          <li><b>FAT32 at any size.</b> <b>Erase and prepare drive</b> formats a stick the way every player reads it, after your system asks for an administrator's permission.</li>
+          <li><b>exFAT too.</b> For the newer players, with your distribution's exFAT tools (the <code>exfatprogs</code> package).</li>
+          <li><b>Your rekordbox library comes along.</b> Import rekordbox 6 or 7 from an XML export, or straight from a stick rekordbox made.</li>
+          <li><b>Traktor and M3U8.</b> A Traktor collection with cues, loops and grids, and M3U8 playlists for other apps.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="chapter" id="notes">
+      <header class="ch-head">
+        <p class="step-tag reveal"><i>4</i>Good to know</p>
+        <h2 class="reveal">Plainly, for Linux.</h2>
+      </header>
+      <dl class="facts reveal">
+        <div><dt>Distributions</dt><dd>Packages for Debian, Ubuntu, Fedora and their relatives; the portable archive for the rest.</dd></div>
+        <div><dt>In the background</dt><dd>Keeping Solco running with its window closed needs a desktop that shows tray icons.</dd></div>
+        <div><dt>Mixing</dt><dd>Solco prepares your music and writes the stick; you play on the players. For mixing on Linux itself, use a DJ app that runs there.</dd></div>
+      </dl>
+    </article>
+  </div>
+
+  <section class="faq" id="faq" aria-labelledby="faq-h">
+    <div class="wrap">
+      <p class="kicker reveal">Questions</p>
+      <h2 id="faq-h" class="reveal">What Linux DJs ask.</h2>
+      <div class="faq-list reveal">
+        <details><summary>Does rekordbox run on Linux?</summary><p>rekordbox's system requirements list Windows and macOS only. Solco runs on Linux natively and writes the USB stick Pioneer CDJ and XDJ players read, so you don't need rekordbox, Wine or a virtual machine for the stick.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-installing-solco">More in the help centre</a></p></details>
+        <details><summary>Which distributions does Solco support?</summary><p>64-bit x86 and ARM64 Linux. Each release has a .deb for Debian and Ubuntu, an .rpm for Fedora and similar distributions, and a portable .tar.gz archive you unpack anywhere and run solco from.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-installing-solco">More in the help centre</a></p></details>
+        <details><summary>Can I import my rekordbox library on Linux?</summary><p>Yes: from rekordbox's XML export, or from a USB stick rekordbox made. Playlists, folders, hot cues, memory cues, loops, ratings and colours come over. Your rekordbox library is only read, never changed.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-importing-from-other-apps">More in the help centre</a></p></details>
+        <details><summary>Does analysis use my graphics card?</summary><p>When there is a supported one. Otherwise Solco analyses on the processor, which is slower. On some integrated graphics, analysis can make the interface stutter.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-installing-solco">More in the help centre</a></p></details>
+        <details><summary>Can I mix in Solco?</summary><p>No. Solco has one deck for previewing, checking grids and setting cues. It prepares your music and writes the stick, and you play on the CDJs or XDJs.<a class="faq-more" href="https://support.getsolco.com/hc/solco/articles/solco-hot-cues-memory-cues-and-loops">More in the help centre</a></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="next" aria-labelledby="next-h">
+    <div class="wrap">
+      <p class="kicker reveal">Read on</p>
+      <h2 id="next-h" class="reveal">Every step, written down.</h2>
+      <div class="next-grid reveal">
+        <div><h3>Guides</h3><ul><li><a href="/cdj-usb-without-rekordbox.html">CDJ USB without rekordbox <span>Export your playlists to a stick the players read</span></a></li><li><a href="/onelibrary.html">OneLibrary and the Device Library <span>Which players read which library, and a stick for all of them</span></a></li><li><a href="/beatgrids.html">How Solco finds beat grids <span>Grids that follow the drummer, and the few worth checking</span></a></li><li><a href="/">The whole tour <span>Everything Solco does, from your downloads to the booth</span></a></li></ul></div>
+        <div><h3>Help centre</h3><ul><li><a href="https://support.getsolco.com/hc/solco/articles/solco-installing-solco">Installing Solco on macOS, Windows and Linux</a></li><li><a href="https://support.getsolco.com/hc/solco/articles/solco-updating-solco">Updating Solco</a></li><li><a href="https://support.getsolco.com/hc/solco/articles/solco-exporting-to-a-cdj-usb">Exporting to a CDJ or XDJ USB drive</a></li><li><a href="https://support.getsolco.com/hc/solco/articles/solco-importing-from-other-apps">Importing from rekordbox, Traktor and Apple Music</a></li><li><a href="https://support.getsolco.com/hc/solco/articles/solco-when-solco-cannot-open-its-window">When Solco cannot open its window</a></li></ul></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="brand" href="/" aria-label="Solco, home"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg><span>solco<b>.</b></span></a>
+      <nav aria-label="Footer">
+        <a href="https://support.getsolco.com">Help centre</a><a href="/impressum.html">Impressum</a><a href="/privacy.html">Datenschutz / Privacy</a><a href="/terms.html">Terms</a><span>© 2026 Plenty</span>
+      </nav>
+    </div>
+    <p class="foot-guides"><span>Guides</span><a href="/cdj-usb-without-rekordbox.html">CDJ USB without rekordbox</a><a href="/onelibrary.html">OneLibrary and the Device Library</a><a href="/beatgrids.html">How Solco finds beat grids</a><a href="/linux.html">Solco on Linux</a><a href="/measured.html">How we measured</a></p>
+    <p class="legal">rekordbox, OneLibrary, Pioneer DJ, AlphaTheta, CDJ, XDJ, OPUS-QUAD and OMNIS-DUO are trademarks of their owners; Solco is not affiliated with, endorsed by or sponsored by them, and names them only to say what Solco works with. Icons: Lucide (ISC). Fonts: Geist, Bricolage Grotesque and Instrument Serif (SIL Open Font License), served from this site.</p>
+  </div>
+</footer>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/icons.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/demos.js" defer></script>
+<script src="assets/js/site.js?v=guides-20261105" defer></script>
+</body>
+</html>
