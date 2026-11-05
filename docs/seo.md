@@ -188,6 +188,12 @@ support.getsolco.com too. Both sitemaps were submitted on 27 October 2026:
 `https://support.getsolco.com/hc/solco/sitemap.xml` (Chatwoot's robots.txt
 doesn't name it, so it has to be submitted). Google rereads them by itself.
 
-Bing Webmaster Tools: not set up yet. Sign in at
-https://www.bing.com/webmasters and choose "Import from Google Search
-Console", which brings the property and its sitemaps without a DNS record.
+Bing Webmaster Tools has the site (`https://getsolco.com/`) with the same
+sitemap, so Bing's queries show there.
+
+On 5 November 2026, after the move to clean URLs, the sitemap was
+resubmitted in both, indexing was requested in Search Console (URL
+inspection) for the home page and the four guides, the same five URLs were
+sent through Bing's URL submission, and IndexNow got the nine new clean URLs
+(the publish workflow) plus the home page and the eight old `.html` URLs,
+so engines recrawl them and find their canonicals.
