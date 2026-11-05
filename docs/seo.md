@@ -29,13 +29,21 @@ fails on a `.html` link, canonical, `og:url`, structured-data URL or
 `llms.txt` entry. The retired homepage experiment scripts still link
 `.html` URLs and stay unchanged; those links still work.
 
+## Share images
+
+Each guide has its own share image, `site/og/<page>.jpg` (1200 by 630),
+a still of the page's own hero: serve `site/` on port 8765 and run
+`node og/render-guides.mjs` after changing a hero. The home page,
+`/measured` and the legal pages use `og.png`.
+
 ## Checked on every publish
 
 `ruby script/check_seo.rb` (run by `.github/workflows/pages.yml`): one
 title (65 characters at most), a description (160 at most) and a canonical
 URL per indexable page, one `h1`, `alt` on every image, JSON-LD that parses,
-a sitemap that lists exactly the indexable pages, each with a `lastmod`,
-and on every page with
+a sitemap that lists exactly the indexable pages, each with a `lastmod`
+(the date the page's words last changed, from `git log`; a link-only
+change doesn't count), and on every page with
 questions (the home page and the guides) an FAQPage block that says what the
 visible questions say. After changing questions, run
 `ruby script/check_seo.rb --write` to rewrite those blocks.
@@ -102,6 +110,7 @@ player) are said plainly. No prices until Carmine publishes them.
   body links siblings where the reader would go next.
 - `/measured` now has the top bar and footer, and links the beat-grid
   and USB guides.
+- The not-found page lists the four guides and the help centre.
 - The help centre links no marketing pages.
 
 ### Structured data
@@ -110,6 +119,7 @@ player) are said plainly. No prices until Carmine publishes them.
   `VideoObject`, `FAQPage`). The `SoftwareApplication` screenshot pointed
   at a file that isn't published (`media/app/hero.webp`); it is now the
   film's poster.
+- `/measured`: `WebPage` and `BreadcrumbList`, like the guides.
 - Guides: `WebPage` (about `#solco`, part of `#website`), `BreadcrumbList`,
   `FAQPage`, and `HowTo` on the two pages with real steps (USB export,
   fixing a grid). Google shows FAQ and HowTo rich results only rarely now;
