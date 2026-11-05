@@ -16,9 +16,6 @@ publish workflow. `site/llms.txt` lists every article; print the list with
 structured data and the sitemap ([docs/seo.md](docs/seo.md)); analytics events
 and goals are in [docs/analytics.md](docs/analytics.md).
 
-`ruby script/check_hook_test.rb` checks two-way homepage allocation and analytics
-exclusions using Node's built-in VM, with no network or extra packages.
-
 The homepage uses `site/assets/css/home.css` for its layout.
 Serve `site/` locally to review it; `?still` stops the demos for a
 static comparison; `?hook=original` and `?hook=stop-preparing` select the two

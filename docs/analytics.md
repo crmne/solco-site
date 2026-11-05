@@ -130,7 +130,27 @@ joining the sessions or sending any personal identifier to Plausible.
 Compare reminder cohorts only after each has had the same time to activate;
 an uncontrolled before/after comparison does not establish causation.
 
-## Current homepage test: homepage-v3
+## Ended: homepage-v3 (Stop preparing is the one page)
+
+Ended with the commit that removed `homepage-test-v3.js` from the page, which
+Carmine approved on 5 November 2026. Saved signups then: v3 Stop preparing 8, original
+6; v2 (29 October to 1 November) Stop preparing 10, original 9, Find the set
+6. Too few to separate the versions; Stop preparing stays as the one design,
+so search engines and visitors see one canonical page (Google's renderer
+could get either version before).
+
+- The page no longer loads the assignment script, and `plausible.init()`
+  has no `experiment` or `variant` properties. Events after the deploy are
+  unlabelled; filter old reports by `experiment=homepage-v3` as before.
+- `homepage-test-v3.js`, `homepage-test.js` and `hook-test.js` stay in
+  `site/assets/js/` for cached copies of older pages.
+- `script/check_hook_test.rb` and its publish step are gone, with nothing
+  left to check.
+- To do outside this repository: close the `homepage-v3` cohort in the
+  waitlist's configuration (crmne/waitlist, `products.yml`) at the deploy
+  time, so later signups stay unattributed, as the v2 close did.
+
+## Previous homepage test: homepage-v3
 
 On 1 November 2026, the owner requested removing **Find the set** and restoring
 the **Stop preparing your tracks** share image. This is a practical reduction
