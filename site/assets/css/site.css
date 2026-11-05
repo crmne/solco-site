@@ -667,3 +667,7 @@ section.stats .lead { margin: 44px 0 34px; max-width: 42em; }
 .field .deeper { color: inherit; }
 .works a.inline, .speed-note a.inline { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .works a.inline { color: var(--violet); }
+/* The hero window's space is held before its script builds it, at the size site.js gives it
+   (1280 by 800, scaled to fit; 62% and scrolling sideways on phones), so nothing below it moves. */
+.hero-stage .stage[data-demo="hero"] { aspect-ratio: 1280 / 800; }
+@media (max-width: 759.98px) { .hero-stage .stage[data-demo="hero"] { aspect-ratio: auto; width: 794px; height: 496px; } }
