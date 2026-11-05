@@ -4,12 +4,38 @@ What getsolco.com tells search engines and link previews, and where the
 words come from. The research behind it, with the comparison page drafts,
 is on the `seo-comparisons` branch in `docs/seo-comparisons/`.
 
+## Clean URLs
+
+Every page is published at a URL without `.html`: `/linux`, `/onelibrary`,
+`/cdj-usb-without-rekordbox`, `/beatgrids`, `/measured`, `/privacy`,
+`/impressum`, `/terms`, and `/app-privacy/` (a folder, as before). GitHub
+Pages serves `name.html` at `/name` with a 200, so the files keep their
+names and nothing about their assets changes.
+
+The old `.html` addresses still answer with the same page (Pages can't
+send a real redirect, and a redirect page at `name.html` would loop,
+because `/name` is served from that same file). Each page says which URL is
+the real one: its canonical, `og:url`, structured data, the sitemap,
+`llms.txt` and every internal link use the clean URL, and a line at the top
+of the head (`CLEAN_ADDRESS` in `script/check_seo.rb`) swaps the address
+bar to it before analytics records the visit. Search engines fold the
+`.html` copies into the clean URLs by the canonical. Moving pages to
+`name/index.html` would have given real redirects only for `/name` to
+`/name/` with a trailing slash, and old links would still have needed
+redirect pages.
+
+Keep it that way: link pages as `/name`, never `name.html`; the check
+fails on a `.html` link, canonical, `og:url`, structured-data URL or
+`llms.txt` entry. The retired homepage experiment scripts still link
+`.html` URLs and stay unchanged; those links still work.
+
 ## Checked on every publish
 
 `ruby script/check_seo.rb` (run by `.github/workflows/pages.yml`): one
 title (65 characters at most), a description (160 at most) and a canonical
 URL per indexable page, one `h1`, `alt` on every image, JSON-LD that parses,
-a sitemap that lists exactly the indexable pages, and on every page with
+a sitemap that lists exactly the indexable pages, each with a `lastmod`,
+and on every page with
 questions (the home page and the guides) an FAQPage block that says what the
 visible questions say. After changing questions, run
 `ruby script/check_seo.rb --write` to rewrite those blocks.
@@ -43,10 +69,10 @@ are, to be checked against Search Console's queries after a month.
 
 | Searches | What ranks now | The page that answers |
 | --- | --- | --- |
-| rekordbox linux, rekordbox on linux, rekordbox wine, rekordbox linux alternative, dj software linux | A change.org petition, the Pioneer community's "no", CrossOver's listing, a CachyOS thread where the DJ gave up and used a Windows VM, spam pages | `/linux.html`: rekordbox lists only Windows and macOS ([requirements](https://rekordbox.com/en/download/#system)); Solco installs as a package and writes the stick |
-| onelibrary, onelibrary vs device library, onelibrary rekordbox cdj 2000, cdj-3000x usb, cdj 3000x onelibrary, xdj-az usb | rekordbox's FAQ, AlphaTheta's notice, news posts. No plain table of which player reads which | `/onelibrary.html`: the table from [AlphaTheta's notice of 18 March 2026](https://alphatheta.com/en/information/important-notice-for-customers-using-usb-devices-with-our-dj-equipment/), and Solco writing both |
-| cdj without rekordbox, do you need rekordbox for cdj, cdj 3000 without rekordbox, rekordbox usb export slow, rekordbox usb export stuck | VirtualDJ news and forum threads, dj.studio's help | `/cdj-usb-without-rekordbox.html`: what goes on the stick, five steps (`HowTo`), formats, sharing a stick with rekordbox, the measured export time |
-| fix beatgrid rekordbox, beatgrid fixer, beatgrid rekordbox alternative, rekordbox beatgrid wrong | Blog how-tos for rekordbox's own editor, forum threads | `/beatgrids.html`: grids that follow tempo changes, the short list to check, how to fix one (`HowTo`), the GTZAN results |
+| rekordbox linux, rekordbox on linux, rekordbox wine, rekordbox linux alternative, dj software linux | A change.org petition, the Pioneer community's "no", CrossOver's listing, a CachyOS thread where the DJ gave up and used a Windows VM, spam pages | `/linux`: rekordbox lists only Windows and macOS ([requirements](https://rekordbox.com/en/download/#system)); Solco installs as a package and writes the stick |
+| onelibrary, onelibrary vs device library, onelibrary rekordbox cdj 2000, cdj-3000x usb, cdj 3000x onelibrary, xdj-az usb | rekordbox's FAQ, AlphaTheta's notice, news posts. No plain table of which player reads which | `/onelibrary`: the table from [AlphaTheta's notice of 18 March 2026](https://alphatheta.com/en/information/important-notice-for-customers-using-usb-devices-with-our-dj-equipment/), and Solco writing both |
+| cdj without rekordbox, do you need rekordbox for cdj, cdj 3000 without rekordbox, rekordbox usb export slow, rekordbox usb export stuck | VirtualDJ news and forum threads, dj.studio's help | `/cdj-usb-without-rekordbox`: what goes on the stick, five steps (`HowTo`), formats, sharing a stick with rekordbox, the measured export time |
+| fix beatgrid rekordbox, beatgrid fixer, beatgrid rekordbox alternative, rekordbox beatgrid wrong | Blog how-tos for rekordbox's own editor, forum threads | `/beatgrids`: grids that follow tempo changes, the short list to check, how to fix one (`HowTo`), the GTZAN results |
 | DJ library app, Solco | The home page | `/`: the title, the `SoftwareApplication` data, the FAQ |
 
 Not targeted, and why: "rekordbox alternative" on its own (performance
@@ -60,21 +86,21 @@ rekordbox ([its manual](https://www.lexicondj.com/manual/sync-to-pioneer-usb)),
 and rekordbox 7.2.11 and later also write both libraries, so no page says
 Solco is the only way or the only one writing both. The two measured
 claims (USB time, GTZAN grids) appear only with their conditions and a link
-to `measured.html`. Tested players are named as the release notes name
+to `/measured`. Tested players are named as the release notes name
 them; untried ones (both libraries on a CDJ-3000X, exFAT and HFS+ on any
 player) are said plainly. No prices until Carmine publishes them.
 
 ### Internal links
 
-- Home page: the Beatgrids chapter links `/beatgrids.html`, the USB
-  chapter `/cdj-usb-without-rekordbox.html`; "Plays in the club" links
-  `/onelibrary.html` and "Runs on your machine" `/linux.html`; the FAQ's
+- Home page: the Beatgrids chapter links `/beatgrids`, the USB
+  chapter `/cdj-usb-without-rekordbox`; "Plays in the club" links
+  `/onelibrary` and "Runs on your machine" `/linux`; the FAQ's
   rekordbox, players and computers answers link the matching guide; the
   footer has a Guides line on every page that has the footer.
 - Each guide: the top bar names all four, its "Read on" links the other
   three, the home page and four or five help-centre articles, and its
   body links siblings where the reader would go next.
-- `measured.html` now has the top bar and footer, and links the beat-grid
+- `/measured` now has the top bar and footer, and links the beat-grid
   and USB guides.
 - The help centre links no marketing pages.
 
@@ -118,8 +144,10 @@ experiment removes it.
   and `Waitlist: Submitted` filtered by page (each guide has its own form);
   `Help centre: Click` with `place` to see which guides send readers to the
   help centre; Sources for `Google` and `Bing` over time.
-- Plausible goal to add (in the dashboard): pageview `/*.html` excluding
-  the legal pages, or one pageview goal per guide, to read them as a group.
+- Plausible goal to add (in the dashboard): one pageview goal per guide
+  (`/cdj-usb-without-rekordbox`, `/onelibrary`, `/beatgrids`, `/linux`), to
+  read them as a group. Visits before 5 November 2026 were recorded at the
+  `.html` paths.
 - Bing: IndexNow already sends new and changed sitemap URLs after each
   deploy; Bing Webmaster Tools still needs the import from Search Console
   (below) to see Bing's queries.

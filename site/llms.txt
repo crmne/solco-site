@@ -7,11 +7,11 @@ Solco imports playlists, cues, loops, ratings and colours from rekordbox, Trakto
 ## Site
 
 - [Solco](https://getsolco.com/): What Solco does, the questions DJs ask first, and the waitlist.
-- [CDJ USB without rekordbox](https://getsolco.com/cdj-usb-without-rekordbox.html): How Solco writes the USB stick Pioneer CDJ and XDJ players read, from a Mac, Windows or Linux: what goes on it, the steps, formats, sharing a stick with rekordbox, and the measured export time.
-- [OneLibrary and the Device Library](https://getsolco.com/onelibrary.html): Which Pioneer DJ and AlphaTheta players read OneLibrary and which read the Device Library, why Solco writes both on every stick, and what has been tested.
-- [How Solco finds beat grids](https://getsolco.com/beatgrids.html): Grids that follow tempo changes, downbeats, the short list of grids worth checking, how to fix one, and the GTZAN results.
-- [Solco on Linux](https://getsolco.com/linux.html): Installing Solco on Debian, Ubuntu, Fedora and other Linux, analysing on the computer, and writing CDJ USBs without rekordbox, Wine or a virtual machine.
-- [How we measured](https://getsolco.com/measured.html): The USB export test and the beat-grid test against rekordbox 7, with their conditions.
+- [CDJ USB without rekordbox](https://getsolco.com/cdj-usb-without-rekordbox): How Solco writes the USB stick Pioneer CDJ and XDJ players read, from a Mac, Windows or Linux: what goes on it, the steps, formats, sharing a stick with rekordbox, and the measured export time.
+- [OneLibrary and the Device Library](https://getsolco.com/onelibrary): Which Pioneer DJ and AlphaTheta players read OneLibrary and which read the Device Library, why Solco writes both on every stick, and what has been tested.
+- [How Solco finds beat grids](https://getsolco.com/beatgrids): Grids that follow tempo changes, downbeats, the short list of grids worth checking, how to fix one, and the GTZAN results.
+- [Solco on Linux](https://getsolco.com/linux): Installing Solco on Debian, Ubuntu, Fedora and other Linux, analysing on the computer, and writing CDJ USBs without rekordbox, Wine or a virtual machine.
+- [How we measured](https://getsolco.com/measured): The USB export test and the beat-grid test against rekordbox 7, with their conditions.
 - [App privacy](https://getsolco.com/app-privacy/): The privacy notice for the Solco app, api.getsolco.com and the help centre, in German and English.
 
 ## Help centre
@@ -50,6 +50,6 @@ Guides to every step, at https://support.getsolco.com. The articles are in Engli
 
 ## Optional
 
-- [Website privacy policy](https://getsolco.com/privacy.html): How getsolco.com and the waitlist handle personal data, in German and English.
-- [Terms of sale and licence](https://getsolco.com/terms.html): What a Solco licence includes, prices, updates and renewal, the 14-day right of withdrawal, and the law that applies.
-- [Impressum](https://getsolco.com/impressum.html): The legal notice for getsolco.com, in German and English.
+- [Website privacy policy](https://getsolco.com/privacy): How getsolco.com and the waitlist handle personal data, in German and English.
+- [Terms of sale and licence](https://getsolco.com/terms): What a Solco licence includes, prices, updates and renewal, the 14-day right of withdrawal, and the law that applies.
+- [Impressum](https://getsolco.com/impressum): The legal notice for getsolco.com, in German and English.

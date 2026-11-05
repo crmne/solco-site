@@ -2,9 +2,11 @@
 
 # Checks the pages in site/ for what search engines and link previews read:
 # one title, description and canonical per indexable page, one h1, alt text on
-# every image, valid JSON-LD, a sitemap that lists exactly the indexable pages,
-# and, on every page with questions, a FAQPage block that says what the
-# visible questions say.
+# every image, valid JSON-LD, a sitemap that lists exactly the indexable pages
+# with a lastmod each, clean URLs (no ".html" in canonicals, Open Graph URLs,
+# structured data, the sitemap, llms.txt or internal links), and, on every
+# page with questions, a FAQPage block that says what the visible questions
+# say.
 #
 #   ruby script/check_seo.rb           # check, exit 1 on a problem
 #   ruby script/check_seo.rb --write   # rewrite each page's FAQPage block from its FAQ first
@@ -45,7 +47,12 @@ end
 
 FAQ_BLOCK = %r{<script type="application/ld\+json" id="ld-faq">.*?</script>}m
 pages = Dir.glob("**/*.html", base: SITE).sort
-url_of = ->(rel) { "#{ORIGIN}/#{rel.sub(/(\A|\/)index\.html\z/, '\1')}" }
+# GitHub Pages serves name.html at /name, so that is the URL every page uses;
+# name.html still answers, says /name is canonical and shows /name in the
+# address bar (CLEAN_ADDRESS).
+url_of = ->(rel) { "#{ORIGIN}/#{rel.sub(/(\A|\/)index\.html\z/, '\1').delete_suffix('.html')}" }
+CLEAN_ADDRESS = '<script>if(/\.html$/.test(location.pathname))history.replaceState(null,"",' \
+                'location.pathname.replace(/(index)?\.html$/,"")+location.search+location.hash)</script>'
 
 if ARGV.include?("--write")
   pages.each do |rel|
@@ -81,7 +88,18 @@ pages.each do |rel|
     problems << "#{rel}: JSON-LD doesn't parse: #{e.message[0, 120]}"
   end
 
+  html.scan(/\b(?:href|src|content)="([^"]*)"/).flatten.each do |link|
+    next if link.match?(%r{\A(?:[a-z]+:)?//}) && !link.start_with?(ORIGIN)
+    problems << "#{rel}: links #{link}, use the URL without .html" if link.match?(/\.html(?:[#?]|\z)/)
+  end
+  html.scan(%r{<script type="application/ld\+json"[^>]*>(.*?)</script>}m).flatten.each do |json|
+    json.scan(%r{https://getsolco\.com/[^"]*\.html\b}).uniq.each { |u| problems << "#{rel}: structured data names #{u}" }
+  end
   next if noindex
+
+  problems << "#{rel}: no address-bar cleanup script (CLEAN_ADDRESS)" unless html.include?(CLEAN_ADDRESS)
+  og_url = html[/<meta property="og:url" content="([^"]*)"/, 1]
+  problems << "#{rel}: og:url is #{og_url.inspect}, expected #{url}" unless og_url.nil? || og_url == url
 
   desc = html[/<meta name="description" content="([^"]*)"/, 1]
   if desc.nil? then problems << "#{rel}: no meta description"
@@ -106,7 +124,14 @@ pages.each do |rel|
   faq_count += entries.size if block
 end
 
-sitemap = File.read(File.join(SITE, "sitemap.xml")).scan(%r{<loc>(.*?)</loc>}).flatten
+sitemap_xml = File.read(File.join(SITE, "sitemap.xml"))
+sitemap = sitemap_xml.scan(%r{<loc>(.*?)</loc>}).flatten
+sitemap_xml.scan(%r{<url>(.*?)</url>}m).flatten.each do |entry|
+  problems << "sitemap.xml: no lastmod for #{entry[/<loc>(.*?)</, 1]}" unless entry.match?(%r{<lastmod>\d{4}-\d{2}-\d{2}</lastmod>})
+end
+File.read(File.join(SITE, "llms.txt")).scan(%r{https://getsolco\.com/\S*?\.html\b}).each do |u|
+  problems << "llms.txt: names #{u}, use the URL without .html"
+end
 (indexable - sitemap).each { |u| problems << "sitemap.xml: missing #{u}" }
 (sitemap - indexable).each { |u| problems << "sitemap.xml: lists #{u}, which isn't an indexable page" }
 
