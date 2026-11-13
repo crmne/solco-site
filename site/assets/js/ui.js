@@ -22,7 +22,7 @@
     // critically damped settle with a whisper of overshoot, for things that "land"
     land: k => { if (k <= 0) return 0; if (k >= 1) return 1; return 1 - Math.exp(-7 * k) * Math.cos(k * 9.5) * (1 - k) - 0 * k; },
   };
-  // the Camelot wheel's colours, as the app draws keys (the same for A and B)
+  // the key wheel's colours, as the app draws keys (the same for A and B)
   const WHEEL = ['#e85d75', '#ef7846', '#f0a13c', '#e4c53a', '#9dc950', '#59c672', '#42c1a5', '#40acd5', '#588fe8', '#8378e7', '#b06dd9', '#d262b4'];
   const keyColor = c => { const n = parseInt(c); return n ? WHEEL[(n - 1) % 12] : 'var(--text-1)'; };
   // one colour scale for every 0 to 100 reading: blue at 0, violet in the middle, orange at 100
