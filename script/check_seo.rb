@@ -6,7 +6,7 @@
 # with a lastmod each, clean URLs (no ".html" in canonicals, Open Graph URLs,
 # structured data, the sitemap, llms.txt or internal links), and, on every
 # page with questions, a FAQPage block that says what the visible questions
-# say.
+# say, and the home page's offers are complete, with no ratings anywhere.
 #
 #   ruby script/check_seo.rb           # check, exit 1 on a problem
 #   ruby script/check_seo.rb --write   # rewrite each page's FAQPage block from its FAQ first
@@ -122,6 +122,26 @@ pages.each do |rel|
     problems << "#{rel}: the FAQPage block doesn't match the visible FAQ (run with --write)"
   end
   faq_count += entries.size if block
+end
+
+# The home page's SoftwareApplication says what a visitor can get today (docs/seo.md):
+# at least one Offer, each with a price, currency, availability and a URL on
+# this site, and no ratings or reviews on any page.
+home_ld = File.read(File.join(SITE, "index.html")).scan(%r{<script type="application/ld\+json"[^>]*>(.*?)</script>}m).flatten
+app = home_ld.flat_map { |j| (d = JSON.parse(j) rescue {}); d["@graph"] || [d] }.find { |n| n["@type"] == "SoftwareApplication" }
+if app.nil? then problems << "index.html: no SoftwareApplication"
+else
+  offers = app["offers"].is_a?(Hash) ? [app["offers"]] : Array(app["offers"])
+  problems << "index.html: SoftwareApplication has no offers" if offers.empty?
+  offers.each do |o|
+    missing = %w[price priceCurrency availability url].reject { |k| o[k].to_s != "" }
+    problems << "index.html: an offer without #{missing.join(', ')}" if missing.any?
+    problems << "index.html: offer URL #{o['url']} isn't on #{ORIGIN}" unless o["url"].to_s.start_with?("#{ORIGIN}/")
+    problems << "index.html: offer price #{o['price'].inspect} isn't a number" unless o["price"].to_s.match?(/\A\d+(\.\d+)?\z/)
+  end
+end
+pages.each do |rel|
+  problems << "#{rel}: structured data has ratings or reviews" if File.read(File.join(SITE, rel)).match?(/"(aggregateRating|review|reviewRating)"/)
 end
 
 sitemap_xml = File.read(File.join(SITE, "sitemap.xml"))

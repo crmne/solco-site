@@ -45,7 +45,9 @@ a sitemap that lists exactly the indexable pages, each with a `lastmod`
 (the date the page's words last changed, from `git log`; a link-only
 change doesn't count), and on every page with
 questions (the home page and the guides) an FAQPage block that says what the
-visible questions say. After changing questions, run
+visible questions say, and on the home page a complete `offers` (price,
+currency, availability and a URL on the site) with no ratings or reviews on
+any page. After changing questions, run
 `ruby script/check_seo.rb --write` to rewrite those blocks.
 
 ## The home page
