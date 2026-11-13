@@ -41,6 +41,38 @@
 .source a, .guide-body .lead a, .guide-body .points a, .guide-body .facts a, .steps a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
 .field .source, .field .source a, .field .points a, .field .lead a { color: inherit; }
 
+/* Comparison pages: two columns of facts, each with its source numbers. */
+.spec.compare { max-width: 1040px; table-layout: fixed; }
+.spec.compare col.c-row { width: 17%; }
+.spec.compare tbody th { white-space: normal; }
+.spec.compare td { overflow-wrap: anywhere; }
+.ref { font-family: "Geist Mono", monospace; font-size: 11.5px; letter-spacing: .02em; color: var(--ink-3); white-space: nowrap; }
+.ref a, .guide-body .ref a { color: var(--violet); text-decoration: none; }
+.ref a:hover { text-decoration: underline; }
+.checked { margin-bottom: 22px; font-size: 14.5px; line-height: 1.5; color: var(--ink-3); max-width: 60em; }
+.checked b { color: var(--ink); font-weight: 600; }
+.guide-body .points { max-width: 860px; border-top-color: var(--line-2); }
+.guide-body .points li { border-bottom-color: var(--line-2); color: var(--ink-2); }
+.guide-body .points li b { color: var(--ink); }
+.prose { max-width: 46em; }
+.prose p { color: var(--ink-2); font-size: 16.5px; line-height: 1.6; }
+.prose p + p { margin-top: 14px; }
+.prose a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
+.prose b { color: var(--ink); font-weight: 600; }
+.sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; max-width: 1040px; }
+.sources h3 { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; margin: 0 0 8px; }
+.sources ol { list-style: none; }
+.sources li { padding: 9px 0; border-top: 1px solid var(--line-2); font-size: 14px; line-height: 1.5; color: var(--ink-2); overflow-wrap: anywhere; }
+.sources li:target { background: color-mix(in srgb, var(--violet) 10%, transparent); }
+.sources li b { font-family: "Geist Mono", monospace; font-weight: 400; color: var(--ink-3); margin-right: 8px; }
+.sources a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
+.facts.two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1040px; }
+.compare-list { list-style: none; max-width: 980px; border-top: 1px solid var(--line-2); }
+.compare-list li a { position: relative; display: grid; grid-template-columns: minmax(0, 14em) minmax(0, 1fr); gap: 6px 32px; padding: 22px 34px 22px 0; border-bottom: 1px solid var(--line-2); color: var(--ink-2); font-size: 16px; line-height: 1.5; }
+.compare-list li a b { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-variation-settings: "opsz" 60; font-size: clamp(22px, 2.2vw, 28px); font-weight: 700; letter-spacing: -.025em; line-height: 1.1; color: var(--ink); }
+.compare-list li a::after { content: "↗"; position: absolute; right: 4px; top: 24px; color: var(--violet); }
+.compare-list li a:hover b { color: var(--violet); }
+
 /* The USB drive, with its two libraries sharing one set of files. */
 .drive { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0 18px; align-items: center; max-width: 980px; margin: 8px 0 26px; }
 .drive-lib { border: 1.5px solid currentColor; border-radius: 18px; padding: 20px 22px 18px; }
@@ -98,6 +130,14 @@
   .spec th, .spec td { border: 0; padding: 2px 0; }
   .field .spec tr { border-bottom-color: color-mix(in srgb, var(--on) 35%, transparent); }
   .spec td[data-h]::before { content: attr(data-h) ": "; color: var(--ink-3); }
+  .spec.compare tr { padding: 16px 0; }
+  .spec.compare tbody th { margin-bottom: 4px; }
+  .spec.compare td + td { margin-top: 8px; }
+  .spec.compare td[data-h]::before { content: attr(data-h); display: block; font-family: "Geist Mono", monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+  .sources { grid-template-columns: 1fr; gap: 28px; }
+  .facts.two { grid-template-columns: 1fr; }
+  .compare-list li a { grid-template-columns: 1fr; padding-right: 28px; }
   .field .spec td[data-h]::before { color: inherit; opacity: .7; }
 }
 @media (prefers-reduced-motion: reduce) { .js .drive.in .drive-core .stick i { animation: none; opacity: 1; } }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
