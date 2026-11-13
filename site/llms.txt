@@ -11,6 +11,9 @@ Solco imports playlists, cues, loops, ratings and colours from rekordbox, Trakto
 - [OneLibrary and the Device Library](https://getsolco.com/onelibrary): Which Pioneer DJ and AlphaTheta players read OneLibrary and which read the Device Library, why Solco writes both on every stick, and what has been tested.
 - [How Solco finds beat grids](https://getsolco.com/beatgrids): Grids that follow tempo changes, downbeats, the short list of grids worth checking, how to fix one, and the GTZAN results.
 - [Solco on Linux](https://getsolco.com/linux): Installing Solco on Debian, Ubuntu, Fedora and other Linux, analysing on the computer, and writing CDJ USBs without rekordbox, Wine or a virtual machine.
+- [How to organise a DJ library](https://getsolco.com/organise-dj-library): Seven steps in order, from adding music and analysis to tags, duplicates, beatgrids, playlists and the CDJ USB, and how Solco does each one.
+- [Memory cues and hot cues](https://getsolco.com/memory-cue-vs-hot-cue): What a hot cue and a memory cue each do on Pioneer CDJ and XDJ players, how many a track carries, and how Solco sets them and writes them to the USB.
+- [Is rekordbox free?](https://getsolco.com/is-rekordbox-free): What rekordbox's Free plan includes, what needs a paid plan or Hardware Unlock, and its prices, from rekordbox's own pages as of 13 November 2026, and where Solco fits.
 - [How we measured](https://getsolco.com/measured): The USB export test and the beat-grid test against rekordbox 7, with their conditions.
 - [App privacy](https://getsolco.com/app-privacy/): The privacy notice for the Solco app, api.getsolco.com and the help centre, in German and English.
 
