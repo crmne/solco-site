@@ -208,18 +208,28 @@ experiment removes it.
 
 ## Comparison pages and their links
 
-When the `/compare/` pages from `seo-comparisons` are published (after their
-compliance flags are settled):
+Built on 13 November 2026 from the drafts on `seo-comparisons`,
+with every vendor fact re-read on the vendors' own pages that day:
+`/compare/` (the hub, `site/compare/index.html`), `/compare/lexicon`,
+`/compare/mixed-in-key` and `/compare/mixo`, clean URLs like the rest of
+the site. rekordbox, Traktor, Serato and Engine DJ pages are not built, so
+nothing links `/compare/rekordbox` yet.
 
-- Add each to `sitemap.xml` and to `llms.txt` under "## Comparisons".
-- Home page: "Compare" in the footer nav beside Help centre (`/compare/`);
-  "Do I need rekordbox?" and "Is Solco a rekordbox alternative?" each end
-  with a link to `/compare/rekordbox/`; the USB race's note links the test
-  method page `/compare/rekordbox/usb-test/`; the stats' "How we measured"
-  links `/compare/rekordbox/beatgrid-test/`.
-- Hub to every page; each page to the hub, two or three siblings (rekordbox,
-  Lexicon and Mixo; Traktor, Serato and Engine DJ; Mixed In Key and
-  Lexicon), its help-centre articles and `/#waitlist`.
+- Each is in `sitemap.xml` and in `llms.txt` under "## Comparisons".
+- Every page with the footer has "Compare" beside Help centre (`/compare/`).
+- The hub links every page; each page links the hub, its two siblings,
+  its help-centre articles and its own waitlist card.
+- Each page: what each app is for, a feature table with numbered sources
+  (Solco's from the help centre and the terms, the vendor's from its own
+  site), "Where Solco does more", "Where the other does more", using both,
+  the sources with the date checked, questions, and a trademark line naming
+  every mark on the page. "Not stated" where the vendor's pages are silent.
+- No measured claims against these vendors, no key results, no ratings or
+  `offers`; `mentions` names the vendor by name only. Share images are the
+  site's `og.png`, with no vendor names.
+- Recheck every vendor cell at least every three months and after each of
+  their major releases (Lexicon 1.12.0 changed four rows two days before
+  publishing), and update "Last checked", `dateModified` and the sitemap.
 - The help centre links no marketing pages.
 - Plausible already counts their visits (pageview goal `/compare/*`).
 
