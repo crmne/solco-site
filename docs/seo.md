@@ -51,8 +51,16 @@ visible questions say. After changing questions, run
 ## The home page
 
 - Structured data: `WebSite`, `Organization` (PlentyLabs), `SoftwareApplication`
-  (no `offers` until there is a price, no ratings ever), `VideoObject` for the
-  90-second film, and the generated `FAQPage`. Update the video's
+  (no ratings ever), `VideoObject` for the 90-second film, and the generated
+  `FAQPage`.
+- `SoftwareApplication.offers` describes what a visitor can get today: one
+  `Offer` for the free private beta (price 0 EUR, `LimitedAvailability`,
+  because keys go out by invitation from the waitlist, `url` the waitlist).
+  The terms of sale list the full release's prices, but nothing can be bought
+  on the site yet, so those prices are not offers. When the buy flow goes
+  live, replace it with the licences a buyer can order then (Solco and Solco
+  Intro, in EUR and USD, as the terms give them), and drop the beta offer
+  when the beta closes. Update the video's
   `uploadDate` and `duration` when the film is recut.
 - No hreflang: the only German is inside the bilingual privacy notice and
   Impressum, one URL each.
@@ -71,9 +79,43 @@ its own questions, help-centre links and the waitlist card.
 
 Research, read on 5 November 2026: Google autocomplete (`hl=en-GB`,
 `gl=gb`) for 37 seeds, the top results for nine queries, and the vendors'
-own pages. No search volumes: there's no Ahrefs or Search Console access
-for agents, so the order below is by fit and how weak the current results
-are, to be checked against Search Console's queries after a month.
+own pages. Search volumes came later, from Ahrefs on 13 November 2026 (the
+full report, with sources, SERPs and the technical check, is
+`~/Code/announcements/seo/getsolco.com.md`): the target keywords below are
+tracked in Ahrefs Rank Tracker (project 10533470) in the US, the UK and
+Germany, tagged by the page that should rank. On 13 November only "solco"
+ranked (position 1 in Search Console).
+
+| Keyword | Volume, US / UK / DE | KD | Page that should rank |
+| --- | --- | --- | --- |
+| rekordbox linux | 90 / 50 / 100 | 0 (DE 2) | `/linux` |
+| rekordbox on linux | 20 / 10 / 10 | n/a | `/linux` |
+| linux dj software | 60 / 20 / 50 | 3 (DE 0) | `/linux` |
+| dj software linux | 40 / 10 / 50 | 1 | `/linux` |
+| onelibrary | 80 / 50 / 10 | n/a | `/onelibrary` |
+| onelibrary rekordbox | 20 / 10 / 0 | n/a | `/onelibrary` |
+| device library | 40 / - / - | n/a | `/onelibrary` |
+| cdj 3000x | 1,600 / 600 / 1,800 | 0 | `/onelibrary` (a stretch: mostly shopping) |
+| rekordbox export to usb | 30 / 20 / 20 | 1 | `/cdj-usb-without-rekordbox` |
+| rekordbox usb format | 50 / - / - | 0 | `/cdj-usb-without-rekordbox` |
+| cdj usb format | 20 / - / - | 0 | `/cdj-usb-without-rekordbox` |
+| cdj usb without rekordbox | 0 in Ahrefs | n/a | `/cdj-usb-without-rekordbox` (tracked for intent) |
+| beatgrid | 60 / - / - | 0 | `/beatgrids` |
+| dj library management | 40 / 10 / 10 | 27 | `/` |
+| dj library management software | 40 / 10 / 0 | n/a | `/` (Lexicon holds "dj management software" at 1) |
+| dj music organizer | 30 / 0 / 0 | n/a | `/`, later `/compare/` |
+| how to organize dj library | 40 / 0 / 0 | 0 | a new guide |
+| rekordbox alternative | 20 / 20 / 30 | n/a | `/` (FAQ), later `/compare/rekordbox/` |
+| solco | n/a | n/a | `/` |
+
+Questions DJs ask that suit a guide, from the same pass: "is rekordbox
+free" (800 US, KD 3), "memory cue vs hot cue" (60 US, KD 0), "how to
+organize dj library" (40 US, KD 0). The biggest volumes in reach are brand
+names (mixed in key 2,900 US, lexicon dj 900, mixo 500), for the
+comparison pages, and hardware (xdj az 5,700 US, cdj 3000x 1,600 US).
+
+The order in the table below was set by fit and how weak the current
+results were; the volumes above bear it out.
 
 | Searches | What ranks now | The page that answers |
 | --- | --- | --- |
@@ -96,7 +138,7 @@ Solco is the only way or the only one writing both. The two measured
 claims (USB time, GTZAN grids) appear only with their conditions and a link
 to `/measured`. Tested players are named as the release notes name
 them; untried ones (both libraries on a CDJ-3000X, exFAT and HFS+ on any
-player) are said plainly. No prices until Carmine publishes them.
+player) are said plainly. Prices only as the terms of sale give them.
 
 ### Internal links
 
