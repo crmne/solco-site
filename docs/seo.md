@@ -206,6 +206,22 @@ experiment removes it.
   deploy; Bing Webmaster Tools still needs the import from Search Console
   (below) to see Bing's queries.
 
+### Wording pass (15 November 2026)
+
+Ahrefs, global monthly volume, for the guides published on 13 November
+and the USB guide: the words people type that a page answered but didn't
+say. "rekordbox price" and "rekordbox subscription" (500 each) and
+"rekordbox plans" (350) go to `/is-rekordbox-free`, whose title now names
+the paid plans and prices and whose plans heading says "rekordbox's four
+plans". "device library plus" (200) is OneLibrary's old name, which the
+page already explained, so its description says it too. "format usb for
+rekordbox" and "rekordbox usb format" (200 each) go to
+`/cdj-usb-without-rekordbox`, whose format heading now starts "How to
+format the USB". Checked and left: "organize" (50) beats "organise" (30)
+for the library guide, but the site writes British English and engines
+treat them as one word; "beatgrid" (600) beats "beat grid" (250), as the
+titles already spell it.
+
 ## Comparison pages and their links
 
 Built on 13 November 2026 from the drafts on `seo-comparisons`,
