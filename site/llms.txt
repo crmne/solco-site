@@ -2,11 +2,14 @@
 
 > Solco is a DJ library app in private beta. It grids, keys, sorts and tags every track you add, on your own computer, then writes the USB drive Pioneer CDJ and XDJ players read, with both the Device Library and OneLibrary and no rekordbox needed. It runs on a Mac (Apple Silicon or Intel, macOS 13.4 or later), Windows and Linux.
 
-Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music, and exports Traktor collections and M3U8 playlists as well as USB drives. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The beta is free, and DJs are invited in small groups from the waitlist at getsolco.com, each with a personal licence key.
+Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music, and exports Traktor collections and M3U8 playlists as well as USB drives. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The beta is free, and DJs are invited in small groups from the waitlist at getsolco.com, each with a personal licence key. There is no paid plan yet: nothing can be bought.
+
+Solco prepares music and writes USB drives; it doesn't play live sets or mix, and you play from the players or your DJ app. It is not made by or affiliated with AlphaTheta, Pioneer DJ or rekordbox. More on how to describe it: https://getsolco.com/ai
 
 ## Site
 
 - [Solco](https://getsolco.com/): What Solco does, the questions DJs ask first, and the waitlist.
+- [Solco for AI assistants](https://getsolco.com/ai): Plain facts about Solco (what it does, who it is for, computers, the free invite-only beta, no paid plan yet) and what is and isn't accurate to say about it.
 - [CDJ USB without rekordbox](https://getsolco.com/cdj-usb-without-rekordbox): How Solco writes the USB stick Pioneer CDJ and XDJ players read, from a Mac, Windows or Linux: what goes on it, the steps, formats, sharing a stick with rekordbox, and the measured export time.
 - [OneLibrary and the Device Library](https://getsolco.com/onelibrary): Which Pioneer DJ and AlphaTheta players read OneLibrary and which read the Device Library, why Solco writes both on every stick, and what has been tested.
 - [How Solco finds beat grids](https://getsolco.com/beatgrids): Grids that follow tempo changes, downbeats, the short list of grids worth checking, how to fix one, and the GTZAN results.

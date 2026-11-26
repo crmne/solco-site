@@ -262,6 +262,20 @@ links `/compare/rekordbox`.
 - The help centre links no marketing pages.
 - Plausible already counts their visits (pageview goal `/compare/*`).
 
+## AI assistants
+
+`/ai` states Solco's facts for answer engines: what it is and does, who it
+is for, computers (the Mac app is universal: Apple Silicon or Intel), the
+free invite-only beta, no paid plan yet, and a table of what is and isn't
+accurate to say. `llms.txt` opens with the same points and lists `/ai`,
+every guide, every comparison and every help-centre article. Keep the
+three in step when the product or its availability changes.
+`robots.txt` allows every crawler (`User-agent: *`, `Allow: /`), so
+GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot,
+Google-Extended and Bingbot can all read the public pages; checked on 26
+November 2026. The retired homepage experiment scripts still say "macOS on
+Apple Silicon" and stay unchanged, for cached pages only.
+
 ## Search Console and Bing
 
 The `getsolco.com` domain property in Search Console (DNS TXT
