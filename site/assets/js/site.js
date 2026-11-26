@@ -20,6 +20,29 @@
      the event and a word of context (docs/analytics.md lists every event and its goal) ---------- */
   const track = (name, props) => { try { if (window.plausible) window.plausible(name, props ? { props } : {}); } catch (e) { /* counting never breaks the page */ } };
   window.solcoTrack = track;
+  /* The kind of page a visit came from, from the link's utm_source or else the referring page's host. Only one of
+     these words ever leaves: never the address. Unknown when the visitor came from another page of this site. */
+  const REFERRERS = [
+    ['chatgpt', /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com)$|^chatgpt$/],
+    ['claude', /(^|\.)claude\.ai$|^claude$/],
+    ['gemini', /^gemini\.google\.com$|^gemini$/],
+    ['perplexity', /(^|\.)perplexity\.ai$|^perplexity$/],
+    ['copilot', /^copilot\.microsoft\.com$|(^|\.)copilot\.cloud\.microsoft$|^copilot$/],
+    ['search', /(^|\.)(google\.[a-z.]+|bing\.com|duckduckgo\.com|ecosia\.org|search\.brave\.com|yahoo\.com|yandex\.[a-z.]+|startpage\.com|qwant\.com|kagi\.com|baidu\.com)$|^(google|bing|duckduckgo|ecosia|brave|yahoo|yandex)$/],
+    ['reddit', /(^|\.)(reddit\.com|redd\.it)$|^reddit$/],
+    ['youtube', /(^|\.)(youtube\.com|youtu\.be)$|^youtube$/],
+    ['x', /(^|\.)(x\.com|twitter\.com|t\.co)$|^(x|twitter)$/],
+    ['instagram', /(^|\.)instagram\.com$|^instagram$/],
+    ['github', /(^|\.)github\.com$|^github$/],
+    ['producthunt', /(^|\.)producthunt\.com$|^producthunt$/],
+  ];
+  const classOf = name => { const n = String(name || '').trim().toLowerCase(); return n ? (REFERRERS.find(([, re]) => re.test(n)) || [])[0] : undefined; };
+  const referrerClass = (utmSource, referrer) => {
+    let host = '';
+    try { host = referrer ? new URL(referrer).hostname.toLowerCase() : ''; } catch (e) { host = 'unknown'; }
+    if (!utmSource && (host === location.hostname || host === 'getsolco.com' || host === 'www.getsolco.com')) return undefined;
+    return classOf(utmSource) || classOf(host) || (utmSource || host ? 'other' : 'direct');
+  };
   const once = new Set(), trackOnce = (name, props) => { if (once.has(name)) return; once.add(name); track(name, props); };
   // Where on the page a link or button sits: its chapter or section, or the top bar.
   const placeOf = el => { const p = el.closest('.topbar, .foot, article[id], section[id], section[class]'); return !p ? 'page' : p.id || p.className.split(' ')[0]; };
@@ -302,14 +325,24 @@
       ['Where do you play most?', ['Clubs and festivals', 'Bars and small venues', 'Private parties and weddings', 'Radio and streams', 'At home', 'Something else']],
       ['What slows you down most?', ['Finding the right track mid-set', 'Fixing tags and covers', 'Beatgrids that drift', 'Duplicates', 'Building playlists', 'Getting music onto the USB', 'Something else']],
       ['How many tracks do you have?', ['Under 1000', '1000 to 5000', '5000 to 20000', 'Over 20000']],
+      ['How did you find us?', ['An AI assistant', 'Search', 'Reddit or a forum', 'YouTube', 'A friend', 'Something else']],
     ];
+    // Asked only after "An AI assistant" (only_if in products.yml); the waitlist keeps it only then, on one line.
+    const followUp = { after: ['How did you find us?', 'An AI assistant'], q: 'What did you ask it?', max: 200 };
+    // The kind of page this visit came from, never its address: the waitlist keeps only the class
+    // (signup_referrers in products.yml), and Plausible gets it on the sign-up event as `origin`.
+    const origin = referrerClass(search.get('utm_source'), document.referrer);
     const $ = k => wl.querySelector(`[data-${k}]`), email = wl.querySelector('#wl-email'), msg = $('msg');
     const say = (text, err) => { msg.innerHTML = text; msg.classList.toggle('err', !!err); };
     const fallback = 'Write to <a href="mailto:hello@getsolco.com?subject=Solco%20waitlist">hello@getsolco.com</a> and I will add you.';
     const esc = t => String(t).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
     const renderQs = () => {
-      $('qs').innerHTML = questions.map(([q, answers], i) => `<div><label for="wl-q${i}">${esc(q)}</label><select id="wl-q${i}" class="empty"><option value="">Choose one</option>${answers.map(a => `<option value="${esc(a)}">${esc(a)}</option>`).join('')}</select></div>`).join('');
-      $('qs').querySelectorAll('select').forEach(s => s.addEventListener('change', () => s.classList.toggle('empty', !s.value)));
+      $('qs').innerHTML = questions.map(([q, answers], i) => `<div><label for="wl-q${i}">${esc(q)}</label><select id="wl-q${i}" class="empty"><option value="">Choose one</option>${answers.map(a => `<option value="${esc(a)}">${esc(a)}</option>`).join('')}</select></div>`
+        + (q === followUp.after[0] ? `<div data-follow hidden><label for="wl-asked">${esc(followUp.q)}</label><input id="wl-asked" type="text" maxlength="${followUp.max}" autocomplete="off" placeholder="Optional"></div>` : '')).join('');
+      $('qs').querySelectorAll('select').forEach((s, i) => s.addEventListener('change', () => {
+        s.classList.toggle('empty', !s.value);
+        if (questions[i][0] === followUp.after[0]) $('follow').hidden = s.value !== followUp.after[1];
+      }));
     };
     let step = 1, busy = false, submitted = false;
     const submit = async withAnswers => {
@@ -317,6 +350,8 @@
       wl.querySelectorAll('.wl-go').forEach(b => b.disabled = true); say('Adding you…');
       const answers = {};
       if (withAnswers) $('qs').querySelectorAll('select').forEach((s, i) => { if (s.value) answers[questions[i][0]] = s.value; });
+      const asked = withAnswers && !$('follow').hidden && wl.querySelector('#wl-asked').value.trim();
+      if (asked) answers[followUp.q] = asked.slice(0, followUp.max);
       let status = 'network';
       try {
         // Keep the original signup's fixed labels even if analytics is blocked.
@@ -324,7 +359,7 @@
         const attribution = window.solcoHookTest && !window.solcoHookTest.preview ? window.solcoHookTest.props : {};
         const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           // website is a field people never see; elapsed_ms is how long the page was open (bots are quicker than 3 seconds).
-          body: JSON.stringify({ email: email.value.trim(), answers, website: wl.querySelector('#wl-website').value, elapsed_ms: Date.now() - shown, ...(ref ? { ref } : {}), ...campaign, ...attribution }) });
+          body: JSON.stringify({ email: email.value.trim(), answers, website: wl.querySelector('#wl-website').value, elapsed_ms: Date.now() - shown, ...(ref ? { ref } : {}), ...(origin ? { referrer: origin } : {}), ...campaign, ...attribution }) });
         status = String(res.status);
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error((data && data.message) || '');
@@ -344,8 +379,9 @@
         $('done').setAttribute('aria-labelledby', heading.id);
         $('done').setAttribute('aria-describedby', 'wl-confirm-instructions');
         $('done').focus();
-        // Never the address or the answers themselves: only whether there were any, and whether a referral brought them.
-        track('Waitlist: Submitted', { answers: Object.keys(answers).length ? 'answered' : 'skipped', referral: ref ? 'yes' : 'no' });
+        // Never the address or the answers themselves: only whether there were any, whether a referral brought them,
+        // and the kind of page the visit came from.
+        track('Waitlist: Submitted', { answers: Object.keys(answers).length ? 'answered' : 'skipped', referral: ref ? 'yes' : 'no', ...(origin ? { origin } : {}) });
       } catch (e) {
         track('Waitlist: Error', { status });
         say(`${e.message ? esc(e.message) + ' ' : 'That did not go through. '}${fallback}`, true);

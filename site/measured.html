@@ -49,7 +49,7 @@
       "name": "How we measured Solco against rekordbox",
       "description": "How Solco and rekordbox 7 were compared: the USB export test, and beat grids on 998 hand-annotated GTZAN excerpts, overall and for each genre.",
       "inLanguage": "en-GB",
-      "dateModified": "2026-11-05",
+      "dateModified": "2026-11-26",
       "isPartOf": {
         "@id": "https://getsolco.com/#website"
       },
@@ -105,6 +105,7 @@
 
   <h2>The USB export</h2>
   <p>Both apps put the same 493 already-analysed tracks on the same 250 GB SanDisk USB stick (FAT32) from a Mac mini M4. rekordbox 7.2.6. We timed three runs of each and report the median: Solco 12 minutes 18 seconds, rekordbox 3 hours 30 minutes.</p>
+  <p>Where rekordbox was quicker, in the same tests. Exporting the same playlist again, unchanged: 97 tracks took rekordbox 8.0 seconds and Solco 11.7, because Solco's default check reads every file back from the stick; 493 tracks took Solco 45.9 seconds and rekordbox 72.2 (medians of three runs, October 2026). Analysing 4,093 files on the same Mac took rekordbox 72 minutes and Solco 83 (22 October 2026).</p>
 
   <h2>Beat grids</h2>
   <p>The test set is <a href="https://github.com/TempoBeatDownbeat/gtzan_tempo_beat">GTZAN with the GTZAN-Rhythm annotations</a>: 998 excerpts of 30 seconds in ten genres, with every beat and downbeat marked by people. It is the only public beat set Solco's beat model never trained on. rekordbox 7.2.6 analysed it in its Auto mode with high-precision grids, using the owner's own settings; Solco analysed it with its own grids and no corrections. Both read the same files.</p>

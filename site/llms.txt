@@ -2,11 +2,14 @@
 
 > Solco is a DJ library app in private beta. It grids, keys, sorts and tags every track you add, on your own computer, then writes the USB drive Pioneer CDJ and XDJ players read, with both the Device Library and OneLibrary and no rekordbox needed. It runs on a Mac (Apple Silicon or Intel, macOS 13.4 or later), Windows and Linux.
 
-Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music, and exports Traktor collections and M3U8 playlists as well as USB drives. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The beta is free, and DJs are invited in small groups from the waitlist at getsolco.com, each with a personal licence key.
+Solco imports playlists, cues, loops, ratings and colours from rekordbox, Traktor and Apple Music, and exports Traktor collections and M3U8 playlists as well as USB drives. Exports only add and update; replacing or erasing a drive are separate actions that show what goes first. The beta is free, and DJs are invited in small groups from the waitlist at getsolco.com, each with a personal licence key. There is no paid plan yet: nothing can be bought.
+
+Solco prepares music and writes USB drives; it doesn't play live sets or mix, and you play from the players or your DJ app. It is not made by or affiliated with AlphaTheta, Pioneer DJ or rekordbox. More on how to describe it: https://getsolco.com/ai
 
 ## Site
 
 - [Solco](https://getsolco.com/): What Solco does, the questions DJs ask first, and the waitlist.
+- [Solco for AI assistants](https://getsolco.com/ai): Plain facts about Solco (what it does, who it is for, computers, the free invite-only beta, no paid plan yet) and what is and isn't accurate to say about it.
 - [CDJ USB without rekordbox](https://getsolco.com/cdj-usb-without-rekordbox): How Solco writes the USB stick Pioneer CDJ and XDJ players read, from a Mac, Windows or Linux: what goes on it, the steps, formats, sharing a stick with rekordbox, and the measured export time.
 - [OneLibrary and the Device Library](https://getsolco.com/onelibrary): Which Pioneer DJ and AlphaTheta players read OneLibrary and which read the Device Library, why Solco writes both on every stick, and what has been tested.
 - [How Solco finds beat grids](https://getsolco.com/beatgrids): Grids that follow tempo changes, downbeats, the short list of grids worth checking, how to fix one, and the GTZAN results.
@@ -19,9 +22,13 @@ Solco imports playlists, cues, loops, ratings and colours from rekordbox, Trakto
 
 ## Comparisons
 
-How Solco compares with other DJ library apps, feature by feature, with each other app's facts cited from its own site and the date they were checked (13 November 2026). Features only: no ratings and no key results.
+How Solco compares with other DJ apps, feature by feature, with each other app's facts cited from its own site and the date they were checked (rekordbox, Traktor, Serato DJ and Engine DJ on 26 November 2026; Lexicon, Mixed In Key and MIXO on 13 November 2026). Features only, no ratings and no key results, except two tests against rekordbox with their conditions.
 
 - [Compare Solco](https://getsolco.com/compare/): The comparison pages, and how they are written.
+- [Solco and rekordbox](https://getsolco.com/compare/rekordbox): rekordbox prepares music and plays it; Solco prepares the library and writes the same kind of CDJ USB without rekordbox. The USB export and beat-grid tests, and where rekordbox does more.
+- [Solco and Traktor](https://getsolco.com/compare/traktor): Traktor is for playing; Solco prepares the tracks and exports a Traktor collection with cues, loops and grids.
+- [Solco and Serato DJ](https://getsolco.com/compare/serato): Serato DJ is for playing; Solco prepares the library, writes Pioneer USBs and gives Serato tagged files and M3U8 playlists.
+- [Solco and Engine DJ](https://getsolco.com/compare/engine-dj): Engine DJ prepares drives for Denon DJ, Numark and RANE players; Solco prepares USBs for Pioneer players.
 - [Solco and Lexicon](https://getsolco.com/compare/lexicon): Lexicon converts libraries between DJ apps and writes Pioneer USBs; Solco analyses every track and writes CDJ USBs. Where each does more.
 - [Solco and Mixed In Key](https://getsolco.com/compare/mixed-in-key): Keys, energy and cue points compared as features, and the rest of the library prep Solco does.
 - [Solco and MIXO](https://getsolco.com/compare/mixo): MIXO syncs and converts a library across DJ apps and devices; Solco analyses and prepares the tracks and writes CDJ USBs.

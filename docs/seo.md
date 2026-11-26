@@ -228,8 +228,14 @@ Built on 13 November 2026 from the drafts on `seo-comparisons`,
 with every vendor fact re-read on the vendors' own pages that day:
 `/compare/` (the hub, `site/compare/index.html`), `/compare/lexicon`,
 `/compare/mixed-in-key` and `/compare/mixo`, clean URLs like the rest of
-the site. rekordbox, Traktor, Serato and Engine DJ pages are not built, so
-nothing links `/compare/rekordbox` yet.
+the site. `/compare/rekordbox`, `/compare/traktor`, `/compare/serato` and
+`/compare/engine-dj` followed on 26 November 2026, built the same way from
+the same drafts, with every vendor fact re-read that day (copies of the
+pages cited are kept in the Solco repository's
+`.cache/compare-sources-2026-11-26/`, not committed: they are the vendors'
+copyright). Their top bar names the four apps you play with; the first
+three keep theirs. The home page's "Is Solco a rekordbox alternative?"
+links `/compare/rekordbox`.
 
 - Each is in `sitemap.xml` and in `llms.txt` under "## Comparisons".
 - Every page with the footer has "Compare" beside Help centre (`/compare/`).
@@ -243,11 +249,32 @@ nothing links `/compare/rekordbox` yet.
 - No measured claims against these vendors, no key results, no ratings or
   `offers`; `mentions` names the vendor by name only. Share images are the
   site's `og.png`, with no vendor names.
+- The one exception is `/compare/rekordbox`: the USB export and GTZAN
+  beat-grid results, each with its conditions (rekordbox 7.2.6, October
+  2026) next to it, and the two results where rekordbox was quicker
+  (analysis time, small re-exports), all on `/measured`. rekordbox is on
+  7.2.20 now and hasn't been timed again; rerun the USB test, or check its
+  release notes for export changes, at each rekordbox release while the
+  numbers are on the page (compliance memo, flag 1).
 - Recheck every vendor cell at least every three months and after each of
   their major releases (Lexicon 1.12.0 changed four rows two days before
   publishing), and update "Last checked", `dateModified` and the sitemap.
 - The help centre links no marketing pages.
 - Plausible already counts their visits (pageview goal `/compare/*`).
+
+## AI assistants
+
+`/ai` states Solco's facts for answer engines: what it is and does, who it
+is for, computers (the Mac app is universal: Apple Silicon or Intel), the
+free invite-only beta, no paid plan yet, and a table of what is and isn't
+accurate to say. `llms.txt` opens with the same points and lists `/ai`,
+every guide, every comparison and every help-centre article. Keep the
+three in step when the product or its availability changes.
+`robots.txt` allows every crawler (`User-agent: *`, `Allow: /`), so
+GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot,
+Google-Extended and Bingbot can all read the public pages; checked on 26
+November 2026. The retired homepage experiment scripts still say "macOS on
+Apple Silicon" and stay unchanged, for cached pages only.
 
 ## Search Console and Bing
 
