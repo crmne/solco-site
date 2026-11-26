@@ -30,8 +30,8 @@ waitlist's own.
 | --- | --- | --- |
 | `Waitlist: CTA click` | A waitlist link or button that scrolls to the form | `place`: `topbar`, `grids`, `payoff`, `final` |
 | `Waitlist: Started` | The first letter typed into the email field, once per page | |
-| `Waitlist: Questions shown` | A valid address sent, step two (the four questions) shown | |
-| `Waitlist: Submitted` | The waitlist accepted the form | `answers`: `answered` or `skipped`; `referral`: `yes` or `no`; `form`: `hosted` when it came from the waitlist's own page |
+| `Waitlist: Questions shown` | A valid address sent, step two (the optional questions) shown | |
+| `Waitlist: Submitted` | The waitlist accepted the form | `answers`: `answered` or `skipped`; `referral`: `yes` or `no`; `origin`: the kind of page the visit came from (below), when known; `form`: `hosted` when it came from the waitlist's own page |
 | `Waitlist: Error` | The address was refused, or the request failed | `status`: `invalid email`, an HTTP status, or `network` |
 | `Waitlist: Confirmed` | The confirmation page on waitlist.plenty.is | `referral`: `yes` or `no`; saved `experiment` and `variant` when known |
 | `Referral: Visit` | A page opened with `?ref=` or `?ref_id=` (the code itself is not sent) | `landing`: `getsolco.com` or `waitlist form` |
@@ -46,9 +46,30 @@ waitlist's own.
 Properties show in the dashboard only once they are listed in Site
 settings, Custom properties: `place`, `answers`, `referral`, `status`,
 `landing`, `cut`, `action`, `from`, `question`, `article`, `chapter`, `path`,
-`form`, `experiment`, `variant` (and `url`, which Plausible adds to outbound
-clicks and downloads). All are listed. The two headline-test properties were
-added on 29 October 2026; the existing properties were preserved.
+`form`, `experiment`, `variant`, `origin` (and `url`, which Plausible adds to outbound
+clicks and downloads). All are listed except `origin`, which needs adding (from 26 November 2026).
+The two headline-test properties were added on 29 October 2026; the
+existing properties were preserved.
+
+## Where sign-ups come from
+
+`site.js` sorts the visit into one word, from the link's `utm_source` or
+else the referring page's host (`referrerClass`): `chatgpt`, `claude`,
+`gemini`, `perplexity`, `copilot`, `search`, `reddit`, `youtube`, `x`,
+`instagram`, `github`, `producthunt`, `direct` (no referrer, no
+`utm_source`) or `other`. A visit from another page of this site has no
+class, because nothing is kept on the device to remember the first page.
+The word goes with `Waitlist: Submitted` as `origin` and with the signup as
+`referrer`, which the waitlist keeps only if it is on Solco's
+`signup_referrers` list (crmne/waitlist-deploy `products.yml`). The page's
+address never leaves the browser through the form.
+
+The form also asks "How did you find us?" (an AI assistant, search, Reddit
+or a forum, YouTube, a friend, something else) and, after "An AI
+assistant", "What did you ask it?" (free text, at most 200 characters). The
+answers stay in the waitlist, never in Plausible: read them in the
+waitlist admin (https://waitlist.plenty.is/admin/products/solco, "Answers"
+above the list, each person's in the table and the CSV).
 
 The waitlist's pages (crmne/waitlist, `analytics` in waitlist-deploy's
 `products.yml`) report to this site as `/waitlist/form`, `/waitlist/thanks`
