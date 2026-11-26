@@ -19,9 +19,13 @@ Solco imports playlists, cues, loops, ratings and colours from rekordbox, Trakto
 
 ## Comparisons
 
-How Solco compares with other DJ library apps, feature by feature, with each other app's facts cited from its own site and the date they were checked (13 November 2026). Features only: no ratings and no key results.
+How Solco compares with other DJ apps, feature by feature, with each other app's facts cited from its own site and the date they were checked (rekordbox, Traktor, Serato DJ and Engine DJ on 26 November 2026; Lexicon, Mixed In Key and MIXO on 13 November 2026). Features only, no ratings and no key results, except two tests against rekordbox with their conditions.
 
 - [Compare Solco](https://getsolco.com/compare/): The comparison pages, and how they are written.
+- [Solco and rekordbox](https://getsolco.com/compare/rekordbox): rekordbox prepares music and plays it; Solco prepares the library and writes the same kind of CDJ USB without rekordbox. The USB export and beat-grid tests, and where rekordbox does more.
+- [Solco and Traktor](https://getsolco.com/compare/traktor): Traktor is for playing; Solco prepares the tracks and exports a Traktor collection with cues, loops and grids.
+- [Solco and Serato DJ](https://getsolco.com/compare/serato): Serato DJ is for playing; Solco prepares the library, writes Pioneer USBs and gives Serato tagged files and M3U8 playlists.
+- [Solco and Engine DJ](https://getsolco.com/compare/engine-dj): Engine DJ prepares drives for Denon DJ, Numark and RANE players; Solco prepares USBs for Pioneer players.
 - [Solco and Lexicon](https://getsolco.com/compare/lexicon): Lexicon converts libraries between DJ apps and writes Pioneer USBs; Solco analyses every track and writes CDJ USBs. Where each does more.
 - [Solco and Mixed In Key](https://getsolco.com/compare/mixed-in-key): Keys, energy and cue points compared as features, and the rest of the library prep Solco does.
 - [Solco and MIXO](https://getsolco.com/compare/mixo): MIXO syncs and converts a library across DJ apps and devices; Solco analyses and prepares the tracks and writes CDJ USBs.
